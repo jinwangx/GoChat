@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <com.jw.gochat.view.NormalTopBar
+        android:id="@id/nt_fill_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="填写信息" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@id/iv_fill_icon"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/default_icon_user"
+            app:civ_border_color="@android:color/holo_orange_light"
+            app:civ_border_width="2dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="设置头像"
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:text="建议在QQ中使用真实姓名，让好友更容易认出你"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@id/et_fill_name"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/action_edt_fill_selector"
+            android:gravity="center"
+            android:hint="请输入姓名" />
+
+        <Button
+            android:id="@id/btn_fill"
+            style="@style/custom_button"
+            android:layout_marginTop="3dp"
+            android:background="@drawable/action_btn_login_selector"
+            android:enabled="false"
+            android:text="完成" />
+    </LinearLayout>
+</LinearLayout>

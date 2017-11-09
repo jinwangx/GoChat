@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/action_edt_msg_send_focus_shape" android:state_checked="true"/>
+    <item android:drawable="@drawable/action_edt_msg_send_focus_shape" android:state_checkable="true"/>
+    <item android:drawable="@drawable/action_edt_msg_send_focus_shape" android:state_focused="true"/>
+    <item android:drawable="@drawable/action_edt_msg_send_focus_shape" android:state_selected="true"/>
+    <item android:drawable="@drawable/action_edt_msg_send_normal_shape"/>
+</selector>

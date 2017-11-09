@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg_gray">#FFEAEEF2</color>
+    <color name="caribbean_green">#17D7B1</color>
+    <color name="transparent">#00000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="red">#FFFF0000</color>
+    <color name="text_dark">#FF333333</color>
+    <color name="text_light">#FFACACAC</color>
+    <color name="item_focus">#44ABABAB</color>
+    <color name="list_deliver">#FFDDDDDD</color>
+    <color name="bg_tr_dark">#22000000</color>
+    <color name="color_blue">#ff33b5e5</color>
+</resources>

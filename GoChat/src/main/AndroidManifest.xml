@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.jw.gochat">
+
+    <!--接收系统启动的权限-->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!--照相机使用权限，拍摄头像上传时使用-->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <!--连接网络权限，用于执行云端语音能力 -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!--获取手机录音机使用权限，听写、识别、语义理解需要用到此权限 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <!--读取网络信息状态 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!--获取当前wifi状态 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <!--允许程序改变网络连接状态 -->
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <!--外存储写权限，构建语法需要用到此权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!--外存储读权限，构建语法需要用到此权限 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <!--配置权限，用来记录应用配置信息 -->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <!--手机定位信息，用来为语义等功能提供定位，提供更精准的服务-->
+    <!--定位信息是敏感信息，可通过Setting.setLocationEnable(false)关闭定位请求 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+    <!--application中的android:persistent属性:将应用定义为永久性，开机自动启动-->
+    <!--activity中的android:screenOrientation:屏幕方向-->
+    <application
+        android:name="com.jw.gochat.ChatApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/launcher"
+        android:label="@string/app_name"
+        android:persistent="true"
+        android:theme="@style/Anim_fade"
+        >
+        <!--闪屏页面-->
+        <activity android:name="com.jw.gochat.activity.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!--登陆页面-->
+        <activity android:name="com.jw.gochat.activity.LoginActivity"
+            android:theme="@style/Anim_fade_no_in"
+            />
+        <!--主页面-->
+        <activity android:name="com.jw.gochat.activity.HomeActivity" />
+        <!--聊天页面，用到键盘输入，而且消息记录为一个listView,所以用到
+          android:windowSoftInputMode属性,将布局上推-->
+        <activity
+            android:name="com.jw.gochat.activity.MessageActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <!--朋友详细信息页面-->
+        <activity android:name="com.jw.gochat.activity.FriendDetailActivity" />
+        <!--添加朋友页面-->
+        <activity android:name="com.jw.gochat.activity.FriendAddActivity" />
+        <!--寻找账号页面-->
+        <activity android:name="com.jw.gochat.activity.FriendSearchActivity" />
+        <!--自己二维码页面，暂未开发-->
+        <activity android:name="com.jw.gochat.activity.MQrActivity" />
+        <!--设置页面-->
+        <activity android:name="com.jw.gochat.activity.SettingActivity" />
+        <!--确认发送邀请页面-->
+        <activity android:name="com.jw.gochat.activity.FriendValidateActivity" />
+        <!--邀请记录页面-->
+        <activity android:name="com.jw.gochat.activity.InvitationActivity" />
+
+        <!--手机开机广播接收者-->
+        <receiver android:name="com.jw.gochat.receiver.BootCompletedReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <!--聊天引擎核心服务-->
+        <service android:name="com.jw.gochat.service.ChatCoreService"/>
+        <!--后台服务-->
+        <service android:name="com.jw.gochat.service.BackgroundService"/>
+
+    </application>
+
+</manifest>

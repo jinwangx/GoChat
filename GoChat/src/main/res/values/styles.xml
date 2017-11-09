@@ -1,0 +1,86 @@
+<resources>
+
+    <!--Activity进出动画-->
+    <style name="Anim_fade" parent="android:Theme.Holo.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@style/fade</item>
+    </style>
+
+    <!--Activity进出动画-->
+    <style name="Anim_fade_no_in" parent="android:Theme.Holo.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@style/fade_no_in</item>
+    </style>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="android:Theme.Holo.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+
+    <style name="fade" parent="@android:style/Animation.Activity">
+        <!--一个activity创建进入的效果-->
+        <item name="android:activityOpenEnterAnimation">@anim/slide_right_in</item>
+        <!--一个activity还没有finish()下退出效果, 比如有俩个activity A,B 首先启动A 然后再启动B 那么A还没有finish() 这A的退出效果-->
+        <item name="android:activityOpenExitAnimation">@anim/slide_left_out</item>
+        <!--上一个activity返回进入效果 比如有俩个activity A,B B退出后A进入的效果-->
+        <item name="android:activityCloseEnterAnimation">@anim/slide_left_in</item>
+        <!--activity finish()之后的效果 比如有俩个activity A,B B退出后会被finish() 那么B的退出效果在这定义-->
+        <item name="android:activityCloseExitAnimation">@anim/slide_right_out</item>
+    </style>
+
+    <style name="fade_no_in" parent="@android:style/Animation.Activity">
+        <!--一个activity还没有finish()下退出效果, 比如有俩个activity A,B 首先启动A 然后再启动B 那么A还没有finish() 这A的退出效果-->
+        <item name="android:activityOpenExitAnimation">@anim/slide_left_out</item>
+        <!--上一个activity返回进入效果 比如有俩个activity A,B B退出后A进入的效果-->
+        <item name="android:activityCloseEnterAnimation">@anim/slide_left_in</item>
+        <!--activity finish()之后的效果 比如有俩个activity A,B B退出后会被finish() 那么B的退出效果在这定义-->
+        <item name="android:activityCloseExitAnimation">@anim/slide_right_out</item>
+    </style>
+
+    <!--dialog主题风格-->
+    <style name="ActionSheetDialogStyle" parent="@android:style/Theme.Dialog">
+        <!-- 背景透明 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <!-- 浮于Activity之上 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 边框 -->
+        <item name="android:windowFrame">@null</item>
+        <!-- Dialog以外的区域模糊效果 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 无标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 半透明 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- Dialog进入及退出动画 -->
+        <item name="android:windowAnimationStyle">@style/ActionSheetDialogAnimation</item>
+        <item name="android:width">320dp</item>
+    </style>
+
+    <!-- dialog进出动画 -->
+    <style name="ActionSheetDialogAnimation" parent="@android:style/Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/actionsheet_dialog_in</item>
+        <item name="android:windowExitAnimation">@anim/actionsheet_dialog_out</item>
+    </style>
+
+    <style name="dialog_logout" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item> <!-- 边框 -->
+        <item name="android:windowIsFloating">true</item> <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsTranslucent">false</item> <!-- 半透明 -->
+        <item name="android:windowNoTitle">true</item> <!-- 无标题 -->
+        <item name="android:windowBackground">@android:color/transparent</item> <!-- 背景透明 -->
+        <item name="android:backgroundDimEnabled">true</item> <!-- 模糊 -->
+        <item name="android:windowAnimationStyle">@android:style/Animation.InputMethod</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+    
+    <style name="custom_button" parent="@android:style/Widget.Button">
+        <item name="android:layout_height">45dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+</resources>

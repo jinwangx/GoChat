@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--SplashActivity-->
+    <item name="iv_splash_logo" type="id">false</item>
+    <!--LoginFra-->
+    <item name="iv_login_icon" type="id">false</item>
+    <item name="et_login_act" type="id">false</item>
+    <item name="et_login_psw" type="id">false</item>
+    <item name="btn_login" type="id">false</item>
+    <item name="tv_login_psw_miss" type="id">false</item>
+    <!--registerFra-->
+    <item name="tv_register" type="id">false</item>
+    <item name="nt_register" type="id">false</item>
+    <item name="btn_register" type="id">false</item>
+    <item name="et_register_act" type="id">false</item>
+    <item name="et_register_psw" type="id">false</item>
+    <!--fillInfoFra-->
+    <item name="nt_fill_info" type="id">false</item>
+    <item name="iv_fill_icon" type="id">false</item>
+    <item name="et_fill_name" type="id">false</item>
+    <item name="btn_fill" type="id">false</item>
+    <!--HomeActivity左面板-->
+    <item name="tv_left_act" type="id">false</item>
+    <item name="ll_left_menu" type="id">false</item>
+    <item name="iv_left_icon" type="id">false</item>
+    <item name="tv_left_setting" type="id">false</item>
+    <item name="ll_left_bg" type="id">false</item>
+    <item name="iv_left_mqr" type="id">false</item>
+    <!--HomeActivity主面板-->
+    <item name="nt_home" type="id">false</item>
+    <item name="hd_home" type="id">false</item>
+    <item name="fl_content" type="id">false</item>
+    <item name="iv_nt_icon" type="id">false</item>
+    <item name="act_home" type="id">false</item>
+    <!--FriendAddActivity-->
+    <item name="nt_new_friend" type="id">false</item>
+    <item name="ll_friend_search" type="id">false</item>
+    <item name="rl_scan_code" type="id">false</item>
+    <item name="iv_search_back" type="id">false</item>
+    <item name="et_search_act" type="id">false</item>
+    <item name="tv_search_act" type="id">false</item>
+    <item name="ll_search_act" type="id">false</item>
+    <!--FriendsFra-->
+    <item name="lv_friends" type="id">false</item>
+    <item name="iv_has_new" type="id">false</item>
+    <item name="iv_list_item_friend_icon" type="id">false</item>
+    <item name="tv_list_item_friend_name" type="id">false</item>
+    <item name="tv_list_item_friend_act" type="id">false</item>
+    <!--FriendDetailActivity-->
+    <item name="nt_friend_detail" type="id">false</item>
+    <item name="btn_friend_add" type="id">false</item>
+    <item name="btn_friend_send" type="id">false</item>
+    <!--SettingActivity-->
+    <item name="act_setting" type="id">false</item>
+    <item name="nt_setting" type="id">false</item>
+    <item name="rl_set_ip" type="id">false</item>
+    <item name="tv_set_ip" type="id">false</item>
+    <!--MQrActivity-->
+    <item name="iv_qr_code" type="id">false</item>
+    <item name="iv_qr_icon" type="id">false</item>
+    <item name="tv_qr_act" type="id">false</item>
+    <item name="nt_qr" type="id">false</item>
+    <!--InvitationActivity-->
+    <item name="top_bar_invitation" type="id">false</item>
+    <item name="lv_invitation" type="id">false</item>
+    <item name="iv_new_friend_icon" type="id">false</item>
+    <item name="btn_new_friend_accept" type="id">false</item>
+    <item name="tv_new_friend_accept" type="id">false</item>
+    <item name="tv_new_friend_name" type="id">false</item>
+    <item name="tv_new_friend_msg" type="id">false</item>
+    <!--ValidateActivity-->
+    <item name="nt_validate" type="id">false</item>
+    <item name="et_validate_msg" type="id">false</item>
+    <item name="fl_login" type="id">false</item>
+    <!--MessageActivity-->
+    <item name="nt_msg" type="id">false</item>
+    <item name="lv_msg" type="id">false</item>
+    <item name="et_msg_content" type="id">false</item>
+    <item name="iv_msg_speech" type="id">false</item>
+    <item name="btn_msg_send" type="id">false</item>
+    <item name="rl_msg_me" type="id">false</item>
+    <item name="iv_send_error" type="id">false</item>
+    <item name="pb_sending" type="id">false</item>
+    <item name="tv_send" type="id">false</item>
+    <item name="iv_msg_me" type="id">false</item>
+    <item name="ll_msg_sender" type="id">false</item>
+    <item name="tv_msg_receive" type="id">false</item>
+    <item name="iv_msg_sender" type="id">false</item>
+    <item name="tv_msg_sender" type="id">false</item>
+    <item name="tv_msg_send_time" type="id">false</item>
+    <!--ConversationFra-->
+    <item name="lv_cvst" type="id">false</item>
+    <item name="tv_cvst_top" type="id">false</item>
+    <item name="tv_cvst_read" type="id">false</item>
+    <item name="tv_cvst_del" type="id">false</item>
+    <item name="iv_cvst_act" type="id">false</item>
+    <item name="tv_cvst_act" type="id">false</item>
+    <item name="tv_cvst_unread_count" type="id">false</item>
+    <!--MyListView-->
+    <item name="iv_refresh_state" type="id">false</item>
+    <item name="iv_refreshing" type="id">false</item>
+    <item name="tv_refresh_state" type="id">false</item>
+    <item name="tv_refresh_time" type="id">false</item>
+    <!--NormalTopBar-->
+    <item name="iv_nt_add" type="id">false</item>
+    <item name="tv_nt_validate" type="id">false</item>
+    <item name="tv_nt_title" type="id">false</item>
+    <item name="btn_ll_back" type="id">false</item>
+    <item name="iv_header" type="id">false</item>
+    <!--DialogChooseImage-->
+    <item name="btn_dialog_gallery" type="id">false</item>
+    <item name="btn_dialog_camera" type="id">false</item>
+    <!--DialogChangeIp-->
+    <item name="et_ip_new" type="id">false</item>
+    <item name="btn_ip_ok" type="id">false</item>
+    <item name="btn_ip_cancel" type="id">false</item>
+    <!--DialogLogout-->
+    <item name="btn_dialog_logout" type="id">false</item>
+    <item name="btn_dialog_cancel" type="id">false</item>
+    <!--DialogFindPsw-->
+    <item name="tv_dialog_find_pwd" type="id">false</item>
+    <item name="tv_dialog_login_sms" type="id">false</item>
+    <item name="tv_change_ip" type="id">false</item>
+    <item name="tv_cancel" type="id">false</item>
+    <!--TabIndicator-->
+    <item name="iv_tab_icon" type="id">false</item>
+    <item name="tv_tab_unread_count" type="id">false</item>
+    <item name="tv_tab_des" type="id">false</item>
+
+</resources>
