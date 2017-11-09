@@ -1,0 +1,1814 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)file:///C:/Users/Administrator/AppData/Local/Temp/MarkdownPadPreview.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>接口文档</title>
+
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+<style type="text/css">
+.highlight  { background: #ffffff; }
+.highlight .c { color: #999988; font-style: italic } /* Comment */
+.highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.highlight .k { font-weight: bold } /* Keyword */
+.highlight .o { font-weight: bold } /* Operator */
+.highlight .cm { color: #999988; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #999999; font-weight: bold } /* Comment.Preproc */
+.highlight .c1 { color: #999988; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #999999; font-weight: bold; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #000000; background-color: #ffdddd } /* Generic.Deleted */
+.highlight .gd .x { color: #000000; background-color: #ffaaaa } /* Generic.Deleted.Specific */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #aa0000 } /* Generic.Error */
+.highlight .gh { color: #999999 } /* Generic.Heading */
+.highlight .gi { color: #000000; background-color: #ddffdd } /* Generic.Inserted */
+.highlight .gi .x { color: #000000; background-color: #aaffaa } /* Generic.Inserted.Specific */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #555555 } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #aaaaaa } /* Generic.Subheading */
+.highlight .gt { color: #aa0000 } /* Generic.Traceback */
+.highlight .kc { font-weight: bold } /* Keyword.Constant */
+.highlight .kd { font-weight: bold } /* Keyword.Declaration */
+.highlight .kp { font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #445588; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #009999 } /* Literal.Number */
+.highlight .s { color: #d14 } /* Literal.String */
+.highlight .na { color: #008080 } /* Name.Attribute */
+.highlight .nb { color: #0086B3 } /* Name.Builtin */
+.highlight .nc { color: #445588; font-weight: bold } /* Name.Class */
+.highlight .no { color: #008080 } /* Name.Constant */
+.highlight .ni { color: #800080 } /* Name.Entity */
+.highlight .ne { color: #990000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #990000; font-weight: bold } /* Name.Function */
+.highlight .nn { color: #555555 } /* Name.Namespace */
+.highlight .nt { color: #000080 } /* Name.Tag */
+.highlight .nv { color: #008080 } /* Name.Variable */
+.highlight .ow { font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #009999 } /* Literal.Number.Float */
+.highlight .mh { color: #009999 } /* Literal.Number.Hex */
+.highlight .mi { color: #009999 } /* Literal.Number.Integer */
+.highlight .mo { color: #009999 } /* Literal.Number.Oct */
+.highlight .sb { color: #d14 } /* Literal.String.Backtick */
+.highlight .sc { color: #d14 } /* Literal.String.Char */
+.highlight .sd { color: #d14 } /* Literal.String.Doc */
+.highlight .s2 { color: #d14 } /* Literal.String.Double */
+.highlight .se { color: #d14 } /* Literal.String.Escape */
+.highlight .sh { color: #d14 } /* Literal.String.Heredoc */
+.highlight .si { color: #d14 } /* Literal.String.Interpol */
+.highlight .sx { color: #d14 } /* Literal.String.Other */
+.highlight .sr { color: #009926 } /* Literal.String.Regex */
+.highlight .s1 { color: #d14 } /* Literal.String.Single */
+.highlight .ss { color: #990073 } /* Literal.String.Symbol */
+.highlight .bp { color: #999999 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #008080 } /* Name.Variable.Class */
+.highlight .vg { color: #008080 } /* Name.Variable.Global */
+.highlight .vi { color: #008080 } /* Name.Variable.Instance */
+.highlight .il { color: #009999 } /* Literal.Number.Integer.Long */
+.task-list {
+padding-left:10px;
+margin-bottom:0;
+}
+
+.task-list li {
+    margin-left: 20px;
+}
+
+.task-list-item {
+list-style-type:none;
+padding-left:10px;
+}
+
+.task-list-item label {
+font-weight:400;
+}
+
+.task-list-item.enabled label {
+cursor:pointer;
+}
+
+.task-list-item+.task-list-item {
+margin-top:3px;
+}
+
+.task-list-item-checkbox {
+display:inline-block;
+margin-left:-20px;
+margin-right:3px;
+vertical-align:1px;
+}
+</style>
+
+</head>
+<body>
+<h1>
+<a href="hmchat.png" target="_blank"><img src="hmchat.png" alt="icon" style="max-width:100%;"></a> 接口文档</h1>
+
+<hr>
+
+<ol class="task-list">
+<li>
+<a href="#http">HTTP部分</a>
+
+<ul class="task-list">
+<li><a href="#http_global">全局规范</a></li>
+<li><a href="#http_login">Login 登录接口</a></li>
+<li><a href="#http_register">Register 注册接口</a></li>
+<li><a href="#http_search_user">搜素用户接口</a></li>
+<li>
+<a href="#http_accept_friend">接受用户用户邀请</a><br>
+</li>
+<li><a href="#http_friend_list">获取朋友列表</a></li>
+<li>
+<a href="#http_name_change">修改用户名接口</a><br>
+</li>
+</ul>
+</li>
+<li>
+<a href="#hm">Socket自定义协议</a>
+
+<ul class="task-list">
+<li><a href="#hm_global">全局规范</a></li>
+<li>
+<a href="#hm_client">client 请求部分</a>
+
+<ul class="task-list">
+<li><a href="#hm_client_auth">Auth认证</a></li>
+<li><a href="#hm_client_invitation">发送邀请</a></li>
+<li><a href="#hm_client_text">发送文本消息</a></li>
+</ul>
+</li>
+<li>
+<a href="#hm_server">server 推送部分</a> 
+
+<ul class="task-list">
+<li><a href="#hm_server_invitation">推送用户邀请</a></li>
+<li><a href="#hm_server_reinvitation">推送接受用户邀请</a></li>
+<li><a href="#hm_server_text">推送文本消息</a></li>
+<li>
+<a href="#hm_server_namechange">推送用户名变更</a><br>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+
+<h2>
+<a name="http"></a> Http部分</h2>
+
+<h3>
+<a name="http_global"></a> 全局规范</h3>
+
+<hr>
+
+<ul class="task-list">
+<li>
+<p><strong>URL</strong></p>
+
+<p>URL的组成：<code>基本的网络地址</code> ＋ <code>分支节点</code></p>
+
+<blockquote>
+<p><strong><code>http://127.0.0.1:8080/chat</code>    为 <code>基本的网络地址</code></strong></p>
+
+<p><code>/login</code>  为 <code>分支节点</code></p>
+
+<p><code>http://127.0.0.1:8080/chat/login</code> 组成完整的 URL</p>
+
+<p><strong>当前统一的<code>基本网络地址</code>为 <code>http://127.0.0.1:8080/ChatServer</code></strong></p>
+</blockquote>
+</li>
+<li>
+<p><strong>请求方式</strong></p>
+
+<blockquote>
+<p><code>POST</code></p>
+
+<p><code>GET</code></p>
+
+<p><code>PUT</code></p>
+</blockquote>
+</li>
+<li>
+<p><strong>请求消息头</strong></p>
+
+<blockquote>
+<p><code>键值对(key value形式)</code>   </p>
+</blockquote>
+</li>
+<li>
+<p><strong>请求参数</strong></p>
+
+<blockquote>
+<p><code>键值对(key value形式)</code>   </p>
+</blockquote>
+</li>
+<li>
+<p><strong>响应的状态码</strong></p>
+
+<blockquote>
+<p><code>统一的返回码为: 200</code> <strong>(注:只要访问服务器成功，一律返回200)</strong></p>
+</blockquote>
+</li>
+<li>
+<p><strong>响应的格式</strong></p>
+
+<blockquote>
+<p><code>Json</code></p>
+</blockquote>
+</li>
+<li>
+<p><strong>响应的JSON规范</strong></p>
+
+<ul class="task-list">
+<li>
+<p><strong><code>成功</code></strong></p>
+
+<pre><code>{flag:true, data:...}
+</code></pre>
+
+<p><strong>成功的标记为 flag 为 true</strong></p>
+
+<p><strong>根据具体的请求，如果需要返回值 <code>data节点</code> 包含的是 <code>返回结果</code></strong></p>
+
+<p><strong>不需要需要返回值 ，则<code>没有data节点</code></strong></p>
+</li>
+<li>
+<p><strong><code>失败</code></strong></p>
+
+<pre><code>{flag:false, errorCode:1, errorString:"错误原因"}
+</code></pre>
+
+<p><code>失败的标记为 flag 为 false</code></p>
+
+<p><strong>flag 为 false时，必然返回 <code>errorCode</code>和<code>errorString</code> 节点</strong></p>
+
+<p><code>errorCode</code>说明了错误编码</p>
+
+<p><code>errorString</code>说明错误原因</p>
+</li>
+</ul>
+</li>
+</ul>
+
+<hr>
+
+<h3>
+<a name="http_login"></a> Login(登录接口)</h3>
+
+<hr>
+
+<ul class="task-list">
+<li><p><strong>分支节点</strong> : <code>/login</code></p></li>
+<li><p><strong>请求方式</strong> : <code>POST</code></p></li>
+<li>
+<p><strong>请求参数</strong> :</p>
+
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>account</td>
+<td>String</td>
+<td>用户的账号</td>
+</tr>
+<tr>
+<td>password</td>
+<td>String</td>
+<td>用户的密码</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>响应结果</strong> :</p>
+
+<ul class="task-list">
+<li>
+<p><code>成功</code></p>
+
+<pre><code>{
+    "flag": true,
+    "data": {
+        "account": "zhangsan",
+        "name": "张三",
+        "sex": 1,
+        "icon": "/a/b/zhangsan.png",
+        "sign": "我的个性签名",
+        "area": "深圳",
+        "token": "5904c7ae-3e75-48c8-bbee-ad094533a422"
+    }
+}       
+</code></pre>
+</li>
+<li>
+<p><code>失败</code></p>
+
+<table>
+<thead>
+<tr>
+<th>errorCode</th>
+<th>errorString</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>100</td>
+<td>用户密码错误</td>
+</tr>
+<tr>
+<td>101</td>
+<td>用户不存在</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+</ul>
+
+<hr>
+
+<h3>
+<a name="http_register"></a> Regisger(注册接口)</h3>
+
+<hr>
+
+<ul class="task-list">
+<li><p><strong>分支节点</strong> : <code>/register</code></p></li>
+<li><p><strong>请求方式</strong> : <code>POST</code></p></li>
+<li>
+<p><strong>请求参数</strong> :</p>
+
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>account</td>
+<td>String</td>
+<td>用户注册的账号</td>
+</tr>
+<tr>
+<td>password</td>
+<td>String</td>
+<td>用户注册的密码</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>响应结果</strong> :</p>
+
+<ul class="task-list">
+<li>
+<p><code>成功</code></p>
+
+<pre><code>{
+    "flag": true,
+    "data": {
+        "account": "zhangsan",
+        "name": "张三",
+        "sex": 1,
+        "icon": "/a/b/zhangsan.png",
+        "sign": "我的个性签名",
+        "area": "深圳",
+        "token": "5904c7ae-3e75-48c8-bbee-ad094533a422"
+    }
+}       
+</code></pre>
+</li>
+<li>
+<p><code>失败</code></p>
+
+<table>
+<thead>
+<tr>
+<th>errorCode</th>
+<th>errorString</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>150</td>
+<td>用户已经存在</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+</ul>
+
+<hr>
+
+<h3>
+<a name="http_search_user"></a> 搜索用户接口</h3>
+
+<hr>
+
+<ul class="task-list">
+<li><p><strong>分支节点</strong> : <code>/user/search</code></p></li>
+<li><p><strong>请求方式</strong> : <code>POST</code></p></li>
+<li>
+<p><strong>请求消息头</strong> :</p>
+
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>account</td>
+<td>String</td>
+<td>用户的账号</td>
+</tr>
+<tr>
+<td>token</td>
+<td>String</td>
+<td>用户的唯一标识</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>请求参数</strong> :</p>
+
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>search</td>
+<td>String</td>
+<td>搜索的账号</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>响应结果</strong> :</p>
+
+<ul class="task-list">
+<li>
+<p><code>成功</code></p>
+
+<pre><code>{
+    "flag": true,
+    "data": {
+        "account": "zhangsan",
+        "name": "张三",
+        "icon": "/a/b/zhangsan.png",
+        "sign": "我的个性签名",
+        "area": "深圳"
+    }
+}       
+</code></pre>
+</li>
+<li>
+<p><code>失败</code></p>
+
+<table>
+<thead>
+<tr>
+<th>errorCode</th>
+<th>errorString</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>用户不存在</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+</ul>
+
+<hr>
+
+<h3>
+<a name="http_accept_friend"></a> 接受用户用户邀请</h3>
+
+<hr>
+
+<ul class="task-list">
+<li><p><strong>分支节点</strong> : <code>/friend/accept</code></p></li>
+<li><p><strong>请求方式</strong> : <code>POST</code></p></li>
+<li>
+<p><strong>请求消息头</strong> :</p>
+
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>account</td>
+<td>String</td>
+<td>用户的账号</td>
+</tr>
+<tr>
+<td>token</td>
+<td>String</td>
+<td>用户的唯一标识</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>请求参数</strong> :</p>
+
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invitor</td>
+<td>String</td>
+<td>邀请者的账号</td>
+</tr>
+<tr>
+<td>acceptor</td>
+<td>String</td>
+<td>接受者的账号</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>响应结果</strong> :</p>
+
+<ul class="task-list">
+<li>
+<p><code>成功</code></p>
+
+<pre><code>{
+    "flag": true
+}       
+</code></pre>
+</li>
+<li>
+<p><code>失败</code></p>
+
+<pre><code>{
+    "flag": false
+}       
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+
+<hr>
+
+<h3>
+<a name="http_friend_list"></a> 获取朋友列表</h3>
+
+<hr>
+
+<ul class="task-list">
+<li><p><strong>分支节点</strong> : <code>/friend/list</code></p></li>
+<li><p><strong>请求方式</strong> : <code>POST</code></p></li>
+<li>
+<p><strong>请求消息头</strong> :</p>
+
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>account</td>
+<td>String</td>
+<td>用户的账号</td>
+</tr>
+<tr>
+<td>token</td>
+<td>String</td>
+<td>用户的唯一标识</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p><strong>请求参数</strong> : 无</p></li>
+<li>
+<p><strong>响应结果</strong> :</p>
+
+<ul class="task-list">
+<li>
+<p><code>成功</code></p>
+
+<pre><code>{
+    "flag": true
+}       
+</code></pre>
+</li>
+<li>
+<p><code>失败</code></p>
+
+<pre><code>{
+    "flag": false
+}       
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+
+<hr>
+
+<h3>
+<a name="http_name_change"></a> 用户名称修改接口</h3>
+
+<hr>
+
+<ul class="task-list">
+<li><p><strong>分支节点</strong> : <code>/user/nameChange</code></p></li>
+<li><p><strong>请求方式</strong> : <code>POST</code></p></li>
+<li>
+<p><strong>请求消息头</strong> :</p>
+
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>account</td>
+<td>String</td>
+<td>用户的账号</td>
+</tr>
+<tr>
+<td>token</td>
+<td>String</td>
+<td>用户的唯一标识</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>请求参数</strong> : </p>
+
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>String</td>
+<td>修改后的用户名</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>响应结果</strong> :</p>
+
+<ul class="task-list">
+<li>
+<p><code>成功</code></p>
+
+<pre><code>{
+    "flag": true
+}       
+</code></pre>
+</li>
+<li>
+<p><code>失败</code></p>
+
+<pre><code>{
+    "flag": false
+}       
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+
+<hr>
+
+<h2>
+<a name="hm"></a> Sokect自定义协议</h2>
+
+<h3>
+<a name="hm_global"></a>全局规范</h3>
+
+<hr>
+
+<ul class="task-list">
+<li>
+<p><strong>协议的定义</strong></p>
+
+<ol class="task-list">
+<li>传输格式为<code>json</code>
+</li>
+<li>协议分为 <code>请求</code> 和 <code>响应</code>
+</li>
+<li>
+<p>传输方向:</p>
+
+<blockquote>
+<p><code>client --&gt; server</code> : 发送消息</p>
+
+<p><code>server --&gt; client</code> : 推送消息</p>
+</blockquote>
+</li>
+<li>
+<p>发送消息</p>
+
+<p>发送过程包含的两个过程：</p>
+
+<blockquote>
+<p><code>请求</code> : client 发送消息到 server</p>
+
+<p><code>响应</code> : server 响应 client 的这次消息请求</p>
+
+<p><code>两个过程 都完成 才算 当前消息发送成功</code></p>
+</blockquote>
+</li>
+<li>
+<p>推送消息</p>
+
+<p>推送过程包含的两个过程：        </p>
+
+<blockquote>
+<p><code>请求</code> : server 发送消息到 client</p>
+
+<p><code>响应</code> : client 响应 server 的这次消息请求</p>
+
+<p><code>两个过程 都完成 才算 当前消息发送成功</code></p>
+</blockquote>
+</li>
+<li>
+<p>消息必备格式</p>
+
+<p><code>请求部分</code>:</p>
+
+<pre><code>{
+    "sequence": "9f4c696e-9ab5-46cf-959c-b1e2e35200d2",
+    "type": "request",
+    "action": "text"
+}
+</code></pre>
+
+<p><code>响应部分</code>: </p>
+
+<pre><code>{
+    "sequence": "9f4c696e-9ab5-46cf-959c-b1e2e35200d2",
+    "type": "response",
+    "flag": "true"
+}       
+</code></pre>
+
+<blockquote>
+<p><code>sequece</code> : 标记 请求 和 响应，用来表明 <code>响应</code> 是 针对 哪次 <code>请求</code>的</p>
+
+<p><code>type</code> : 用来标记 是 <code>请求</code> 还是 <code>响应</code></p>
+
+<p><code>action</code> : 请求发送方 的 发送类型，由具体请求 决定取值。</p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
+
+<hr>
+
+<h3>
+<a name="hm_client"></a>Client 部分</h3>
+
+<hr>
+
+<h4>
+<a name="hm_client_auth"></a>Auth认证</h4>
+
+<hr>
+
+<ul class="task-list">
+<li><p><strong>Action</strong> : <code>auth</code></p></li>
+<li>
+<p><strong>请求的 key-Value</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td>String</td>
+<td>请求：request</td>
+</tr>
+<tr>
+<td>sequence</td>
+<td>String</td>
+<td>请求的序列号</td>
+</tr>
+<tr>
+<td>action</td>
+<td>String</td>
+<td>请求的行为:auth</td>
+</tr>
+<tr>
+<td>sender</td>
+<td>String</td>
+<td>发送者账号</td>
+</tr>
+<tr>
+<td>token</td>
+<td>String</td>
+<td>发送者token标志</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>请求的json 格式:</strong></p>
+
+<pre><code>{
+    "sequence": "9f4c696e-9ab5-46cf-959c-b1e2e35200d2",
+    "type": "request",
+    "action": "auth",
+    "sender":"xxxx",
+    "token":"xxxx"
+}
+</code></pre>
+
+<pre><code>{"sequence":"1","type":"request","action":"auth","sender":"iphone1","token":"0dce6f76ac1a29d276c0c6dabe60519c"}
+</code></pre>
+</li>
+<li>
+<p><strong>响应的json 格式:</strong></p>
+
+<blockquote>
+<p><strong>成功 :</strong> </p>
+</blockquote>
+
+<pre><code>{
+    "sequence": "9f4c696e-9ab5-46cf-959c-b1e2e35200d2",
+    "type": "response",
+    "flag": "true",
+}   
+</code></pre>
+
+<blockquote>
+<p><strong>失败 :</strong></p>
+</blockquote>
+
+<pre><code>{
+    "sequence": "9f4c696e-9ab5-46cf-959c-b1e2e35200d2",
+    "type": "response",
+    "flag": "false",
+    "errorCode":"",
+    "errorString":""
+}   
+</code></pre>
+</li>
+</ul>
+
+<hr>
+
+<h4>
+<a name="hm_client_invitation"></a>发送邀请</h4>
+
+<hr>
+
+<ul class="task-list">
+<li><p><strong>Action</strong> : <code>invitation</code></p></li>
+<li>
+<p><strong>请求的 key-Value</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td>String</td>
+<td>请求：request</td>
+</tr>
+<tr>
+<td>sequence</td>
+<td>String</td>
+<td>请求的序列号</td>
+</tr>
+<tr>
+<td>action</td>
+<td>String</td>
+<td>请求的行为:invitation</td>
+</tr>
+<tr>
+<td>sender</td>
+<td>String</td>
+<td>发送者账号</td>
+</tr>
+<tr>
+<td>token</td>
+<td>String</td>
+<td>发送者token标志</td>
+</tr>
+<tr>
+<td>receiver</td>
+<td>String</td>
+<td>接收者的账号</td>
+</tr>
+<tr>
+<td>content</td>
+<td>String</td>
+<td>邀请的文本内容</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>请求的json 格式:</strong></p>
+
+<pre><code>{
+    "sequence": "9f4c696e-9ab5-46cf-959c-b1e2e35200d2",
+    "type": "request",
+    "action": "invitation",
+    "token":"xxxx",
+    "sender":"xxxx",
+    "receiver":"xxxx",    
+    "content":"xxxxxx"
+}
+</code></pre>
+</li>
+<li>
+<p><strong>响应的json 格式:</strong></p>
+
+<blockquote>
+<p><strong>成功 :</strong></p>
+</blockquote>
+
+<pre><code>{
+    "sequence": "9f4c696e-9ab5-46cf-959c-b1e2e35200d2",
+    "type": "response",
+    "flag": "true",
+}   
+</code></pre>
+
+<blockquote>
+<p><strong>失败 :</strong></p>
+</blockquote>
+
+<pre><code>{
+    "sequence": "9f4c696e-9ab5-46cf-959c-b1e2e35200d2",
+    "type": "response",
+    "flag": "false",
+    "errorCode":"",
+    "errorString":""
+}
+</code></pre>
+</li>
+</ul>
+
+<h4>
+<a name="hm_client_text"></a>发送文本消息</h4>
+
+<hr>
+
+<ul class="task-list">
+<li><p><strong>Action</strong> : <code>text</code></p></li>
+<li>
+<p><strong>请求的 key-Value</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td>String</td>
+<td>请求：request</td>
+</tr>
+<tr>
+<td>sequence</td>
+<td>String</td>
+<td>请求的序列号</td>
+</tr>
+<tr>
+<td>action</td>
+<td>String</td>
+<td>请求的行为:invitation</td>
+</tr>
+<tr>
+<td>sender</td>
+<td>String</td>
+<td>发送者账号</td>
+</tr>
+<tr>
+<td>token</td>
+<td>String</td>
+<td>发送者token标志</td>
+</tr>
+<tr>
+<td>receiver</td>
+<td>String</td>
+<td>接收者的账号</td>
+</tr>
+<tr>
+<td>content</td>
+<td>String</td>
+<td>邀请的文本内容</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>请求的json 格式:</strong></p>
+
+<pre><code>{
+    "sequence": "9f4c696e-9ab5-46cf-959c-b1e2e35200d2",
+    "type": "request",
+    "action": "text",
+    "token":"xxxx",
+    "sender":"xxxx",
+    "receiver":"xxxx",    
+    "content":"xxxxxx"
+}
+</code></pre>
+</li>
+<li>
+<p><strong>响应的json 格式:</strong></p>
+
+<blockquote>
+<p><strong>成功 :</strong></p>
+</blockquote>
+
+<pre><code>{
+    "sequence": "9f4c696e-9ab5-46cf-959c-b1e2e35200d2",
+    "type": "response",
+    "flag": "true",
+}   
+</code></pre>
+
+<blockquote>
+<p><strong>失败 :</strong></p>
+</blockquote>
+
+<pre><code>{
+    "sequence": "9f4c696e-9ab5-46cf-959c-b1e2e35200d2",
+    "type": "response",
+    "flag": "false",
+    "errorCode":"",
+    "errorString":""
+}
+</code></pre>
+</li>
+</ul>
+
+<hr>
+
+<h3>
+<a name="hm_server"></a>Server 部分</h3>
+
+<hr>
+
+<h4>
+<a name="hm_server_invitation"></a>推送用户邀请</h4>
+
+<hr>
+
+<ul class="task-list">
+<li><p><strong>action</strong> : <code>invitation</code></p></li>
+<li>
+<p><strong>请求的 key-Value</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td>String</td>
+<td>请求：request</td>
+</tr>
+<tr>
+<td>sequence</td>
+<td>String</td>
+<td>请求的序列号</td>
+</tr>
+<tr>
+<td>action</td>
+<td>String</td>
+<td>请求的行为:invitation</td>
+</tr>
+<tr>
+<td>sender</td>
+<td>String</td>
+<td>发送者账号</td>
+</tr>
+<tr>
+<td>receiver</td>
+<td>String</td>
+<td>接收者的账号</td>
+</tr>
+<tr>
+<td>invitor_name</td>
+<td>String</td>
+<td>邀请者的名字</td>
+</tr>
+<tr>
+<td>invitor_icon</td>
+<td>String</td>
+<td>邀请者的头像</td>
+</tr>
+<tr>
+<td>content</td>
+<td>String</td>
+<td>邀请的文本内容</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>请求的json 格式:</strong>                     </p>
+
+<pre><code>{
+    "sequence":"3",
+    "type":"request",
+    "action":"invitation",
+    "sender":"iphone1",
+    "receiver":"iphone2",
+    "invitor_name":"iphone2",
+    "invitor_icon":"/icon/iphone2.png",
+    "content":"hehe"
+}
+</code></pre>
+</li>
+<li>
+<p><strong>响应的json 格式:</strong></p>
+
+<blockquote>
+<p><strong>成功 :</strong></p>
+</blockquote>
+
+<pre><code>{
+    "sequence": "3",
+    "type": "response",
+    "flag": "true",
+}   
+</code></pre>
+
+<blockquote>
+<p><strong>失败 :</strong></p>
+</blockquote>
+
+<pre><code>{
+    "sequence": "3",
+    "type": "response",
+    "flag": "false",
+    "errorCode":"",
+    "errorString":""
+}
+</code></pre>
+</li>
+</ul>
+
+<h4>
+<a name="hm_server_reinvitation"></a>推送用户接受邀请</h4>
+
+<hr>
+
+<ul class="task-list">
+<li><p><strong>action</strong> : <code>reinvitation</code></p></li>
+<li>
+<p><strong>请求的 key-Value</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td>String</td>
+<td>请求：request</td>
+</tr>
+<tr>
+<td>sequence</td>
+<td>String</td>
+<td>请求的序列号</td>
+</tr>
+<tr>
+<td>action</td>
+<td>String</td>
+<td>请求的行为:reinvitation</td>
+</tr>
+<tr>
+<td>sender</td>
+<td>String</td>
+<td>发送者账号</td>
+</tr>
+<tr>
+<td>receiver</td>
+<td>String</td>
+<td>接收者的账号</td>
+</tr>
+<tr>
+<td>name</td>
+<td>String</td>
+<td>接受邀请者的名字</td>
+</tr>
+<tr>
+<td>icon</td>
+<td>String</td>
+<td>接受邀请者的头像</td>
+</tr>
+<tr>
+<td>content</td>
+<td>String</td>
+<td>邀请的文本内容</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>请求的json 格式:</strong>                     </p>
+
+<pre><code>{
+    "sequence":"3",
+    "type":"request",
+    "action":"text",
+    "sender":"iphone1",
+    "receiver":"iphone2",
+    "name":"iphone1",
+    "icon","/icon/iphone1.png",
+    "content":"hehe"
+}
+</code></pre>
+</li>
+<li>
+<p><strong>响应的json 格式:</strong></p>
+
+<blockquote>
+<p><strong>成功 :</strong></p>
+</blockquote>
+
+<pre><code>{
+    "sequence": "3",
+    "type": "response",
+    "flag": "true",
+}   
+</code></pre>
+
+<blockquote>
+<p><strong>失败 :</strong></p>
+</blockquote>
+
+<pre><code>{
+    "sequence": "3",
+    "type": "response",
+    "flag": "false",
+    "errorCode":"",
+    "errorString":""
+}
+</code></pre>
+</li>
+</ul>
+
+<h4>
+<a name="hm_server_text"></a>推送文本消息</h4>
+
+<hr>
+
+<ul class="task-list">
+<li><p><strong>action</strong> : <code>text</code></p></li>
+<li>
+<p><strong>请求的 key-Value</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td>String</td>
+<td>请求：request</td>
+</tr>
+<tr>
+<td>sequence</td>
+<td>String</td>
+<td>请求的序列号</td>
+</tr>
+<tr>
+<td>action</td>
+<td>String</td>
+<td>请求的行为:text</td>
+</tr>
+<tr>
+<td>sender</td>
+<td>String</td>
+<td>发送者账号</td>
+</tr>
+<tr>
+<td>receiver</td>
+<td>String</td>
+<td>接收者的账号</td>
+</tr>
+<tr>
+<td>content</td>
+<td>String</td>
+<td>邀请的文本内容</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>请求的json 格式:</strong>                     </p>
+
+<pre><code>{
+    "sequence":"3",
+    "type":"request",
+    "action":"text",
+    "sender":"iphone1",
+    "receiver":"iphone2",
+    "content":"hehe"
+}
+</code></pre>
+</li>
+<li>
+<p><strong>响应的json 格式:</strong></p>
+
+<blockquote>
+<p><strong>成功 :</strong></p>
+</blockquote>
+
+<pre><code>{
+    "sequence": "3",
+    "type": "response",
+    "flag": "true",
+}   
+</code></pre>
+
+<blockquote>
+<p><strong>失败 :</strong></p>
+</blockquote>
+
+<pre><code>{
+    "sequence": "3",
+    "type": "response",
+    "flag": "false",
+    "errorCode":"",
+    "errorString":""
+}
+</code></pre>
+</li>
+</ul>
+
+<h4>
+<a name="hm_server_namechange"></a>推送用户名变更</h4>
+
+<hr>
+
+<ul class="task-list">
+<li><p><strong>action</strong> : <code>nameChange</code></p></li>
+<li>
+<p><strong>请求的 key-Value</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td>String</td>
+<td>请求：request</td>
+</tr>
+<tr>
+<td>sequence</td>
+<td>String</td>
+<td>请求的序列号</td>
+</tr>
+<tr>
+<td>action</td>
+<td>String</td>
+<td>请求的行为:nameChange</td>
+</tr>
+<tr>
+<td>sender</td>
+<td>String</td>
+<td>发送者账号</td>
+</tr>
+<tr>
+<td>receiver</td>
+<td>String</td>
+<td>接收者的账号</td>
+</tr>
+<tr>
+<td>name</td>
+<td>String</td>
+<td>发送者变更后的名字</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>请求的json 格式:</strong>                     </p>
+
+<pre><code>{
+    "sequence":"3",
+    "type":"request",
+    "action":"text",
+    "sender":"iphone1",
+    "receiver":"iphone2",
+    "content":"hehe"
+}
+</code></pre>
+</li>
+<li>
+<p><strong>响应的json 格式:</strong></p>
+
+<blockquote>
+<p><strong>成功 :</strong></p>
+</blockquote>
+
+<pre><code>{
+    "sequence": "3",
+    "type": "response",
+    "flag": "true",
+}   
+</code></pre>
+
+<blockquote>
+<p><strong>失败 :</strong></p>
+</blockquote>
+
+<pre><code>{
+    "sequence": "3",
+    "type": "response",
+    "flag": "false",
+    "errorCode":"",
+    "errorString":""
+}
+</code></pre>
+</li>
+</ul>
+
+
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
+</body></html>
