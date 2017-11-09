@@ -1,14 +1,14 @@
 # GoChat
 项目展示：
 
-                  1.闪屏页面
+                     1.闪屏页面
                                            
 ![image](https://raw.githubusercontent.com/ChinaTalent/GoChat/master/image_running/1_闪屏页面.gif)
 
-                  2.登录页面
+                     2.登录页面
 ![image](https://raw.githubusercontent.com/ChinaTalent/GoChat/master/image_running/2_登录页面.gif)
 
-                 3.填写详细信息(上传头像，请求改变姓名)
+                     3.填写详细信息(上传头像，请求改变姓名)
 ![image](https://raw.githubusercontent.com/ChinaTalent/GoChat/master/image_running/3_填充信息页面.gif)
 
                      4.主界面详情
@@ -23,5 +23,5 @@
                                                 7.没联网消息状态显示
 ![image](https://raw.githubusercontent.com/ChinaTalent/GoChat/master/image_running/7_没联网消息状态显示.gif)
 
-                                              8.对话列表刷新及退出应用
+                     8.对话列表刷新及退出应用
 ![image](https://raw.githubusercontent.com/ChinaTalent/GoChat/master/image_running/8_列表刷新及退出应用.gif)
