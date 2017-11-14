@@ -2,14 +2,19 @@ package com.jw.gochat.activity;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.jw.gochat.ChatApplication;
 import com.jw.gochat.R;
@@ -59,34 +64,77 @@ public class SplashActivity extends BaseActivity {
     private void initAnimation() {
         AlphaAnimation alphaAnimation = new AlphaAnimation(0.3f,1.0f);
         alphaAnimation.setDuration(1000);
+        final long startTime= System.currentTimeMillis();
         iv_logo.startAnimation(alphaAnimation);
         //ObjectAnimator.ofFloat(rl, "alpha", 0.3f, 1.0f).setDuration(1000).start();
-        new Handler().postDelayed(new Runnable() {
-            @RequiresApi(api = Build.VERSION_CODES.M)
+        //固定停留本页面2s钟，2s钟后检查相关权限是否开启，如没开启，则弹出请求框请求用户开启
+        ThreadManager.getInstance().createLongPool(3,3,2l).execute(new Runnable() {
             @Override
             public void run() {
-                ThemeUtils.checkPermission(SplashActivity.this,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE);
-                while(true){
-                    int permission = ContextCompat.checkSelfPermission(
-                            SplashActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-                    if(permission==android.content.pm.PackageManager.PERMISSION_GRANTED )
-                        break;
+                try {
+                    long endTime= System.currentTimeMillis();
+                    long time=endTime-startTime;
+                    Thread.sleep(2000-time);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-                finish();
+                finally {
+                    //检查需要系统同意的请求是否开启
+                    int hasPermission = ThemeUtils.checkPermission(
+                            SplashActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                    //如果开启
+                    if(hasPermission == PackageManager.PERMISSION_GRANTED) {
+                        if(me!=null&&me.getName()!=null) {
+                            startActivity(new Intent(SplashActivity.this,HomeActivity.class));
+                        }else
+                            startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                        finish();
+                    }
+                    else {
+                        //弹出请求框请求用户开启
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            ThemeUtils.requestPermission(SplashActivity.this,
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    private void initMusic() {
+        ThemeUtils.mkdirsAssets(this, "msgReceive.mp3", getFilesDir() + "/video/" + "msgReceive.mp3");
+    }
+
+    private void initDefaultIcon() {
+        ThemeUtils.mkdirsAssets(this, "default_icon_user.png", CommonUtil.getIconDir(this) + "/default_icon_user.png");
+    }
+
+    /**
+     * 权限设置后的回调函数，判断相应设置
+     * @param requestCode
+     * @param permissions  requestPermissions传入的参数为几个权限
+     * @param grantResults 对应权限的设置结果
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch(requestCode) {
+            case ThemeUtils.REQUEST_CODE_ASK_PERMISSIONS :
+                //可以遍历每个权限设置情况
+                if(grantResults[0]== PackageManager.PERMISSION_GRANTED) {
+                    //这里写你需要相关权限的操作
+                }else{
+                    Toast.makeText(SplashActivity.this,
+                            "权限没有开启,将无法加载图片",Toast.LENGTH_SHORT).show();
+                }
                 if(me!=null&&me.getName()!=null) {
                     startActivity(new Intent(SplashActivity.this,HomeActivity.class));
                 }else
                     startActivity(new Intent(SplashActivity.this, LoginActivity.class));
-            }
-        },2000);
-    }
-
-    private void initMusic() {
-        CommonUtils.mkdirsAssets(this, "msgReceive.mp3", getFilesDir() + "/video/" + "msgReceive.mp3");
-    }
-
-    private void initDefaultIcon() {
-        CommonUtils.mkdirsAssets(this, "default_icon_user.png", CommonUtil.getIconDir(this) + "/default_icon_user.png");
+                finish();
+        }
+        super.onRequestPermissionsResult(requestCode, permissions,
+                grantResults);
     }
 }

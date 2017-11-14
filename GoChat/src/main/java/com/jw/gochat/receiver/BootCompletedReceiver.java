@@ -6,6 +6,7 @@ import android.content.Intent;
 
 import com.jw.gochat.service.ChatCoreService;
 import com.jw.gochat.utils.CommonUtils;
+import com.jw.gochat.utils.ThemeUtils;
 
 /**
  * 创建时间：
@@ -20,7 +21,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		//开启聊天引擎核心服务
-		if (!CommonUtils.isServiceRunning(context, ChatCoreService.class)) {
+		if (!ThemeUtils.isServiceRunning(context, ChatCoreService.class)) {
 			context.startService(new Intent(context, ChatCoreService.class));
 		}
 	}

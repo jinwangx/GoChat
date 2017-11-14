@@ -28,6 +28,7 @@ import com.jw.gochat.receiver.PushReceiver;
 import com.jw.gochat.service.ChatCoreService;
 import com.jw.gochat.utils.CommonUtil;
 import com.jw.gochat.utils.CommonUtils;
+import com.jw.gochat.utils.ThemeUtils;
 import com.jw.gochat.utils.ToastUtils;
 import com.jw.gochat.view.HomeDrag;
 import com.jw.gochat.view.NormalTopBar;
@@ -112,7 +113,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener
         IntentFilter filter = new IntentFilter();
         filter.addAction(PushReceiver.ACTION_TEXT);
         registerReceiver(pushReceiver, filter);
-        if (!CommonUtils.isServiceRunning(HomeActivity.this, ChatCoreService.class)) {
+        if (!ThemeUtils.isServiceRunning(HomeActivity.this, ChatCoreService.class)) {
             startService(new Intent(HomeActivity.this, ChatCoreService.class));
         }
     }

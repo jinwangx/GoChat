@@ -15,6 +15,7 @@ import com.jw.gochat.utils.BackTaskFactory;
 import com.jw.gochat.utils.CommonUtil;
 import com.jw.gochat.utils.CommonUtils;
 import com.jw.gochat.utils.FileUtils;
+import com.jw.gochat.utils.ThemeUtils;
 
 import java.io.File;
 
@@ -55,7 +56,7 @@ public class AcceptInvitationAction{
 
         // 存储到后台任务中
         String taskDir = CommonUtil.getTaskDir(activity);
-        String file = CommonUtils.string2MD5(invitation.getAccount() + "_"
+        String file = ThemeUtils.string2MD5(invitation.getAccount() + "_"
                 + SystemClock.currentThreadTimeMillis());
         String path = new File(taskDir, file).getAbsolutePath();
 
