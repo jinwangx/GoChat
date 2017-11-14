@@ -10,11 +10,11 @@
 	> 2. 点击 add
 	> 3. 在弹出的对话框中 name 输入框中输入插件名称(可随意取，我这里取的是Maven)
 	> 4. 在Location输入框中输入:http://download.eclipse.org/technology/m2e/releases/
-	> ![icon](/说明/image_notice/install_maven_1.png)
+	> ![icon](/instruction/image_notice/install_maven_1.png)
 	> 4. 点击ok
 	> 5. 选中选择框
 	> 6. 点击next
-	> ![icon](/说明/image_notice/install_maven_2.png)
+	> ![icon](/instruction/image_notice/install_maven_2.png)
 	> 后面都是下一步下一步之类的
 	>
 	> maven安装完成后，eclipse重启后会从网上下载jar包，直到ChatServer配置完成(如果网速不好，时间会有点久)
@@ -23,13 +23,13 @@
 
 
 ### 配置说明
-![icon](/说明/image_notice/chat_server_1.png)
+![icon](/instruction/image_notice/chat_server_1.png)
 
 1. src/main/resource下存放的都是项目资源文件dataSource.properties
 	
 	> 数据源文件，存储的是和数据库连接配置
 	> 需要修改的内容：
-	> ![icon](/说明/image_notice/chat_server_2.png)
+	> ![icon](/instruction/image_notice/chat_server_2.png)
 	> 首先，你电脑本地得安装mysql，并且在mysql数据库中新建一个叫做gochat的数据库
 	> 其次，‘chat.username=’后面的值设为你数据库的用户名
 	> 最后，‘chat.password=’后面的值设为你数据库的密码
