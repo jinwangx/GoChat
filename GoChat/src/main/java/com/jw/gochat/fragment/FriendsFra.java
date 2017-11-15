@@ -21,7 +21,7 @@ import com.jw.gochat.bean.Friend;
 import com.jw.gochat.db.FriendDao;
 import com.jw.gochat.db.InvitationDao;
 import com.jw.gochat.receiver.PushReceiver;
-import com.jw.gochat.utils.ToastUtils;
+import com.jw.gochat.utils.ThemeUtils;
 
 import butterknife.BindView;
 
@@ -46,7 +46,7 @@ public class FriendsFra extends BaseFragment implements View.OnClickListener
         @Override
         public void onReceive(Context context, Intent intent) {
             String to = intent.getStringExtra(PushReceiver.KEY_TO);
-            ToastUtils.show(getActivity(),"接收到邀请");
+            ThemeUtils.show(getActivity(),"接收到邀请");
             if (me.getAccount().equalsIgnoreCase(to)) {
                 loadData();
             }
@@ -57,7 +57,7 @@ public class FriendsFra extends BaseFragment implements View.OnClickListener
         public void onReceive(Context context, Intent intent) {
             String to = intent.getStringExtra(PushReceiver.KEY_TO);
             String from = intent.getStringExtra(PushReceiver.KEY_FROM);
-            ToastUtils.show(getActivity(),from+"已接受邀请");
+            ThemeUtils.show(getActivity(),from+"已接受邀请");
             if (me.getAccount().equalsIgnoreCase(to)) {
                 loadData();
             }

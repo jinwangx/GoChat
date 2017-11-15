@@ -16,7 +16,7 @@ import com.jw.gochat.base.BaseActivity;
 import com.jw.gochat.bean.Account;
 import com.jw.gochat.bean.Friend;
 import com.jw.gochat.db.FriendDao;
-import com.jw.gochat.utils.ToastUtils;
+import com.jw.gochat.utils.ThemeUtils;
 import com.jw.gochat.view.DialogLoading;
 
 import Lib.GoChatManager;
@@ -66,7 +66,7 @@ public class FriendSearchActivity extends BaseActivity implements TextWatcher,Vi
                 String friendAccount = etSearch.getText().toString().trim();
                 Account me = ChatApplication.getAccount();
                 if (me.getAccount().equals(friendAccount)) {
-                    ToastUtils.show(this, "不要找自己啦");
+                    ThemeUtils.show(this, "不要找自己啦");
                     return;
                 }
                 // 已有的朋友
@@ -107,7 +107,7 @@ public class FriendSearchActivity extends BaseActivity implements TextWatcher,Vi
         @Override
         public void onError(int error, String msg) {
             dialog.dismiss();
-            ToastUtils.show(FriendSearchActivity.this, msg);
+            ThemeUtils.show(FriendSearchActivity.this, msg);
         }
     };
 

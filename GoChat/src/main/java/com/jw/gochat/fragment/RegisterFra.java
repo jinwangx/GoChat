@@ -11,7 +11,7 @@ import com.jw.gochat.activity.LoginActivity;
 import com.jw.gochat.base.BaseFragment;
 import com.jw.gochat.bean.Account;
 import com.jw.gochat.db.AccountDao;
-import com.jw.gochat.utils.ToastUtils;
+import com.jw.gochat.utils.ThemeUtils;
 import com.jw.gochat.view.DialogLoading;
 import com.jw.gochat.view.NormalTopBar;
 
@@ -49,16 +49,16 @@ public class RegisterFra extends BaseFragment implements View.OnClickListener,No
         public boolean handleMessage(Message msg) {
             switch (msg.what) {
                 case SUCCESS:
-                    ToastUtils.show(getActivity(), "登陆成功");
+                    ThemeUtils.show(getActivity(), "登陆成功");
                     break;
                 case ERROR_NET:
-                    ToastUtils.show(getActivity(), "客户端网络异常");
+                    ThemeUtils.show(getActivity(), "客户端网络异常");
                     break;
                 case ERROR_WEB:
-                    ToastUtils.show(getActivity(), "服务器异常");
+                    ThemeUtils.show(getActivity(), "服务器异常");
                     break;
                 case ERROR_EXISTED:
-                    ToastUtils.show(getActivity(), "用户已存在");
+                    ThemeUtils.show(getActivity(), "用户已存在");
                     break;
             }
             return false;

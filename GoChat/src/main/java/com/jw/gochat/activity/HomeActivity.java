@@ -27,9 +27,7 @@ import com.jw.gochat.fragment.MeFra;
 import com.jw.gochat.receiver.PushReceiver;
 import com.jw.gochat.service.ChatCoreService;
 import com.jw.gochat.utils.CommonUtil;
-import com.jw.gochat.utils.CommonUtils;
 import com.jw.gochat.utils.ThemeUtils;
-import com.jw.gochat.utils.ToastUtils;
 import com.jw.gochat.view.HomeDrag;
 import com.jw.gochat.view.NormalTopBar;
 import com.jw.gochat.view.TabIndicator;
@@ -154,7 +152,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener
                 startActivity(new Intent(HomeActivity.this, MQrActivity.class));
                 break;
             case R.id.ll_left_bg:
-                ToastUtils.show(HomeActivity.this,"该功能将后续开放");
+                ThemeUtils.show(HomeActivity.this,"该功能将后续开放");
         }
     }
 

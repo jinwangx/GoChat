@@ -21,7 +21,7 @@ import com.jw.gochat.base.BaseFragment;
 import com.jw.gochat.bean.Account;
 import com.jw.gochat.db.AccountDao;
 import com.jw.gochat.utils.CacheUtils;
-import com.jw.gochat.utils.ToastUtils;
+import com.jw.gochat.utils.ThemeUtils;
 import com.jw.gochat.view.DialogSheet;
 
 import Lib.GoChatManager;
@@ -112,7 +112,7 @@ public class LoginFra extends BaseFragment implements View.OnClickListener,TextW
 
         @Override
         public void onError(int error, String msg) {
-            ToastUtils.show(getActivity(),"错误码:"+error+",错误信息:"+msg);
+            ThemeUtils.show(getActivity(),"错误码:"+error+",错误信息:"+msg);
         }
     };
 
@@ -146,7 +146,7 @@ public class LoginFra extends BaseFragment implements View.OnClickListener,TextW
                         ipDialog.dismiss();
                         dialog.dismiss();
                         CacheUtils.setCache("BASE_QQ_HOST",ipHost,getActivity());
-                        ToastUtils.show(getActivity(),"应用将在2s后关闭,请重新启动以完成ip初始化");
+                        ThemeUtils.show(getActivity(),"应用将在2s后关闭,请重新启动以完成ip初始化");
                         new android.os.Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {

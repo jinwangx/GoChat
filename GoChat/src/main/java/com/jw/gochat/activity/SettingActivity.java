@@ -16,7 +16,7 @@ import com.jw.gochat.bean.Account;
 import com.jw.gochat.db.AccountDao;
 import com.jw.gochat.service.ChatCoreService;
 import com.jw.gochat.utils.CacheUtils;
-import com.jw.gochat.utils.ToastUtils;
+import com.jw.gochat.utils.ThemeUtils;
 import com.jw.gochat.view.DialogLogout;
 import com.jw.gochat.view.NormalTopBar;
 
@@ -88,7 +88,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                             dialog.dismiss();
                             CacheUtils.setCache("BASE_QQ_HOST", etIp.getText().toString(), SettingActivity.this);
                             tvIp.setText(GoChatURL.BASE_QQ_HOST);
-                            ToastUtils.show(SettingActivity.this,"应用将在2s后关闭,请重新启动以完成ip初始化");
+                            ThemeUtils.show(SettingActivity.this,"应用将在2s后关闭,请重新启动以完成ip初始化");
                             new android.os.Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {

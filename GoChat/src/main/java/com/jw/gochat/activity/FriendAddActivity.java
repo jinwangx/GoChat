@@ -7,7 +7,7 @@ import android.widget.RelativeLayout;
 
 import com.jw.gochat.R;
 import com.jw.gochat.base.BaseActivity;
-import com.jw.gochat.utils.ToastUtils;
+import com.jw.gochat.utils.ThemeUtils;
 import com.jw.gochat.view.NormalTopBar;
 
 import butterknife.BindView;
@@ -48,7 +48,7 @@ public class FriendAddActivity extends BaseActivity implements View.OnClickListe
                 startActivity(new Intent(FriendAddActivity.this, FriendSearchActivity.class));
                 break;
             case R.id.rl_scan_code:
-                ToastUtils.show(FriendAddActivity.this,"暂未开放该功能");
+                ThemeUtils.show(FriendAddActivity.this,"暂未开放该功能");
                 break;
         }
     }

@@ -6,7 +6,7 @@ import com.jw.gochat.ChatApplication;
 import com.jw.gochat.R;
 import com.jw.gochat.base.BaseActivity;
 import com.jw.gochat.bean.Account;
-import com.jw.gochat.utils.ToastUtils;
+import com.jw.gochat.utils.ThemeUtils;
 import com.jw.gochat.view.NormalTopBar;
 
 import Lib.GoChatManager;
@@ -61,7 +61,7 @@ public class FriendValidateActivity extends BaseActivity implements NormalTopBar
                     @Override
                     public void onSuccess() {
                         // TODO Auto-generated method stub
-                        ToastUtils.show(FriendValidateActivity.this, "邀请发送成功");
+                        ThemeUtils.show(FriendValidateActivity.this, "邀请发送成功");
                         finish();
                     }
 
@@ -74,7 +74,7 @@ public class FriendValidateActivity extends BaseActivity implements NormalTopBar
                     @Override
                     public void onError(int error, String msg) {
                         // TODO Auto-generated method stub
-                        ToastUtils.show(FriendValidateActivity.this, "邀请发送失败");
+                        ThemeUtils.show(FriendValidateActivity.this, "邀请发送失败");
                     }
                 });
             }

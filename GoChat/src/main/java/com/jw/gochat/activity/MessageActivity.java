@@ -30,7 +30,7 @@ import com.jw.gochat.bean.Message;
 import com.jw.gochat.db.MessageDao;
 import com.jw.gochat.receiver.PushReceiver;
 import com.jw.gochat.utils.CommonUtil;
-import com.jw.gochat.utils.ToastUtils;
+import com.jw.gochat.utils.ThemeUtils;
 import com.jw.gochat.view.NormalTopBar;
 
 import org.json.JSONException;
@@ -204,7 +204,7 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
 
         @Override
         public void onError(int error, String errorString) {
-            ToastUtils.show(MessageActivity.this, errorString);
+            ThemeUtils.show(MessageActivity.this, errorString);
             msg.setState(3);
             dao.updateMessage(msg);
             // 更新ui

@@ -13,7 +13,8 @@ import com.jw.gochat.base.BaseService;
 import com.jw.gochat.bean.Account;
 import com.jw.gochat.db.AccountDao;
 import com.jw.gochat.utils.NetUtils;
-import com.jw.gochat.utils.ToastUtils;
+import com.jw.gochat.utils.ThemeUtils;
+
 import java.util.HashMap;
 import java.util.Map;
 import Lib.GoChat;
@@ -47,10 +48,10 @@ public class ChatCoreService extends BaseService implements PacketConnector.Conn
 			String action = intent.getAction();
 			if (action.equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
 				if (NetUtils.isNetConnected(ChatCoreService.this)) {
-					//ToastUtils.show(GoChat.getContext(),"网络已连接");
+					//ThemeUtils.show(GoChat.getContext(),"网络已连接");
 					connectServer();
 				}else {
-					ToastUtils.show(GoChat.getContext(),"没有网络");
+					ThemeUtils.show(GoChat.getContext(),"没有网络");
 				}
 			}
 		}
