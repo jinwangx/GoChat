@@ -1,4 +1,4 @@
-package com.jw.gochat.action;
+package com.jw.gochat.action
 
 /**
  * 创建时间：2017/11/2 23:16
@@ -8,5 +8,4 @@ package com.jw.gochat.action;
  * 描述：
  */
 
-public class MessageSendAction {
-}
+class MessageSendAction

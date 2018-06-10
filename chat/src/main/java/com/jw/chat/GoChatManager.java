@@ -101,7 +101,7 @@ public class GoChatManager {
             @Override
             public void onFailure(Call call, IOException e) {
                 if (callBack != null) {
-                    callBack.onError(GoChatError.ERROR_SERVER, "网络连接失败");
+                    callBack.onError(GoChatError.Companion.getERROR_SERVER(), "网络连接失败");
                 }
             }
 
@@ -113,7 +113,7 @@ public class GoChatManager {
                             .getAsJsonObject();
                     if (root == null) {
                         if (callBack != null) {
-                            callBack.onError(GoChatError.ERROR_SERVER, "响应成功，" +
+                            callBack.onError(GoChatError.Companion.getERROR_SERVER(), "响应成功，" +
                                     "但没返回的数据");
                         }
                     } else {
@@ -152,7 +152,7 @@ public class GoChatManager {
                     }
                 } else {
                     if (callBack != null) {
-                        callBack.onError(GoChatError.ERROR_SERVER, "服务器异常");
+                        callBack.onError(GoChatError.Companion.getERROR_SERVER(), "服务器异常");
                     }
                 }
             }
@@ -173,7 +173,7 @@ public class GoChatManager {
                       final GoChatObjectCallBack callBack) {
         RequestBody requestBody=new FormBody.Builder().add("account", account).
                 add("password", password).build();
-        Request request = new Request.Builder().url(GoChatURL.URL_HTTP_LOGIN).post(requestBody).build();
+        Request request = new Request.Builder().url(GoChatURL.Companion.getURL_HTTP_LOGIN()).post(requestBody).build();
         doHttpRequest(CLIENT,request,callBack);
     }
 
@@ -190,7 +190,7 @@ public class GoChatManager {
                                final GoChatObjectCallBack callBack) {
         RequestBody requestBody=new FormBody.Builder().add("account", account).
                 add("password", password).build();
-        Request request=new Request.Builder().url(GoChatURL.URL_HTTP_REGISTER).post(requestBody)
+        Request request=new Request.Builder().url(GoChatURL.Companion.getURL_HTTP_REGISTER()).post(requestBody)
                 .build();
         return doHttpRequest(CLIENT,request,callBack);
     }
@@ -205,7 +205,7 @@ public class GoChatManager {
     public HttpFuture searchContact(String search,
                                     final GoChatObjectCallBack callBack) {
         RequestBody requestBody=new FormBody.Builder().add("search", search).build();
-        Request.Builder url = new Request.Builder().url(GoChatURL.URL_HTTP_SEARCH_CONTACT);
+        Request.Builder url = new Request.Builder().url(GoChatURL.Companion.getURL_HTTP_SEARCH_CONTACT());
         for (Map.Entry<String, String> me : headers.entrySet()) {
             url.addHeader(me.getKey(), me.getValue());
         }
@@ -227,8 +227,8 @@ public class GoChatManager {
             @Override
             public void run() {
                 if (connector == null) {
-                    connector = new PacketConnector(GoChatURL.BASE_QQ_HOST,
-                            GoChatURL.BASE_QQ_PORT, 3);
+                    connector = new PacketConnector(GoChatURL.Companion.getBASE_QQ_HOST(),
+                            GoChatURL.Companion.getBASE_QQ_PORT(), 3);
                 }
                 conncectChatServer();
                 AuthRequest request = new AuthRequest(account, token);
@@ -246,13 +246,13 @@ public class GoChatManager {
     public void sendMessage(final ChatMessage message,
                             final GoChatCallBack callBack) {
         if(!NetUtils.isNetConnected(context))
-            callBack.onError(GoChatError.ERROR_CLIENT_NET,"消息发送失败，没联网");
+            callBack.onError(GoChatError.Companion.getERROR_CLIENT_NET(),"消息发送失败，没联网");
         ThreadManager.getInstance().createLongPool(3,3,2L).execute(new Runnable() {
             @Override
             public void run() {
                 if (connector == null) {
-                    connector = new PacketConnector(GoChatURL.BASE_QQ_HOST,
-                            GoChatURL.BASE_QQ_PORT, 3);
+                    connector = new PacketConnector(GoChatURL.Companion.getBASE_QQ_HOST(),
+                            GoChatURL.Companion.getBASE_QQ_PORT(), 3);
                 }
                 conncectChatServer();
                 // 加入到请求map中 为以后的response做处理
@@ -324,7 +324,7 @@ public class GoChatManager {
             // 消息发送失败，通知回调，让显示层做处理
             GoChatCallBack callBack = request.getCallBack();
             if (callBack != null) {
-                callBack.onError(GoChatError.ERROR_CLIENT_NET, "客户端网络未连接");
+                callBack.onError(GoChatError.Companion.getERROR_CLIENT_NET(), "客户端网络未连接");
             }
             Log.v("GoChat_onOutputFailed",request.getTransport()+"发送失败");
         }

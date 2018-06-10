@@ -4,42 +4,34 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
 import android.media.MediaPlayer
 import android.support.v4.app.FragmentTabHost
 import android.view.View
-import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ArrayAdapter
 import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.ListView
 import android.widget.TabHost
-import android.widget.TextView
-
 import com.bumptech.glide.Glide
+import com.jw.acccount.MQrActivity
+import com.jw.acccount.SettingActivity
 import com.jw.chat.ConversationFra
-import com.jw.gochat.ChatApplication
-import com.jw.gochat.R
-import com.jw.business.bean.Account
 import com.jw.chat.db.dao.MessageDao
+import com.jw.contact.FriendAddActivity
+import com.jw.gochat.ChatApplication
+import com.jw.gochat.ChatApplication.getAccount
+import com.jw.gochat.R
 import com.jw.gochat.databinding.ActivityHomeBinding
 import com.jw.gochat.fragment.MeFra
 import com.jw.gochat.receiver.PushReceiver
 import com.jw.gochat.service.ChatCoreService
-import com.jw.gochatbase.BaseActivity
-import com.jw.library.utils.ThemeUtils
+import com.jw.gochat.utils.CommonUtil
 import com.jw.gochat.view.HomeDrag
 import com.jw.gochat.view.NormalTopBar
 import com.jw.gochat.view.TabIndicator
+import com.jw.gochatbase.BaseActivity
+import com.jw.library.utils.ThemeUtils
 import com.jw.login.fragment.FriendsFra
-
 import java.io.IOException
-
-import butterknife.BindView
-import de.hdodenhof.circleimageview.CircleImageView
-
-import com.jw.gochat.ChatApplication.getAccount
 
 /**
  * 创建时间：
@@ -50,6 +42,7 @@ import com.jw.gochat.ChatApplication.getAccount
  */
 
 class HomeActivity : BaseActivity(), View.OnClickListener, HomeDrag.HomeStateListener, TabHost.OnTabChangeListener, NormalTopBar.AddFriendListener {
+
     private val specTags = arrayOf("消息", "联系人", "动态")
     private val clazzs = arrayOf<Class<*>>(ConversationFra::class.java, FriendsFra::class.java, MeFra::class.java)
     private val btnTabSelector = intArrayOf(R.drawable.action_btn_tab_news_selector, R.drawable.action_btn_tab_contacts_selector, R.drawable.action_btn_tab_me_selector)
@@ -65,9 +58,11 @@ class HomeActivity : BaseActivity(), View.OnClickListener, HomeDrag.HomeStateLis
                 player = MediaPlayer()
                 player!!.setDataSource(filesDir.path + "/video/msgReceive.mp3")
                 player!!.prepareAsync()
-                player!!.setOnPreparedListener //准备完毕时，此方法调用
-                {
-                    player!!.start()
+                player!!.setOnPreparedListener() {
+                    //准备完毕时，此方法调用
+                    run {
+                        player!!.start()
+                    }
                 }
             } catch (e: IOException) {
                 e.printStackTrace()
@@ -77,10 +72,14 @@ class HomeActivity : BaseActivity(), View.OnClickListener, HomeDrag.HomeStateLis
         }
     }
     private var mBinding: ActivityHomeBinding? = null
+    private var tabHost: FragmentTabHost? = null
+    private var ntHome: NormalTopBar? = null
+    private var ivNtIcon: ImageView? = null
 
 
     public override fun bindView() {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_home)
+        ntHome = mBinding!!.contentMain!!.ntHome
     }
 
     override fun init() {
@@ -95,6 +94,10 @@ class HomeActivity : BaseActivity(), View.OnClickListener, HomeDrag.HomeStateLis
 
     override fun initView() {
         super.initView()
+        tabHost = findViewById(android.R.id.tabhost)
+        tabHost!!.setOnTabChangedListener(this)
+        ivNtIcon = ntHome!!.findViewById(R.id.iv_nt_icon)
+        ivNtIcon!!.setOnClickListener(this)
         //初始化tabHost
         initTabHost()
         //初始化面板上相关信息，如加载个人头像
@@ -104,59 +107,57 @@ class HomeActivity : BaseActivity(), View.OnClickListener, HomeDrag.HomeStateLis
         //初始化tab状态
         initTabState()
 
-        mBinding!!.tvSetting.setOnClickListener(this)
-        mBinding!!.ivMQr.setOnClickListener(this)
-        mBinding!!.llMeBg.setOnClickListener(this)
+        mBinding!!.contentLeft!!.tvLeftSetting.setOnClickListener(this)
+        mBinding!!.contentLeft!!.ivLeftMqr.setOnClickListener(this)
+        mBinding!!.contentLeft!!.llLeftBg.setOnClickListener(this)
         mBinding!!.hdHome.setHomeStateListener(this)
-        mBinding!!.tabHost.setOnTabChangedListener(this)
-        mBinding!!.ivMIcon.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.iv_nt_icon -> if (mBinding!!.hdHome.state === HomeDrag.State.Close)
+            R.id.iv_nt_icon -> if (mBinding!!.hdHome.state == HomeDrag.State.Close)
                 mBinding!!.hdHome.open()
             else
                 mBinding!!.hdHome.close()
-            R.id.tv_left_setting -> startActivity(Intent(this@HomeActivity, com.jw.gochat.activity.SettingActivity::class.java))
-            R.id.iv_left_mqr -> startActivity(Intent(this@HomeActivity, com.jw.gochat.activity.MQrActivity::class.java))
+            R.id.tv_left_setting -> startActivity(Intent(this@HomeActivity, SettingActivity::class.java))
+            R.id.iv_left_mqr -> startActivity(Intent(this@HomeActivity, MQrActivity::class.java))
             R.id.ll_left_bg -> ThemeUtils.show(this@HomeActivity, "该功能将后续开放")
         }
     }
 
     private fun initTabHost() {
-        mBinding!!.tabHost.setup(this, supportFragmentManager, R.id.fl_content)
+        tabHost!!.setup(this, supportFragmentManager, R.id.fl_content)
         for (i in btnTabSelector.indices) {
-            tabSpecs[i] = mBinding!!.tabHost.newTabSpec(specTags[i])
+            tabSpecs[i] = tabHost!!.newTabSpec(specTags[i])
             indicators[i] = TabIndicator(this)
-            indicators[i].setText(specTags[i])
-            indicators[i].setDrawableBackground(btnTabSelector[i])
-            tabSpecs[i].setIndicator(indicators[i])
-            mBinding!!.tabHost.addTab(tabSpecs[i], clazzs[i], null)
+            indicators[i]!!.setText(specTags[i])
+            indicators[i]!!.setDrawableBackground(btnTabSelector[i])
+            tabSpecs[i]!!.setIndicator(indicators[i])
+            tabSpecs[i]?.let { tabHost!!.addTab(it, clazzs[i], null) }
         }
-        mBinding!!.ntHone.setTitle(specTags[0])
+        mBinding!!.contentMain!!.ntHome.setTitle(specTags[0])
     }
 
     private fun initInfo() {
-        mBinding!!.tvAccount.setText(me.account)
-        Glide.with(this).load(me.icon).into<Target<Drawable>>(mBinding!!.ivMIcon)
-        Glide.with(this).load(me.icon).into<Target<Drawable>>(mBinding!!.mIconLeft)
-        mBinding!!.ntHone.setIcon()
+        mBinding!!.contentLeft!!.tvLeftAct.text = me.account
+        Glide.with(this).load(me.icon).into(ivNtIcon!!)
+        Glide.with(this).load(me.icon).into(mBinding!!.contentLeft!!.ivLeftIcon)
+        mBinding!!.contentMain!!.ntHome.setIcon()
     }
 
     private fun initMenuList() {
-        mBinding!!.llMenu.setAdapter(ArrayAdapter(this, android.R.layout.simple_list_item_1, com.jw.chat.utils.CommonUtil.NAMES))
+        mBinding!!.contentLeft!!.llLeftMenu.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, CommonUtil.NAMES)
     }
 
 
     private fun initTabState() {
         val dao = MessageDao(this)
-        allUnread = dao.getAllUnread(getAccount().account)
+        allUnread = dao.getAllUnread(getAccount().account!!)
         if (allUnread != 0) {
-            indicators[0].setUnreadVisible(View.VISIBLE)
-            indicators[0].setUnread(allUnread)
+            indicators[0]!!.setUnreadVisible(View.VISIBLE)
+            indicators[0]!!.setUnread(allUnread)
         } else {
-            indicators[0].setUnreadVisible(View.INVISIBLE)
+            indicators[0]!!.setUnreadVisible(View.INVISIBLE)
         }
     }
 
@@ -170,11 +171,11 @@ class HomeActivity : BaseActivity(), View.OnClickListener, HomeDrag.HomeStateLis
     //当tab状态变化时
     override fun onTabChanged(tabId: String) {
         when (tabId) {
-            "消息" -> mBinding!!.ntHone.setAddFriendListener(null, View.GONE)
-            "联系人" -> mBinding!!.ntHone.setAddFriendListener(this, View.VISIBLE)
-            "动态" -> mBinding!!.ntHone.setAddFriendListener(null, View.GONE)
+            "消息" -> mBinding!!.contentMain!!.ntHome.setAddFriendListener(null, View.GONE)
+            "联系人" -> mBinding!!.contentMain!!.ntHome.setAddFriendListener(this, View.VISIBLE)
+            "动态" -> mBinding!!.contentMain!!.ntHome.setAddFriendListener(null, View.GONE)
         }
-        mBinding!!.ntHone.setTitle(tabId)
+        mBinding!!.contentMain!!.ntHome.setTitle(tabId)
     }
 
     //左面板打开动作时
@@ -185,11 +186,11 @@ class HomeActivity : BaseActivity(), View.OnClickListener, HomeDrag.HomeStateLis
     //左面板关闭动作时
     override fun close() {
         val anim = AnimationUtils.loadAnimation(this@HomeActivity, R.anim.shake)
-        mBinding!!.ivMIcon.startAnimation(anim)
+        ivNtIcon!!.startAnimation(anim)
     }
 
     //当点击friends面板上的添加朋友按钮时，执行该动作
     override fun add() {
-        startActivity(Intent(this@HomeActivity, com.jw.gochat.activity.FriendAddActivity::class.java))
+        startActivity(Intent(this@HomeActivity, FriendAddActivity::class.java))
     }
 }

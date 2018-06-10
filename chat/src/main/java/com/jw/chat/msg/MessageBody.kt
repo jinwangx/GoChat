@@ -1,4 +1,4 @@
-package com.jw.chat.msg;
+package com.jw.chat.msg
 
 /**
  * 创建时间：
@@ -8,6 +8,4 @@ package com.jw.chat.msg;
  * 描述：消息体
  */
 
-public interface MessageBody {
-
-}
+interface MessageBody

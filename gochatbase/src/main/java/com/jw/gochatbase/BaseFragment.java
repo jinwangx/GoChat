@@ -1,6 +1,5 @@
 package com.jw.gochatbase;
 
-
 import android.content.BroadcastReceiver;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -65,9 +64,7 @@ public abstract class BaseFragment extends Fragment {
     /**
      * 初始化一些与Activity无关的全局变量，还有注册广播接收者等
      */
-    protected void init() {
-
-    }
+    protected void init() { }
 
     /**
      * 初始化视图
@@ -79,15 +76,12 @@ public abstract class BaseFragment extends Fragment {
     /**
      * 初始化各种事件
      */
-    protected void initEvent() {
-    }
+    protected void initEvent() { }
 
     /**
      * 读取数据
      */
-    protected void loadData() {
-
-    }
+    protected void loadData() { }
 
     /**
      * fragment交互时，重读数据
