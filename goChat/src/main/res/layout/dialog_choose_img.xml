@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_gray"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="获取图片"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/btn_dialog_gallery"
+        style="@style/custom_button"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/action_btn_login_selector"
+        android:text="从相册获取" />
+
+    <Button
+        android:id="@+id/btn_dialog_camera"
+        style="@style/custom_button"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/action_btn_login_selector"
+        android:text="拍摄照片获取" />
+
+    <Button
+        android:id="@+id/btn_dialog_cancel"
+        style="@style/custom_button"
+        android:layout_marginBottom="35dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/action_btn_login_selector"
+        android:text="取消" />
+
+</LinearLayout>

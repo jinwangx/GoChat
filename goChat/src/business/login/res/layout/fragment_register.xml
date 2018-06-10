@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:jw="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.jw.gochat.view.NormalTopBar
+        android:id="@+id/nt_register"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        jw:title="注册" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="1dp">
+
+        <EditText
+            android:id="@+id/et_register_act"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/action_edt_login_selector"
+            android:gravity="center"
+            android:hint="QQ号/手机号/邮箱" />
+
+        <EditText
+            android:id="@+id/et_register_psw"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/action_edt_login_selector"
+            android:gravity="center"
+            android:hint="密码"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/btn_register"
+            style="@style/custom_button"
+            android:layout_marginTop="3dp"
+            android:background="@drawable/action_btn_login_selector"
+            android:text="注册" />
+    </LinearLayout>
+</LinearLayout>
+
+</layout>

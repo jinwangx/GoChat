@@ -1,1 +1,1 @@
-include ':GoChat'
+include ':goChat', ':chat', ':business', ':library', ':gochatbase'

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.jw.gochat.drag.SlideDeleteDrag
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@android:color/white"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_cvst_top"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/darker_gray"
+                android:gravity="center"
+                android:text="置顶"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/tv_cvst_read"
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/holo_orange_light"
+                android:gravity="center"
+                android:text="标记已读"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/tv_cvst_del"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/holo_red_light"
+                android:gravity="center"
+                android:text="删除"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@android:color/white">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_cvst_act"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="5dp"
+                app:civ_border_color="@android:color/holo_orange_light"
+                app:civ_border_width="1dp" />
+
+            <TextView
+                android:id="@+id/tv_cvst_act"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/iv_cvst_act"
+                android:padding="7dp"
+                android:text="金旺"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_lastNews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@+id/iv_cvst_act"
+                android:padding="7dp"
+                android:text="You're a grate man!"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_cvst_unread_count"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/action_unread_icon"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:visibility="invisible" />
+        </RelativeLayout>
+    </com.jw.gochat.drag.SlideDeleteDrag>
+</LinearLayout>

@@ -1,0 +1,108 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
+
+    dataBinding {
+        enabled = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kapt {
+        generateStubs = true
+    }
+
+    defaultConfig {
+        applicationId rootProject.ext.appId
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+
+        ndk {
+            abiFilters 'armeabi','x86_64','x86'
+        }
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath = true
+            }
+        }
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets{
+        main{
+            java.srcDirs += [
+                    //以下为业务分类资产
+                    "src/business/account/java",
+                    'src/business/chat/java',
+                    'src/business/contact/java',
+                    'src/business/login/java'
+            ]
+
+            res.srcDirs += [
+                    //以下为基础库分类资源
+                    //以下为业务分类资产
+                    "src/business/account/res",
+                    'src/business/chat/res',
+                    'src/business/contact/res',
+                    'src/business/login/res'
+            ]
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    //noinspection GradleCompatible
+    compile files('lib/Msc.jar')
+    compile files('lib/Sunflower.jar')
+    compile 'com.android.support:multidex:1.0.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
+    def dependencies = rootProject.ext.compileDependencies
+    implementation dependencies.supportV7
+    implementation dependencies.materialSup
+    implementation dependencies.supportV4
+    implementation dependencies.supportAnnotations
+    implementation dependencies.recyclerviewV7
+    implementation dependencies.kotlinlib
+    implementation dependencies.glide
+    implementation dependencies.photoView
+    implementation dependencies.rxjava
+    implementation dependencies.rxandroid
+    implementation dependencies.gson
+    implementation dependencies.glideOkhttp3Integration
+    implementation dependencies.gifDrawable
+    implementation dependencies.circleimageview
+    implementation dependencies.okhttp
+    implementation dependencies.slf4j
+    implementation dependencies.pinyin4j
+    implementation dependencies.nineoldandroids
+    kapt dependencies.databinding
+    implementation project(':business')
+    implementation project(':chat')
+    implementation project(':library')
+    implementation project(':gochatbase')
+}

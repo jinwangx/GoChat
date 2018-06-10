@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.jw.gochat.view.HomeDrag
+        android:id="@+id/hd_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg">
+
+        <include
+            layout="@layout/left"
+            android:id="@+id/content_left"/>
+
+        <include layout="@layout/home"
+            android:id="@+id/content_main"/>
+
+    </com.jw.gochat.view.HomeDrag>
+
+</layout>
