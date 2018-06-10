@@ -10,7 +10,6 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.jw.gochat.ChatApplication
 import com.jw.gochat.R
-import com.jw.business.bean.Contact
 import com.jw.business.db.dao.FriendDao
 
 import de.hdodenhof.circleimageview.CircleImageView

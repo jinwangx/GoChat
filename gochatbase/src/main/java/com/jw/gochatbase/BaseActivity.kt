@@ -1,8 +1,10 @@
 package com.jw.gochatbase
 
 import android.content.BroadcastReceiver
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.FragmentActivity
+import com.jw.library.utils.ThemeUtils
 import java.util.*
 
 /**
@@ -18,8 +20,8 @@ abstract class BaseActivity : FragmentActivity() {
 
     override fun onCreate(bundle: Bundle?) {
         super.onCreate(bundle)
-        //ThemeUtils.changeStatusBar(this, Color.BLACK);
-        //((ChatApplication)getApplication()).addActivity(this);
+        ThemeUtils.changeStatusBar(this, Color.BLACK)
+        //((ChatApplication)getApplication()).addActivity(this)
         bindView()
         init()
         initView()
@@ -61,7 +63,7 @@ abstract class BaseActivity : FragmentActivity() {
 
     public override fun onDestroy() {
         super.onDestroy()
-        if (receivers.size != 0) {
+        if (receivers.isNotEmpty()) {
             for (i in receivers.indices) {
                 unregisterReceiver(receivers[i])
             }

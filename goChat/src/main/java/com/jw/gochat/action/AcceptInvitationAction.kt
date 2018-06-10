@@ -3,9 +3,9 @@ package com.jw.gochat.action
 import android.app.Activity
 import android.content.Intent
 import android.os.SystemClock
-import com.jw.business.bean.BackTask
-import com.jw.business.bean.Contact
-import com.jw.business.bean.Invitation
+import com.jw.business.model.bean.BackTask
+import com.jw.business.model.bean.Contact
+import com.jw.business.model.bean.Invitation
 import com.jw.business.db.dao.BackTaskDao
 import com.jw.business.db.dao.FriendDao
 import com.jw.business.db.dao.InvitationDao

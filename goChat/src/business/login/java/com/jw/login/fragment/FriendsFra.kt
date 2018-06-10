@@ -8,7 +8,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ImageView
-import com.jw.business.bean.Contact
+import com.jw.business.model.bean.Contact
 import com.jw.business.db.dao.FriendDao
 import com.jw.business.db.dao.InvitationDao
 import com.jw.contact.FriendDetailActivity

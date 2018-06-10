@@ -2,7 +2,7 @@ package com.jw.business.db.dao
 
 import android.content.ContentValues
 import android.content.Context
-import com.jw.business.bean.Account
+import com.jw.business.model.bean.Account
 import com.jw.business.db.GCDB
 import com.jw.business.db.GCDBOpenHelper
 import java.util.*

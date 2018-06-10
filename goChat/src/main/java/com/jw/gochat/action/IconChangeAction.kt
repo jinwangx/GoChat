@@ -2,7 +2,6 @@ package com.jw.gochat.action
 
 import android.content.Context
 
-import com.jw.business.bean.Contact
 import com.jw.business.db.dao.FriendDao
 import com.jw.gochat.utils.CommonUtil
 

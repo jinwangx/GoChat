@@ -75,7 +75,7 @@ class ChatCoreService : BaseService(), PacketConnector.ConnectListener, GoChatMa
             chatManager = GoChatManager.getInstance(ChatApplication.getOkHttpClient())
             chatManager!!.addConnectionListener(this)
             chatManager!!.setPushListener(this)
-            chatManager!!.auth(account.account, account.token)
+            chatManager!!.auth(account.account!!, account.token!!)
 
             // 后台服务开启
             startService(Intent(this, BackgroundService::class.java))

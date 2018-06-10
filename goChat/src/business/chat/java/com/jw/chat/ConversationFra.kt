@@ -7,7 +7,7 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
-import com.jw.business.bean.Contact
+import com.jw.business.model.bean.Contact
 import com.jw.chat.db.dao.MessageDao
 import com.jw.gochat.ChatApplication
 import com.jw.gochat.R

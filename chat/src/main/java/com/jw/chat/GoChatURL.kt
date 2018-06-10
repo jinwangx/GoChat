@@ -1,7 +1,7 @@
 package com.jw.chat
 
+import com.jw.library.utils.PrefUtils
 
-import com.jw.library.utils.CacheUtils
 
 /**
  * 创建时间：2017/3/26
@@ -13,8 +13,8 @@ import com.jw.library.utils.CacheUtils
 
 interface GoChatURL {
     companion object {
-        val BASE_QQ_HOST = CacheUtils.getCacheString("BASE_QQ_HOST",
-                "10.65.234.227", GoChat.getContext())
+        val BASE_QQ_HOST = PrefUtils.getString(GoChat.getContext(),"BASE_QQ_HOST",
+                "10.65.234.227")
         val BASE_HTTP = "http://$BASE_QQ_HOST:8080/ChatServer"
         val BASE_QQ_PORT = 9090
         val URL_HTTP_REGISTER = "$BASE_HTTP/register"

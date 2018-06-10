@@ -2,7 +2,7 @@ package com.jw.gochat.action
 
 import android.content.Context
 import android.content.Intent
-import com.jw.business.bean.Invitation
+import com.jw.business.model.bean.Invitation
 import com.jw.business.db.dao.InvitationDao
 import com.jw.chat.GoChatURL
 import com.jw.gochat.receiver.PushReceiver

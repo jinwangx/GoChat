@@ -3,7 +3,7 @@ package com.jw.business.db.dao
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
-import com.jw.business.bean.Invitation
+import com.jw.business.model.bean.Invitation
 import com.jw.business.db.GCDB
 import com.jw.business.db.GCDBOpenHelper
 

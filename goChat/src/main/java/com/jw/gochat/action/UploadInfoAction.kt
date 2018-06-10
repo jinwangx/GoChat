@@ -2,22 +2,20 @@ package com.jw.gochat.action
 
 import android.content.Context
 import android.content.Intent
-import com.jw.business.bean.Account
-import com.jw.business.bean.BackTask
-import com.jw.business.bean.Contact
-import com.jw.chat.GoChatURL
-import com.jw.chat.ThreadManager
-import com.jw.chat.db.bean.Message
-import com.jw.business.bean.NetTask
 import com.jw.business.db.dao.AccountDao
 import com.jw.business.db.dao.BackTaskDao
 import com.jw.business.db.dao.FriendDao
+import com.jw.business.model.bean.Account
+import com.jw.business.model.bean.BackTask
+import com.jw.business.model.bean.Contact
+import com.jw.business.model.bean.NetTask
+import com.jw.chat.GoChatURL
+import com.jw.chat.db.bean.Message
 import com.jw.chat.db.dao.MessageDao
 import com.jw.gochat.service.BackgroundService
 import com.jw.gochat.utils.BackTaskFactory
 import com.jw.gochat.utils.CommonUtil
 import com.jw.library.utils.FileUtils
-
 import java.io.File
 
 
@@ -36,38 +34,39 @@ class UploadInfoAction {
 
     fun doAction(context: Context, me: Account,
                  name: String, iconFile: File) {
-        ThreadManager.getInstance().createLongPool(3, 3, 2L).execute {
-            val friendDao = FriendDao(context)
-            // 初始化通讯录
-            val friend = Contact()
-            friend.owner = me.account
-            friend.account = "GoChat"
-            friend.alpha = "G"
-            friend.area = ""
-            // /data/Android/com.jw.qq/friendIcon/
-            val file = File(CommonUtil.getFriendIconDir(context), friend.account!!)
-            val path = file.absolutePath
-            //存储默认头像到本地头像文件夹
-            val inPath = CommonUtil.getIconDir(context) + "/default_icon_user.png"
-            FileUtils.copy(inPath, path)
-            friend.icon = path
-            friend.name = "小旺"
-            friend.nickName = ""
-            friend.sort = 1000
+        Thread {
+            run {
+                val friendDao = FriendDao(context)
+                // 初始化通讯录
+                val friend = Contact()
+                friend.owner = me.account
+                friend.account = "GoChat"
+                friend.alpha = "G"
+                friend.area = ""
+                // /data/Android/com.jw.qq/friendIcon/
+                val file = File(CommonUtil.getFriendIconDir(context), friend.account!!)
+                val path = file.absolutePath
+                //存储默认头像到本地头像文件夹
+                val inPath = CommonUtil.getIconDir(context) + "/default_icon_user.png"
+                FileUtils.copy(inPath, path)
+                friend.icon = path
+                friend.name = "小旺"
+                friend.nickName = ""
+                friend.sort = 1000
 
-            friendDao.addFriend(friend)
-            val messageDao = MessageDao(context)
-            val message = Message()
-            message.account = "GoChat"
-            message.content = "欢迎使用GoChat，有你更精彩"
-            message.createTime = System.currentTimeMillis()
-            //未接收
-            message.direction = 1
-            message.owner = me.account
-            message.isRead = false
-            messageDao.addMessage(message)
-        }
-
+                friendDao.addFriend(friend)
+                val messageDao = MessageDao(context)
+                val message = Message()
+                message.account = "GoChat"
+                message.content = "欢迎使用GoChat，有你更精彩"
+                message.createTime = System.currentTimeMillis()
+                //未接收
+                message.direction = 1
+                message.owner = me.account
+                message.isRead = false
+                messageDao.addMessage(message)
+            }
+        }.start()
         me.name = name
         me.icon = GoChatURL.BASE_HTTP + "/repo/icon/" + me.account + ".png"
         val dao = AccountDao(context)
@@ -106,7 +105,7 @@ class UploadInfoAction {
 
         try {
             // 把网络任务属性序列化入path中
-            FileUtils.write<NetTask>(netTask, path)
+            FileUtils.write<NetTask>(netTask!!, path)
 
             // 开启后台服务
             context.startService(

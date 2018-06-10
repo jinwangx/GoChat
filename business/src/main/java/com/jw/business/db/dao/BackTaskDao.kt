@@ -3,7 +3,7 @@ package com.jw.business.db.dao
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
-import com.jw.business.bean.BackTask
+import com.jw.business.model.bean.BackTask
 import com.jw.business.db.GCDB
 import com.jw.business.db.GCDBOpenHelper
 

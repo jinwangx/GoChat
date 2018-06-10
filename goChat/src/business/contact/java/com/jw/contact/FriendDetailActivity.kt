@@ -5,7 +5,7 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.View
 import com.bumptech.glide.Glide
-import com.jw.business.bean.Contact
+import com.jw.business.model.bean.Contact
 import com.jw.business.db.dao.FriendDao
 import com.jw.chat.GoChatURL
 import com.jw.chat.MessageActivity

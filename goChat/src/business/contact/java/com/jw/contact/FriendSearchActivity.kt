@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import com.jw.business.bean.Contact
+import com.jw.business.model.bean.Contact
 import com.jw.business.db.dao.FriendDao
 import com.jw.chat.GoChatManager
 import com.jw.chat.callback.GoChatObjectCallBack

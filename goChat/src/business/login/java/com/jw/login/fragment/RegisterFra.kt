@@ -4,7 +4,7 @@ import android.databinding.DataBindingUtil
 import android.os.Handler
 import android.os.Message
 import android.view.View
-import com.jw.business.bean.Account
+import com.jw.business.model.bean.Account
 import com.jw.business.db.dao.AccountDao
 import com.jw.chat.GoChatError
 import com.jw.chat.GoChatManager

@@ -20,9 +20,11 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     def dependencies = rootProject.ext.compileDependencies
     implementation dependencies.kotlinlib
     implementation dependencies.supportAnnotations
     implementation dependencies.supportV7
+    implementation project(':library')
+    api 'com.android.support:multidex:1.0.3'
 }

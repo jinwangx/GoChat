@@ -8,7 +8,6 @@ import android.os.Build
 import android.view.WindowManager
 import android.view.animation.AlphaAnimation
 import android.widget.Toast
-import com.jw.chat.ThreadManager
 import com.jw.gochat.ChatApplication
 import com.jw.gochat.R
 import com.jw.gochat.databinding.ActivitySplashBinding
@@ -38,10 +37,12 @@ class SplashActivity : BaseActivity() {
     override fun initView() {
         super.initView()
         initAnimation()
-        ThreadManager.getInstance().createLongPool(3, 3, 2L).execute {
-            initMusic()
-            initDefaultIcon()
-        }
+        Thread {
+            run {
+                initMusic()
+                initDefaultIcon()
+            }
+        }.start()
     }
 
     private fun initAnimation() {
@@ -51,33 +52,35 @@ class SplashActivity : BaseActivity() {
         mBinding!!.ivSplashLogo.startAnimation(alphaAnimation)
         //ObjectAnimator.ofFloat(rl, "alpha", 0.3f, 1.0f).setDuration(1000).start();
         //固定停留本页面2s钟，2s钟后检查相关权限是否开启，如没开启，则弹出请求框请求用户开启
-        ThreadManager.getInstance().createLongPool(3, 3, 2L).execute {
-            try {
-                val endTime = System.currentTimeMillis()
-                val time = endTime - startTime
-                Thread.sleep(2000 - time)
-            } catch (e: InterruptedException) {
-                e.printStackTrace()
-            } finally {
-                //检查需要系统同意的请求是否开启
-                val hasPermission = ThemeUtils.checkPermission(
-                        this@SplashActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                //如果开启
-                if (hasPermission == PackageManager.PERMISSION_GRANTED) {
-                    if (me != null && me.name != null) {
-                        startActivity(Intent(this@SplashActivity, HomeActivity::class.java))
-                    } else
-                        startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
-                    finish()
-                } else {
-                    //弹出请求框请求用户开启
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        ThemeUtils.requestPermission(this@SplashActivity,
-                                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        Thread {
+            run {
+                try {
+                    val endTime = System.currentTimeMillis()
+                    val time = endTime - startTime
+                    Thread.sleep(2000 - time)
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                } finally {
+                    //检查需要系统同意的请求是否开启
+                    val hasPermission = ThemeUtils.checkPermission(
+                            this@SplashActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    //如果开启
+                    if (hasPermission == PackageManager.PERMISSION_GRANTED) {
+                        if (me?.name != null) {
+                            startActivity(Intent(this@SplashActivity, HomeActivity::class.java))
+                        } else
+                            startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
+                        finish()
+                    } else {
+                        //弹出请求框请求用户开启
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            ThemeUtils.requestPermission(this@SplashActivity,
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        }
                     }
                 }
             }
-        }
+        }.start()
     }
 
     private fun initMusic() {
@@ -105,7 +108,7 @@ class SplashActivity : BaseActivity() {
                     Toast.makeText(this@SplashActivity,
                             "权限没有开启,将无法加载图片", Toast.LENGTH_SHORT).show()
                 }
-                if (me != null && me.name != null) {
+                if (me?.name != null) {
                     startActivity(Intent(this@SplashActivity, HomeActivity::class.java))
                 } else
                     startActivity(Intent(this@SplashActivity, LoginActivity::class.java))

@@ -11,7 +11,7 @@ import android.view.View
 import com.iflytek.cloud.*
 import com.iflytek.cloud.ui.RecognizerDialog
 import com.iflytek.cloud.ui.RecognizerDialogListener
-import com.jw.business.bean.Contact
+import com.jw.business.model.bean.Contact
 import com.jw.chat.callback.GoChatCallBack
 import com.jw.chat.db.bean.Message
 import com.jw.chat.db.dao.MessageDao

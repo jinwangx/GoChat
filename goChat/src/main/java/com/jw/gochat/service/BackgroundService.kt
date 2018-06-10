@@ -2,7 +2,7 @@ package com.jw.gochat.service
 
 import android.content.Intent
 import android.util.Log
-import com.jw.business.bean.NetTask
+import com.jw.business.model.bean.NetTask
 import com.jw.business.db.GCDB
 import com.jw.business.db.dao.BackTaskDao
 import com.jw.chat.GoChatManager
@@ -26,8 +26,8 @@ class BackgroundService : BaseIntentService("background") {
     private var headers: HashMap<String, String>? = null
     override fun onHandleIntent(intent: Intent?) {
 
-        GoChatManager.getInstance(ChatApplication.getOkHttpClient()).initAccount(me.account,
-                me.token)
+        GoChatManager.getInstance(ChatApplication.getOkHttpClient()).initAccount(me.account!!,
+                me.token!!)
         headers = HashMap()
         Log.v("attt", me.account + "-" + me.token)
         headers!!["account"] = me.account!!

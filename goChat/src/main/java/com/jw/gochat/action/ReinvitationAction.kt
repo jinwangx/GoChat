@@ -2,7 +2,7 @@ package com.jw.gochat.action
 
 import android.content.Context
 import android.content.Intent
-import com.jw.business.bean.Contact
+import com.jw.business.model.bean.Contact
 import com.jw.business.db.dao.FriendDao
 import com.jw.gochat.receiver.PushReceiver
 import com.jw.library.utils.CommonUtils

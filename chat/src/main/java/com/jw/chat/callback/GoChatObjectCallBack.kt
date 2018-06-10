@@ -13,11 +13,15 @@ import java.lang.reflect.ParameterizedType
 
 abstract class GoChatObjectCallBack<T> {
     val clazz: Class<T>
+
     init {
         val type = this.javaClass
                 .genericSuperclass as ParameterizedType
         this.clazz = type.actualTypeArguments[0] as Class<T>
     }
+
     abstract fun onSuccess(t: T)
+
     abstract fun onError(error: Int, msg: String)
+
 }
