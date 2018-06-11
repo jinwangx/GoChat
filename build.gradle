@@ -5,7 +5,7 @@ buildscript {
     ext.gradleVersion = '3.1.2'
 
     ext.compileSdkVersion = 27
-    ext.minSdkVersion = 22
+    ext.minSdkVersion = 18
     ext.targetSdkVersion = 22
     ext.buildToolsVersion = "27.0.3"
     ext.supportVersion = '27.0.2'
@@ -15,7 +15,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.2'
+        classpath "com.android.tools.build:gradle:$gradleVersion"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlinVersion"
     }
