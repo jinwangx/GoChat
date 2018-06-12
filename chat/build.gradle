@@ -28,4 +28,5 @@ dependencies {
     implementation dependencies.kotlinlib
     implementation project(':library')
     implementation project(':business')
+    compile project(path: ':gochatbase')
 }
