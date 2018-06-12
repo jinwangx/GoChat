@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.View
 import com.bumptech.glide.Glide
+import com.jw.business.db.dao.AppDatabase
 import com.jw.business.model.bean.Contact
 import com.jw.business.db.dao.FriendDao
 import com.jw.chat.GoChatURL
@@ -37,7 +38,7 @@ class FriendDetailActivity : BaseActivity(), View.OnClickListener, NormalTopBar.
     override fun initView() {
         super.initView()
         friend = intent.getSerializableExtra("friend") as Contact
-        dao = FriendDao(this@FriendDetailActivity)
+        dao = AppDatabase.getInstance().friendDao()
         if (dao!!.queryFriendByAccount(me.account!!, friend!!.account!!) != null) {
             mBinding!!.btnFriendAdd.visibility = View.GONE
             Glide.with(this).load(friend!!.icon).into(mBinding!!.ivListItemFriendIcon)

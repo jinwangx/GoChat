@@ -2,8 +2,8 @@ package com.jw.gochat.action
 
 import android.content.Context
 import android.content.Intent
+import com.jw.business.db.dao.AppDatabase
 import com.jw.business.model.bean.Contact
-import com.jw.business.db.dao.FriendDao
 import com.jw.gochat.receiver.PushReceiver
 import com.jw.library.utils.CommonUtils
 import com.jw.chat.GoChatURL
@@ -47,7 +47,7 @@ class ReinvitationAction : Action() {
             icon = iconObj as String?
         }
         // 数据存储
-        val friendDao = FriendDao(context)
+        val friendDao = AppDatabase.getInstance(context).friendDao()
         var friend = friendDao.queryFriendByAccount(receiver, sender)
         if (friend == null) {
             friend = Contact()

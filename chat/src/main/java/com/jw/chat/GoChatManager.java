@@ -61,7 +61,7 @@ public class GoChatManager {
     private static OkHttpClient CLIENT;
 
 
-    public static GoChatManager getInstance(OkHttpClient CLIENT) {
+    public static GoChatManager getInstance(OkHttpClient client) {
         if (instance == null) {
             synchronized (GoChatManager.class) {
                 if (instance == null) {
@@ -69,7 +69,7 @@ public class GoChatManager {
                 }
             }
         }
-        CLIENT = CLIENT;
+        CLIENT = client;
         return instance;
     }
 
@@ -101,7 +101,7 @@ public class GoChatManager {
             @Override
             public void onFailure(Call call, IOException e) {
                 if (callBack != null) {
-                    callBack.onError(GoChatError.Companion.getERROR_SERVER(), "网络连接失败");
+                    callBack.onError(GoChatError.Companion.getERROR_CLIENT_NET(), "网络连接失败");
                 }
             }
 

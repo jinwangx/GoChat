@@ -1,56 +1,28 @@
 package com.jw.business.db.dao
 
-import android.content.ContentValues
-import android.content.Context
+import android.arch.persistence.room.Dao
+import android.arch.persistence.room.Insert
+import android.arch.persistence.room.Query
+import android.arch.persistence.room.Update
 import android.database.Cursor
 import com.jw.business.model.bean.BackTask
-import com.jw.business.db.GCDB
-import com.jw.business.db.GCDBOpenHelper
 
-class BackTaskDao(context: Context) {
-    private val helper: GCDBOpenHelper = GCDBOpenHelper.getInstance(context)
+@Dao
+interface BackTaskDao {
 
-    fun addTask(task: BackTask) {
-        val db = helper.writableDatabase
-        val values = ContentValues()
-        values.put(GCDB.BackTask.COLUMN_OWNER, task.owner)
-        values.put(GCDB.BackTask.COLUMN_PATH, task.path)
-        values.put(GCDB.BackTask.COLUMN_STATE, task.state)
-        task.id = db.insert(GCDB.BackTask.TABLE_NAME, null, values)
-    }
+    @Query("select * from back_task where 'owner'=:owner")
+    fun query(owner: String): BackTask
 
-    fun updateTask(task: BackTask) {
-        val db = helper.writableDatabase
-        val values = ContentValues()
-        values.put(GCDB.BackTask.COLUMN_OWNER, task.owner)
-        values.put(GCDB.BackTask.COLUMN_PATH, task.path)
-        values.put(GCDB.BackTask.COLUMN_STATE, task.state)
-        val whereClause = GCDB.BackTask.COLUMN_ID + "=?"
-        val whereArgs = arrayOf(task.id.toString() + "")
-        db.update(GCDB.BackTask.TABLE_NAME, values, whereClause, whereArgs)
-    }
+    @Query("select * from back_task where 'owner'=:owner and 'state='=:state")
+    fun query(owner: String, state: Int):Cursor
 
-    fun updateState(id: Long, state: Int) {
-        val db = helper.writableDatabase
-        val values = ContentValues()
-        values.put(GCDB.BackTask.COLUMN_STATE, state)
-        val whereClause = GCDB.BackTask.COLUMN_ID + "=?"
-        val whereArgs = arrayOf(id.toString() + "")
-        db.update(GCDB.BackTask.TABLE_NAME, values, whereClause, whereArgs)
-    }
+    @Insert
+    fun addTask(task: BackTask)
 
-    fun query(owner: String): Cursor {
-        val db = helper.readableDatabase
-        val sql = ("select * from " + GCDB.BackTask.TABLE_NAME + " where "
-                + GCDB.BackTask.COLUMN_OWNER + "=?")
-        return db.rawQuery(sql, arrayOf(owner))
-    }
+    @Update
+    fun updateTask(task: BackTask)
 
-    fun query(owner: String, state: Int): Cursor {
-        val db = helper.readableDatabase
-        val sql = ("select * from " + GCDB.BackTask.TABLE_NAME + " where "
-                + GCDB.BackTask.COLUMN_OWNER + "=? and "
-                + GCDB.BackTask.COLUMN_STATE + "=?")
-        return db.rawQuery(sql, arrayOf(owner, "0"))
-    }
+    @Query("update back_task set 'state'=:state where '_id'=:id")
+    fun update(id: Long, state: Int)
+
 }

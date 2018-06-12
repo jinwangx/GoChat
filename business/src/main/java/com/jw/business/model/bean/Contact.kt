@@ -1,5 +1,9 @@
 package com.jw.business.model.bean
 
+import android.arch.persistence.room.ColumnInfo
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
+import org.jetbrains.annotations.NotNull
 import java.io.Serializable
 
 /**
@@ -10,17 +14,30 @@ import java.io.Serializable
  * 描述：好友类
  */
 
+@Entity(tableName = "friend")
 class Contact : Serializable {
+    @PrimaryKey
+    @NotNull
     var id: Long = 0
+    @ColumnInfo(name = "owner")
     var owner: String? = null
+    @ColumnInfo(name = "account")
     var account: String? = null
+    @ColumnInfo(name = "name")
     var name: String? = null
+    @ColumnInfo(name = "sign")
     var sign: String? = null
+    @ColumnInfo(name = "area")
     var area: String? = null
+    @ColumnInfo(name = "icon")
     var icon: String? = null
+    @ColumnInfo(name = "sex")
     var sex: Int = 0
+    @ColumnInfo(name = "nickName")
     var nickName: String? = null
+    @ColumnInfo(name = "alpha")
     var alpha: String? = null
+    @ColumnInfo(name = "sort")
     var sort: Int = 0
 
     companion object {

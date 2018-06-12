@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 
 import com.bumptech.glide.Glide
+import com.jw.business.db.dao.AppDatabase
 import com.jw.gochat.ChatApplication
 import com.jw.gochat.R
 import com.jw.business.db.dao.FriendDao
@@ -23,7 +24,7 @@ import de.hdodenhof.circleimageview.CircleImageView
  */
 
 class FriendsAdapter(context: Context, c: Cursor) : CursorAdapter(context, c) {
-    private var dao: FriendDao? = FriendDao(context)
+    private var dao: FriendDao? = AppDatabase.getInstance(context).friendDao()
 
     override fun newView(context: Context, cursor: Cursor, parent: ViewGroup): View {
         return View.inflate(context, R.layout.listitem_friends, null)

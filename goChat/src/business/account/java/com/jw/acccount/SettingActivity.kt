@@ -7,7 +7,7 @@ import android.text.TextUtils
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import com.jw.business.db.dao.AccountDao
+import com.jw.business.db.dao.AppDatabase
 import com.jw.chat.GoChatURL
 import com.jw.gochat.ChatApplication
 import com.jw.gochat.R
@@ -48,8 +48,8 @@ class SettingActivity : BaseActivity(), View.OnClickListener, NormalTopBar.BackL
         dialogLogout.setClickLogoutListener {
             val account = ChatApplication.getAccount()
             account.isCurrent = false
-            val dao = AccountDao(this@SettingActivity)
-            dao.updateAccount(account)
+            val dao = AppDatabase.getInstance().accountDao()
+            dao.update(account)
             (application as ChatApplication).exit()
             dialogLogout.dismiss()
             stopService(Intent(this@SettingActivity, ChatCoreService::class.java))

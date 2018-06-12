@@ -8,9 +8,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ImageView
+import com.jw.business.db.dao.AppDatabase
 import com.jw.business.model.bean.Contact
-import com.jw.business.db.dao.FriendDao
-import com.jw.business.db.dao.InvitationDao
 import com.jw.contact.FriendDetailActivity
 import com.jw.gochat.ChatApplication
 import com.jw.gochat.R
@@ -92,14 +91,14 @@ class FriendsFra : BaseFragment(), View.OnClickListener, AdapterView.OnItemClick
     }
 
     override fun loadData() {
-        val friendDao = FriendDao(this.activity!!)
+        val friendDao = AppDatabase.getInstance(this.activity!!).friendDao()
         val cursor = friendDao.queryFriends(me.account!!)
-        val invitationDao = InvitationDao(this.activity!!)
-        val hasUnAgree = invitationDao.hasUnagree(me.account!!)
+        val invitationDao = AppDatabase.getInstance(this.activity!!).invitationDao()
+/*        val hasUnAgree = invitationDao.hasUnagree(me.account!!)
         if (hasUnAgree)
             ivUnread!!.visibility = View.VISIBLE
         else
-            ivUnread!!.visibility = View.INVISIBLE
+            ivUnread!!.visibility = View.INVISIBLE*/
         val adapter = FriendsAdapter(activity!!, cursor)
         mBinding!!.lvFriends.adapter = adapter
     }

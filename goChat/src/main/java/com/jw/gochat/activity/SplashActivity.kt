@@ -8,6 +8,8 @@ import android.os.Build
 import android.view.WindowManager
 import android.view.animation.AlphaAnimation
 import android.widget.Toast
+import com.jw.business.db.dao.AppDatabase
+import com.jw.business.model.bean.Account
 import com.jw.gochat.ChatApplication
 import com.jw.gochat.R
 import com.jw.gochat.databinding.ActivitySplashBinding
@@ -32,6 +34,7 @@ class SplashActivity : BaseActivity() {
     public override fun bindView() {
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_splash)
+        ChatApplication.setAccount(AppDatabase.getInstance().accountDao().getCurrentAccount())
     }
 
     override fun initView() {

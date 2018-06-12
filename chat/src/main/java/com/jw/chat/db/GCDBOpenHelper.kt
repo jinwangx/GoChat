@@ -4,15 +4,11 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
-class GCDBOpenHelper private constructor(context: Context) : SQLiteOpenHelper(context, GCDB.NAME, null, GCDB.VERSION) {
+class GCDBOpenHelper private constructor(context: Context) : SQLiteOpenHelper(context, "gochat.db", null, 1) {
 
     override fun onCreate(db: SQLiteDatabase) {
-        db.execSQL(GCDB.Account.SQL_CREATE_TABLE)
-        db.execSQL(GCDB.Friend.SQL_CREATE_TABLE)
-        db.execSQL(GCDB.Invitation.SQL_CREATE_TABLE)
         db.execSQL(GCDB.Message.SQL_CREATE_TABLE)
         db.execSQL(GCDB.Conversation.SQL_CREATE_TABLE)
-        db.execSQL(GCDB.BackTask.SQL_CREATE_TABLE)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {}

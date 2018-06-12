@@ -7,7 +7,7 @@ import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.os.IBinder
 import android.util.Log
-import com.jw.business.db.dao.AccountDao
+import com.jw.business.db.dao.AppDatabase
 import com.jw.chat.GoChat
 import com.jw.chat.GoChatManager
 import com.jw.chat.core.PacketConnector
@@ -70,7 +70,7 @@ class ChatCoreService : BaseService(), PacketConnector.ConnectListener, GoChatMa
 
     private fun connectServer() {
         Log.d("GoChat_Core", "正在连接服务器")
-        val account = AccountDao(this).currentAccount
+        val account = AppDatabase.getInstance(GoChat.getContext()).accountDao().getCurrentAccount()
         if (account != null) {
             chatManager = GoChatManager.getInstance(ChatApplication.getOkHttpClient())
             chatManager!!.addConnectionListener(this)

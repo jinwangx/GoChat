@@ -61,6 +61,12 @@ ext{
             nineoldandroids        : "com.nineoldandroids:library:2.4.0",
             butterknife            : "com.jakewharton:butterknife-compiler:8.7.0",
             butterknifecompile     : "com.jakewharton:butterknife:8.7.0",
+            stetho                 : "com.facebook.stetho:stetho:1.2.0",
+            stethoOkhttp          : "com.facebook.stetho:stetho-okhttp:1.2.0"
     ]
 
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
 }

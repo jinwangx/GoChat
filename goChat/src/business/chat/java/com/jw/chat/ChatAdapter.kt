@@ -7,8 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.bumptech.glide.Glide
-import com.jw.business.db.GCDB
+import com.jw.business.db.dao.AppDatabase
 import com.jw.business.db.dao.FriendDao
+import com.jw.chat.db.GCDB
 import com.jw.gochat.ChatApplication
 import com.jw.gochat.R
 import de.hdodenhof.circleimageview.CircleImageView
@@ -23,7 +24,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 
 class ChatAdapter(context: Context, c: Cursor) : CursorAdapter(context, c) {
     private var mListener: ChatListener? = null
-    private val friendDao: FriendDao = FriendDao(context)
+    private val friendDao: FriendDao = AppDatabase.getInstance(context).friendDao()
 
     override fun newView(context: Context, cursor: Cursor, parent: ViewGroup): View {
         return View.inflate(context, R.layout.listitem_conversation, null)

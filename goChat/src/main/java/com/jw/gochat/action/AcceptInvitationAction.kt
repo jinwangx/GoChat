@@ -3,12 +3,11 @@ package com.jw.gochat.action
 import android.app.Activity
 import android.content.Intent
 import android.os.SystemClock
+import com.jw.business.db.dao.AppDatabase
 import com.jw.business.model.bean.BackTask
 import com.jw.business.model.bean.Contact
 import com.jw.business.model.bean.Invitation
-import com.jw.business.db.dao.BackTaskDao
-import com.jw.business.db.dao.FriendDao
-import com.jw.business.db.dao.InvitationDao
+import com.jw.chat.GoChat
 import com.jw.gochat.service.BackgroundService
 import com.jw.gochat.utils.BackTaskFactory
 import com.jw.gochat.utils.CommonUtil
@@ -32,13 +31,13 @@ class AcceptInvitationAction {
 
     fun doAction(activity: Activity, o: Any) {
         // 更新数据库
-        val dao = InvitationDao(activity)
+        val dao = AppDatabase.getInstance(GoChat.getContext()).invitationDao()
         val invitation = o as Invitation
         invitation.isAgree = true
         dao.updateInvitation(invitation)
 
         // 添加到好友列表
-        val friendDao = FriendDao(activity)
+        val friendDao = AppDatabase.getInstance(GoChat.getContext()).friendDao()
         var friend = friendDao.queryFriendByAccount(
                 invitation.owner!!, invitation.account!!)
         if (friend == null) {
@@ -62,7 +61,7 @@ class AcceptInvitationAction {
         task.owner = invitation.owner
         task.path = path
         task.state = 0
-        BackTaskDao(activity).addTask(task)
+        AppDatabase.getInstance(activity).backTaskDao().addTask(task)
 
         val netTask = BackTaskFactory.newFriendAcceptTask(
                 invitation.account!!, invitation.owner!!)

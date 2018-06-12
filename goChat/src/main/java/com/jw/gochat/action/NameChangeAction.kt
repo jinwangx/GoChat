@@ -2,7 +2,7 @@ package com.jw.gochat.action
 
 import android.content.Context
 import android.content.Intent
-import com.jw.business.db.dao.FriendDao
+import com.jw.business.db.dao.AppDatabase
 import com.jw.gochat.receiver.PushReceiver
 
 /**
@@ -28,8 +28,8 @@ class NameChangeAction : Action() {
         val name = data["name"].toString()
 
         // 数据存储
-        val friendDao = FriendDao(context)
-        val friend = friendDao.queryFriendByAccount(receiver, sender) ?: return
+        val friendDao = AppDatabase.getInstance(context).friendDao()
+        val friend = friendDao.queryFriendByAccount(receiver, sender)
         friend.name = name
         friendDao.updateFriend(friend)
 

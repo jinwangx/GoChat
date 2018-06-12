@@ -4,8 +4,8 @@ import android.databinding.DataBindingUtil
 import android.os.Handler
 import android.os.Message
 import android.view.View
+import com.jw.business.db.dao.AppDatabase
 import com.jw.business.model.bean.Account
-import com.jw.business.db.dao.AccountDao
 import com.jw.chat.GoChatError
 import com.jw.chat.GoChatManager
 import com.jw.chat.callback.GoChatObjectCallBack
@@ -49,9 +49,9 @@ class RegisterFra : BaseFragment(), View.OnClickListener, NormalTopBar.BackListe
             message.what = SUCCESS
             mHandler.sendMessage(message)
             // 存储用户
-            val dao = activity?.let { AccountDao(it) }
+            val dao = activity?.let { AppDatabase.getInstance(it).accountDao() }
             account.isCurrent = true
-            dao!!.addAccount(account)
+            dao!!.insert(account)
             dialog!!.dismiss()
             (activity as LoginActivity).goFillInfoFra()
         }

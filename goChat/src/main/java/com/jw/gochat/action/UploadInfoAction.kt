@@ -2,9 +2,7 @@ package com.jw.gochat.action
 
 import android.content.Context
 import android.content.Intent
-import com.jw.business.db.dao.AccountDao
-import com.jw.business.db.dao.BackTaskDao
-import com.jw.business.db.dao.FriendDao
+import com.jw.business.db.dao.AppDatabase
 import com.jw.business.model.bean.Account
 import com.jw.business.model.bean.BackTask
 import com.jw.business.model.bean.Contact
@@ -36,7 +34,7 @@ class UploadInfoAction {
                  name: String, iconFile: File) {
         Thread {
             run {
-                val friendDao = FriendDao(context)
+                val friendDao = AppDatabase.getInstance(context).friendDao()
                 // 初始化通讯录
                 val friend = Contact()
                 friend.owner = me.account
@@ -69,8 +67,8 @@ class UploadInfoAction {
         }.start()
         me.name = name
         me.icon = GoChatURL.BASE_HTTP + "/repo/icon/" + me.account + ".png"
-        val dao = AccountDao(context)
-        dao.updateAccount(me)
+        val dao = AppDatabase.getInstance(context).accountDao()
+        dao.update(me)
         doAddTask(context, me, iconFile, "addName")
         doAddTask(context, me, iconFile, "addIcon")
 
@@ -101,7 +99,7 @@ class UploadInfoAction {
         task.owner = me.account
         task.path = path
         task.state = 0
-        BackTaskDao(context).addTask(task)
+        AppDatabase.getInstance(context).backTaskDao().addTask(task)
 
         try {
             // 把网络任务属性序列化入path中

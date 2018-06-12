@@ -71,6 +71,7 @@
         <activity android:name="com.jw.contact.FriendValidateActivity" />
         <!--邀请记录页面-->
         <activity android:name="com.jw.gochat.activity.InvitationActivity" />
+        <activity android:name="com.jw.acccount.SettingActivity" />
 
         <!--手机开机广播接收者-->
         <receiver android:name="com.jw.gochat.receiver.BootCompletedReceiver">

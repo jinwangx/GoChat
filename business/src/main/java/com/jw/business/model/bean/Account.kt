@@ -1,8 +1,11 @@
 package com.jw.business.model.bean
 
-import android.os.Bundle
+import android.arch.persistence.room.ColumnInfo
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
 import android.os.Parcel
 import android.os.Parcelable
+import org.jetbrains.annotations.NotNull
 
 /**
  * 创建时间：
@@ -12,62 +15,60 @@ import android.os.Parcelable
  * 描述：账户信息类
  */
 
-class Account : Parcelable {
+@Entity(tableName = "account")
+class Account() : Parcelable {
 
+    @PrimaryKey
+    @NotNull
     var account: String? = null// 账号
+    @ColumnInfo(name = "name")
     var name: String? = null// 用户名
+    @ColumnInfo(name = "icon")
     var icon: String? = null// 用户图像
+    @ColumnInfo(name = "sex")
     var sex: Int = 0// 性别 0:未设置 1:女 2:男 3:其他
+    @ColumnInfo(name = "sign")
     var sign: String? = null// 用户个性签名
+    @ColumnInfo(name = "area")
     var area: String? = null// 用户所在区域
+    @ColumnInfo(name = "token")
     var token: String? = null// 用户与服务器交互的唯一标
-    var isCurrent: Boolean = false// 是否是当前用户
+    @ColumnInfo(name = "isCurrent")
+    var isCurrent=false// 是否是当前用户
 
-    constructor() {
+    constructor(parcel: Parcel) : this() {
 
+        account = parcel.readString()
+        name = parcel.readString()
+        icon = parcel.readString()
+        sex = parcel.readInt()
+        sign = parcel.readString()
+        area = parcel.readString()
+        token = parcel.readString()
+        isCurrent = parcel.readByte() !=0.toByte()
     }
 
-    private constructor(parcel: Parcel) {
-        val `val` = parcel.readBundle()
+    override fun describeContents() = 0
 
-        account = `val`.getString("account")
-        name = `val`.getString("name")
-        icon = `val`.getString("icon")
-        sex = `val`.getInt("sex")
-        sign = `val`.getString("sign")
-        area = `val`.getString("area")
-        token = `val`.getString("token")
-        isCurrent = `val`.getBoolean("current")
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    override fun writeToParcel(dest: Parcel, flags: Int) {
-        val `val` = Bundle()
-        `val`.putString("account", account)
-        `val`.putString("name", name)
-        `val`.putString("icon", icon)
-        `val`.putInt("sex", sex)
-        `val`.putString("sign", sign)
-        `val`.putString("area", area)
-        `val`.putString("token", token)
-        `val`.putBoolean("current", isCurrent)
-        dest.writeBundle(`val`)
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(account)
+        parcel.writeString(name)
+        parcel.writeString(icon)
+        parcel.writeInt(sex)
+        parcel.writeString(sign)
+        parcel.writeString(area)
+        parcel.writeString(token)
+        parcel.writeInt(if(isCurrent) 1 else 0)
     }
 
     companion object {
+        @JvmField
+        val CREATOR = object : Parcelable.Creator<Account> {
 
-        val CREATOR: Parcelable.Creator<Account> = object : Parcelable.Creator<Account> {
+            override fun newArray(size: Int) = arrayOfNulls<Account>(size)
 
-            override fun newArray(size: Int): Array<Account?> {
-                return arrayOfNulls(size)
-            }
+            override fun createFromParcel(source: Parcel) = Account(source)
 
-            override fun createFromParcel(source: Parcel): Account {
-                return Account(source)
-            }
         }
     }
 

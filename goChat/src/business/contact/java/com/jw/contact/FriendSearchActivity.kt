@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import com.jw.business.db.dao.AppDatabase
 import com.jw.business.model.bean.Contact
-import com.jw.business.db.dao.FriendDao
 import com.jw.chat.GoChatManager
 import com.jw.chat.callback.GoChatObjectCallBack
 import com.jw.gochat.ChatApplication
@@ -70,7 +70,7 @@ class FriendSearchActivity : BaseActivity(), TextWatcher, View.OnClickListener {
                     return
                 }
                 // 已有的朋友
-                val dao = FriendDao(this)
+                val dao = AppDatabase.getInstance().friendDao()
                 val friend = dao.queryFriendByAccount(me.account!!, friendAccount)
                 if (friend != null) {
                     val intent = Intent()

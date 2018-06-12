@@ -2,9 +2,11 @@ package com.jw.gochat.service
 
 import android.content.Intent
 import android.util.Log
+import com.jw.business.db.dao.AppDatabase
 import com.jw.business.model.bean.NetTask
 import com.jw.business.db.GCDB
 import com.jw.business.db.dao.BackTaskDao
+import com.jw.chat.GoChat
 import com.jw.chat.GoChatManager
 import com.jw.chat.GoChatURL
 import com.jw.gochat.ChatApplication
@@ -32,7 +34,7 @@ class BackgroundService : BaseIntentService("background") {
         Log.v("attt", me.account + "-" + me.token)
         headers!!["account"] = me.account!!
         headers!!["token"] = me.token!!
-        val dao = BackTaskDao(this)
+        val dao = AppDatabase.getInstance(GoChat.getContext()).backTaskDao()
         val map = HashMap<Long, String>()
         val owner = me.account
         val cursor = dao.query(owner!!, 0)
@@ -72,7 +74,7 @@ class BackgroundService : BaseIntentService("background") {
                 task.params)
         if (result) {
             Log.v("backGroundService", task.type.toString() + "任务后台执行成功")
-            dao.updateState(id!!, 2)
+            dao.update(id!!, 2)
         }
     }
 

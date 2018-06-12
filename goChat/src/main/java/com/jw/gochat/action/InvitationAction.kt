@@ -2,8 +2,8 @@ package com.jw.gochat.action
 
 import android.content.Context
 import android.content.Intent
+import com.jw.business.db.dao.AppDatabase
 import com.jw.business.model.bean.Invitation
-import com.jw.business.db.dao.InvitationDao
 import com.jw.chat.GoChatURL
 import com.jw.gochat.receiver.PushReceiver
 
@@ -66,7 +66,7 @@ class InvitationAction : Action() {
         } else {
         }
         // 存取数据
-        val invitationDao = InvitationDao(context)
+        val invitationDao = AppDatabase.getInstance(context).invitationDao()
         var invitation = invitationDao.queryInvitation(receiver, sender)
         if (invitation == null) {
             invitation = Invitation()
