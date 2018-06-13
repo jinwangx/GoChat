@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import com.jw.business.business.FriendBusiness
 import com.jw.gochat.receiver.PushReceiver
+import org.greenrobot.eventbus.EventBus
 
 /**
  * 创建时间：
@@ -31,12 +32,7 @@ class NameChangeAction : Action() {
         val friend = FriendBusiness.getFriendById(receiver, sender)?:return
         friend!!.name = name
         FriendBusiness.update(friend)
-
-        // 发送广播
-        val intent = Intent(PushReceiver.ACTION_NAME_CHANGE)
-        intent.putExtra(PushReceiver.KEY_FROM, sender)
-        intent.putExtra(PushReceiver.KEY_TO, receiver)
-        context.sendBroadcast(intent)
+        EventBus.getDefault().post(friend)
     }
 
 }

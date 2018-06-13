@@ -5,7 +5,9 @@ import android.content.Intent
 import com.jw.business.business.InvitationBusiness
 import com.jw.business.model.bean.Invitation
 import com.jw.chat.GoChatURL
+import com.jw.gochat.event.InvitationEvent
 import com.jw.gochat.receiver.PushReceiver
+import org.greenrobot.eventbus.EventBus
 
 /**
  * 创建时间：
@@ -87,10 +89,6 @@ class InvitationAction : Action() {
             }
             InvitationBusiness.updateInvitation(invitation)
         }
-        // 发送广播
-        val intent = Intent(PushReceiver.ACTION_INVATION)
-        intent.putExtra(PushReceiver.KEY_FROM, sender)
-        intent.putExtra(PushReceiver.KEY_TO, receiver)
-        context.sendBroadcast(intent)
+        EventBus.getDefault().post(InvitationEvent(invitation))
     }
 }

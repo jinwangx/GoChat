@@ -1,10 +1,10 @@
 package com.jw.gochat.action
 
 import android.content.Context
-import android.content.Intent
 import com.jw.chat.business.MessageBusiness
 import com.jw.chat.db.bean.Message
-import com.jw.gochat.receiver.PushReceiver
+import com.jw.chat.event.TextEvent
+import org.greenrobot.eventbus.EventBus
 
 /**
  * 创建时间：
@@ -36,11 +36,6 @@ class TextAction : Action() {
         message.read = false
         message.type = 0  //0代表文字，1代表图片
         MessageBusiness.insert(message)
-        // 发送广播
-        val intent = Intent(PushReceiver.ACTION_TEXT)
-        intent.putExtra(PushReceiver.KEY_FROM, sender)
-        intent.putExtra(PushReceiver.KEY_TO, receiver)
-        intent.putExtra(PushReceiver.KEY_TEXT_CONTENT, content)
-        context.sendBroadcast(intent)
+        EventBus.getDefault().post(TextEvent(message))
     }
 }

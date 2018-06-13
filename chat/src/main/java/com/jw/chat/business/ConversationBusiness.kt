@@ -22,12 +22,11 @@ object ConversationBusiness {
         if (cursor.moveToNext()) {
             // 关闭cursor
             cursor.close()
-            var unread = MessageBusiness.getUnreadCountByAccount(message.owner!!, message.account!!)
             val conversation= Conversation()
             conversation.account=message.account
             conversation.content=if(message.type==0) message.content else "图片"
             conversation.owner=message.owner
-            conversation.unread_count=unread
+            conversation.unread_count=MessageBusiness.getUnreadCountByAccount(message.owner!!, message.account!!)
             conversation.update_time=System.currentTimeMillis()
             update(conversation)
         } else {

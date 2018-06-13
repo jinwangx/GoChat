@@ -1,8 +1,6 @@
 package com.jw.gochat.activity
 
-import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.databinding.DataBindingUtil
 import android.media.MediaPlayer
 import android.support.v4.app.FragmentTabHost
@@ -21,8 +19,8 @@ import com.jw.gochat.ChatApplication
 import com.jw.gochat.ChatApplication.getAccountInfo
 import com.jw.gochat.R
 import com.jw.gochat.databinding.ActivityHomeBinding
+import com.jw.chat.event.TextEvent
 import com.jw.gochat.fragment.MeFra
-import com.jw.gochat.receiver.PushReceiver
 import com.jw.gochat.service.ChatCoreService
 import com.jw.gochat.utils.CommonUtil
 import com.jw.gochat.view.HomeDrag
@@ -31,6 +29,9 @@ import com.jw.gochat.view.TabIndicator
 import com.jw.gochatbase.BaseActivity
 import com.jw.library.utils.ThemeUtils
 import com.jw.login.fragment.FriendsFra
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import java.io.IOException
 
 /**
@@ -48,34 +49,31 @@ class HomeActivity : BaseActivity(), View.OnClickListener, HomeDrag.HomeStateLis
     private val btnTabSelector = intArrayOf(R.drawable.action_btn_tab_news_selector, R.drawable.action_btn_tab_contacts_selector, R.drawable.action_btn_tab_me_selector)
     private val indicators = arrayOfNulls<TabIndicator>(3)
     private val tabSpecs = arrayOfNulls<TabHost.TabSpec>(3)
-
     private var allUnread: Int = 0
     private val me = ChatApplication.getAccountInfo()
     private var player: MediaPlayer? = null
-    private val pushReceiver = object : PushReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            try {
-                player = MediaPlayer()
-                player!!.setDataSource(filesDir.path + "/video/msgReceive.mp3")
-                player!!.prepareAsync()
-                player!!.setOnPreparedListener() {
-                    //准备完毕时，此方法调用
-                    run {
-                        player!!.start()
-                    }
-                }
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-
-            initTabState()
-        }
-    }
     private var mBinding: ActivityHomeBinding? = null
     private var tabHost: FragmentTabHost? = null
     private var ntHome: NormalTopBar? = null
     private var ivNtIcon: ImageView? = null
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun Event(textEvent: TextEvent) {
+        try {
+            player = MediaPlayer()
+            player!!.setDataSource(filesDir.path + "/video/msgReceive.mp3")
+            player!!.prepareAsync()
+            player!!.setOnPreparedListener() {
+                //准备完毕时，此方法调用
+                run {
+                    player!!.start()
+                }
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        initTabState()
+    }
 
     public override fun bindView() {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_home)
@@ -84,9 +82,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, HomeDrag.HomeStateLis
 
     override fun init() {
         super.init()
-        val filter = IntentFilter()
-        filter.addAction(PushReceiver.ACTION_TEXT)
-        registerReceiver(pushReceiver, filter)
+        EventBus.getDefault().register(this)
         if (!ThemeUtils.isServiceRunning(this@HomeActivity, ChatCoreService::class.java)) {
             startService(Intent(this@HomeActivity, ChatCoreService::class.java))
         }
@@ -191,5 +187,10 @@ class HomeActivity : BaseActivity(), View.OnClickListener, HomeDrag.HomeStateLis
     //当点击friends面板上的添加朋友按钮时，执行该动作
     override fun add() {
         startActivity(Intent(this@HomeActivity, FriendAddActivity::class.java))
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
     }
 }

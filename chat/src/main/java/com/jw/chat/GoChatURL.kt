@@ -14,7 +14,7 @@ import com.jw.library.utils.PrefUtils
 interface GoChatURL {
     companion object {
         val BASE_QQ_HOST = PrefUtils.getString(GoChat.getContext(),"BASE_QQ_HOST",
-                "172.18.1.196")
+                "192.168.0.147")
         val BASE_HTTP = "http://$BASE_QQ_HOST:8080/ChatServer"
         val BASE_QQ_PORT = 9090
         val URL_HTTP_REGISTER = "$BASE_HTTP/register"

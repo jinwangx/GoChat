@@ -2,7 +2,6 @@ package com.jw.login.fragment
 
 import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.View
@@ -17,9 +16,14 @@ import com.jw.gochat.R
 import com.jw.gochat.activity.InvitationActivity
 import com.jw.gochat.adapter.FriendsAdapter
 import com.jw.gochat.databinding.FragmentFriendsBinding
+import com.jw.gochat.event.AcceptInvitationEvent
+import com.jw.gochat.event.InvitationEvent
 import com.jw.gochat.receiver.PushReceiver
 import com.jw.gochatbase.BaseFragment
 import com.jw.library.utils.ThemeUtils
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * 创建时间：2017/3/26
@@ -44,30 +48,32 @@ class FriendsFra : BaseFragment(), View.OnClickListener, AdapterView.OnItemClick
             }
         }
     }
-    private val reInvitationReceiver = object : PushReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            val to = intent.getStringExtra(PushReceiver.KEY_TO)
-            val from = intent.getStringExtra(PushReceiver.KEY_FROM)
-            ThemeUtils.show(activity, from + "已接受邀请")
-            if (me.account!!.equals(to, ignoreCase = true)) {
-                loadData()
-            }
+    private var mBinding: FragmentFriendsBinding? = null
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun Event(textEvent: InvitationEvent) {
+        val to = textEvent.message.owner
+        ThemeUtils.show(activity, "接收到邀请")
+        if (me.account!!.equals(to, ignoreCase = true)) {
+            loadData()
         }
     }
-    private var mBinding: FragmentFriendsBinding? = null
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun Event(textEvent: AcceptInvitationEvent) {
+        val to = textEvent.message.owner
+        val from = textEvent.message.account
+        ThemeUtils.show(activity, from + "已接受邀请")
+        if (me.account!!.equals(to, ignoreCase = true)) {
+            loadData()
+        }
+    }
 
     override fun init() {
         super.init()
         //动态注册一个收到邀请的广播
-        val filter = IntentFilter()
-        filter.addAction(PushReceiver.ACTION_INVATION)
-        activity!!.registerReceiver(invitedReceiver, filter)
         //动态注册一个朋友接收邀请的广播
-        val filter2 = IntentFilter()
-        filter2.addAction(PushReceiver.ACTION_REINVATION)
-        activity!!.registerReceiver(reInvitationReceiver, filter2)
-        receivers.add(invitedReceiver)
-        receivers.add(reInvitationReceiver)
+        EventBus.getDefault().register(this)
     }
 
     public override fun bindView(): View {
@@ -114,5 +120,10 @@ class FriendsFra : BaseFragment(), View.OnClickListener, AdapterView.OnItemClick
         intent.putExtras(bundle)
         intent.setClass(activity!!, FriendDetailActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
     }
 }

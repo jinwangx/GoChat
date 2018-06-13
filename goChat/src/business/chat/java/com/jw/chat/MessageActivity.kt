@@ -1,8 +1,5 @@
 package com.jw.chat
 
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
 import android.databinding.DataBindingUtil
 import android.os.Build
 import android.os.Environment
@@ -22,11 +19,13 @@ import com.jw.gochat.ChatApplication
 import com.jw.gochat.R
 import com.jw.gochat.adapter.MessageAdapter
 import com.jw.gochat.databinding.ActivityMessageBinding
-import com.jw.gochat.receiver.PushReceiver
+import com.jw.chat.event.TextEvent
 import com.jw.gochat.utils.CommonUtil
 import com.jw.gochat.view.NormalTopBar
 import com.jw.gochatbase.BaseActivity
 import com.jw.library.utils.ThemeUtils
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONException
 import org.json.JSONObject
 import java.util.*
@@ -55,18 +54,17 @@ class MessageActivity : BaseActivity(), View.OnClickListener, NormalTopBar.BackL
     private val me = ChatApplication.getAccountInfo()
     private var receiver: Friend? = null
     private var adapter: MessageAdapter? = null
-    private val pushReceiver = object : PushReceiver() {
 
-        override fun onReceive(context: Context, intent: Intent) {
-            val from = intent.getStringExtra(PushReceiver.KEY_FROM)
-            if (receiver!!.account!!.equals(from, ignoreCase = true)) {
-                loadData()
-            }
-
-        }
-    }
     private var msg: Message? = null
     private var mBinding: ActivityMessageBinding? = null
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun Event(textEvent: TextEvent) {
+        val from = textEvent.message.account
+        if (receiver!!.account!!.equals(from, ignoreCase = true)) {
+            loadData()
+        }
+    }
 
     private val messageSendCallBack = object : GoChatCallBack {
 
@@ -131,9 +129,6 @@ class MessageActivity : BaseActivity(), View.OnClickListener, NormalTopBar.BackL
 
     public override fun bindView() {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_message)
-        val filter = IntentFilter()
-        filter.addAction(PushReceiver.ACTION_TEXT)
-        registerReceiver(pushReceiver, filter)
         receiver = intent.getSerializableExtra("receiver") as Friend
     }
 

@@ -29,4 +29,6 @@ dependencies {
     implementation dependencies.pinyin4j
     implementation dependencies.glide
     implementation dependencies.kotlinlib
+    api 'com.fasterxml.jackson.core:jackson-databind:2.9.4'
+    api 'org.greenrobot:eventbus:3.0.0'
 }

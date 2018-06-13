@@ -10,6 +10,7 @@ import com.jw.business.model.bean.BackTask
 import com.jw.business.model.bean.Friend
 import com.jw.business.model.bean.NetTask
 import com.jw.chat.GoChatURL
+import com.jw.chat.business.ConversationBusiness
 import com.jw.chat.business.MessageBusiness
 import com.jw.chat.db.bean.Message
 import com.jw.gochat.service.BackgroundService
@@ -63,6 +64,7 @@ class UploadInfoAction {
                 message.owner = me.account
                 message.read = false
                 MessageBusiness.insert(message)
+                ConversationBusiness.insert(message)
             }
         }.start()
         me.name = name

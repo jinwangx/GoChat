@@ -1,8 +1,6 @@
 package com.jw.chat
 
-import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.View
@@ -13,8 +11,11 @@ import com.jw.gochat.ChatApplication
 import com.jw.gochat.R
 import com.jw.gochat.adapter.ChatAdapter
 import com.jw.gochat.databinding.FragmentCvstBinding
-import com.jw.gochat.receiver.PushReceiver
+import com.jw.chat.event.TextEvent
 import com.jw.gochatbase.BaseFragment
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * 创建时间：2017/3/26
@@ -27,15 +28,16 @@ import com.jw.gochatbase.BaseFragment
 class ConversationFra : BaseFragment(), AdapterView.OnItemClickListener, ChatAdapter.ChatListener {
     private var adapter: ChatAdapter? = null
     private val me = ChatApplication.getAccountInfo()
-    private val pushReceiver = object : PushReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            val to = intent.getStringExtra(PushReceiver.KEY_TO)
-            if (me.account!!.equals(to, ignoreCase = true)) {
-                loadData()
-            }
-        }
-    }
     private var mBinding: FragmentCvstBinding? = null
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun Event(textEvent: TextEvent) {
+        val owner = textEvent.message.owner
+        if (me.account!!.equals(owner, ignoreCase = true)) {
+            loadData()
+        }
+
+    }
 
     override fun bindView(): View {
         mBinding = DataBindingUtil.inflate(activity!!.layoutInflater, R.layout.fragment_cvst, null, false)
@@ -44,10 +46,7 @@ class ConversationFra : BaseFragment(), AdapterView.OnItemClickListener, ChatAda
 
     override fun init() {
         super.init()
-        //动态注册一个收到消息的广播
-        val filter = IntentFilter()
-        filter.addAction(PushReceiver.ACTION_TEXT)
-        activity!!.registerReceiver(pushReceiver, filter)
+        EventBus.getDefault().register(this)
     }
 
     override fun loadData() {
@@ -78,4 +77,9 @@ class ConversationFra : BaseFragment(), AdapterView.OnItemClickListener, ChatAda
 
     //item侧滑后，点击置顶时，执行该操作
     override fun toTop(position: Int) {}
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
 }

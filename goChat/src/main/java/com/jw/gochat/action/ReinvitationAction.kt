@@ -4,9 +4,12 @@ import android.content.Context
 import android.content.Intent
 import com.jw.business.business.FriendBusiness
 import com.jw.business.model.bean.Friend
+import com.jw.business.model.bean.Invitation
 import com.jw.gochat.receiver.PushReceiver
 import com.jw.library.utils.CommonUtils
 import com.jw.chat.GoChatURL
+import com.jw.gochat.event.ReInvitationEvent
+import org.greenrobot.eventbus.EventBus
 
 /**
  * 创建时间：2017/10/29 2017/10/29
@@ -60,9 +63,6 @@ class ReinvitationAction : Action() {
             friend.sort = 0
             FriendBusiness.insert(friend)
         }
-        val intent = Intent(PushReceiver.ACTION_REINVATION)
-        intent.putExtra(PushReceiver.KEY_FROM, sender)
-        intent.putExtra(PushReceiver.KEY_TO, receiver)
-        context.sendBroadcast(intent)
+        EventBus.getDefault().post(ReInvitationEvent(friend))
     }
 }
