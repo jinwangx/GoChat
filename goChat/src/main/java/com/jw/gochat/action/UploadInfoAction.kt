@@ -2,14 +2,16 @@ package com.jw.gochat.action
 
 import android.content.Context
 import android.content.Intent
-import com.jw.business.db.dao.AppDatabase
-import com.jw.business.model.bean.Account
+import com.jw.business.business.AccountInfoBusiness
+import com.jw.business.business.BackTaskBusiness
+import com.jw.business.business.FriendBusiness
+import com.jw.business.model.bean.AccountInfo
 import com.jw.business.model.bean.BackTask
-import com.jw.business.model.bean.Contact
+import com.jw.business.model.bean.Friend
 import com.jw.business.model.bean.NetTask
 import com.jw.chat.GoChatURL
+import com.jw.chat.business.MessageBusiness
 import com.jw.chat.db.bean.Message
-import com.jw.chat.db.dao.MessageDao
 import com.jw.gochat.service.BackgroundService
 import com.jw.gochat.utils.BackTaskFactory
 import com.jw.gochat.utils.CommonUtil
@@ -30,13 +32,12 @@ class UploadInfoAction {
     val action: String
         get() = "uploadInfo"
 
-    fun doAction(context: Context, me: Account,
+    fun doAction(context: Context, me: AccountInfo,
                  name: String, iconFile: File) {
         Thread {
             run {
-                val friendDao = AppDatabase.getInstance(context).friendDao()
                 // 初始化通讯录
-                val friend = Contact()
+                val friend = Friend()
                 friend.owner = me.account
                 friend.account = "GoChat"
                 friend.alpha = "G"
@@ -49,26 +50,24 @@ class UploadInfoAction {
                 FileUtils.copy(inPath, path)
                 friend.icon = path
                 friend.name = "小旺"
-                friend.nickName = ""
+                friend.nick_name = ""
                 friend.sort = 1000
+                FriendBusiness.insert(friend)
 
-                friendDao.addFriend(friend)
-                val messageDao = MessageDao(context)
                 val message = Message()
                 message.account = "GoChat"
                 message.content = "欢迎使用GoChat，有你更精彩"
-                message.createTime = System.currentTimeMillis()
+                message.create_time = System.currentTimeMillis()
                 //未接收
                 message.direction = 1
                 message.owner = me.account
-                message.isRead = false
-                messageDao.addMessage(message)
+                message.read = false
+                MessageBusiness.insert(message)
             }
         }.start()
         me.name = name
-        me.icon = GoChatURL.BASE_HTTP + "/repo/icon/" + me.account + ".png"
-        val dao = AppDatabase.getInstance(context).accountDao()
-        dao.update(me)
+        me.icon = GoChatURL.BASE_HTTP + "/repo/invitator_icon/" + me.account + ".png"
+        AccountInfoBusiness.update(me)
         doAddTask(context, me, iconFile, "addName")
         doAddTask(context, me, iconFile, "addIcon")
 
@@ -81,7 +80,7 @@ class UploadInfoAction {
      * @param iconFile
      * @param type
      */
-    fun doAddTask(context: Context, me: Account, iconFile: File, type: String) {
+    fun doAddTask(context: Context, me: AccountInfo, iconFile: File, type: String) {
         var path: String? = null
         var netTask: NetTask? = null
         // 存储到后台任务中
@@ -99,7 +98,7 @@ class UploadInfoAction {
         task.owner = me.account
         task.path = path
         task.state = 0
-        AppDatabase.getInstance(context).backTaskDao().addTask(task)
+        BackTaskBusiness.insert(task)
 
         try {
             // 把网络任务属性序列化入path中

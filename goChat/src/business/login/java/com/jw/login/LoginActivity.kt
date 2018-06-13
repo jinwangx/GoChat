@@ -26,7 +26,7 @@ class LoginActivity : BaseActivity() {
     private var signInFra: LoginFra? = null
     private var signUpFra: RegisterFra? = null
     private var fillInfoFra: FillInfoFra? = null
-    private val me = ChatApplication.getAccount()
+    private val me = ChatApplication.getAccountInfo()
     private var mBinding: ActivityLoginBinding? = null
 
     public override fun bindView() {

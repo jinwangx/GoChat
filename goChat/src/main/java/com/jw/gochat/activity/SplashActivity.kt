@@ -5,11 +5,11 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.databinding.DataBindingUtil
 import android.os.Build
+import android.util.Log
 import android.view.WindowManager
 import android.view.animation.AlphaAnimation
 import android.widget.Toast
-import com.jw.business.db.dao.AppDatabase
-import com.jw.business.model.bean.Account
+import com.jw.business.business.AccountInfoBusiness
 import com.jw.gochat.ChatApplication
 import com.jw.gochat.R
 import com.jw.gochat.databinding.ActivitySplashBinding
@@ -28,13 +28,14 @@ import com.jw.login.LoginActivity
  */
 
 class SplashActivity : BaseActivity() {
-    private val me = ChatApplication.getAccount()
+    private val me = ChatApplication.getAccountInfo()
     private var mBinding: ActivitySplashBinding? = null
 
     public override fun bindView() {
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_splash)
-        ChatApplication.setAccount(AppDatabase.getInstance().accountDao().getCurrentAccount())
+        ChatApplication.setAccountInfo(AccountInfoBusiness.getCurrentAccountInfo())
+        Log.v("accountttt",AccountInfoBusiness.getCurrentAccountInfo().toString())
     }
 
     override fun initView() {

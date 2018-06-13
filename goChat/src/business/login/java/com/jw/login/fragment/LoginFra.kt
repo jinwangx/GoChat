@@ -13,9 +13,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.bumptech.glide.Glide
-import com.jw.business.db.dao.AppDatabase
-import com.jw.business.model.bean.Account
-import com.jw.business.db.dao.AccountDao
+import com.jw.business.business.AccountInfoBusiness
+import com.jw.business.model.bean.AccountInfo
 import com.jw.chat.GoChatManager
 import com.jw.chat.GoChatURL
 import com.jw.chat.callback.GoChatObjectCallBack
@@ -40,25 +39,23 @@ import com.jw.login.LoginActivity
 class LoginFra : BaseFragment(), View.OnClickListener, TextWatcher {
 
     internal var dialog: Dialog? = null
-    private var accountDao: AccountDao? = null
     private var mBinding: FragmentLoginBinding? = null
 
     /**
      * 登陆请求监听，如果成功，保存账户，进入主界面HomeActivity
      */
-    private val loginCallBack = object : GoChatObjectCallBack<Account>() {
-        override fun onSuccess(account: Account) {
-            val dao = context?.let { AppDatabase.getInstance(it).accountDao() }
-            account.isCurrent = true
-            account.icon = GoChatURL.BASE_HTTP + account.icon!!
+    private val loginCallBack = object : GoChatObjectCallBack<AccountInfo>() {
+        override fun onSuccess(accountInfo: AccountInfo) {
+            accountInfo.current = true
+            accountInfo.icon = GoChatURL.BASE_HTTP + accountInfo.icon!!
                     .replace("\\", "/")
             // 初始化用户连接安全信息
             GoChatManager.getInstance(ChatApplication.getOkHttpClient()).initAccount(
-                    account.account!!, account.token!!)
-            if (dao!!.findAccount(account.account!!) != null)
-                dao.update(account)
+                    accountInfo.account!!, accountInfo.token!!)
+            if (AccountInfoBusiness.getAccountInfoByAccount(accountInfo.account!!) != null)
+                AccountInfoBusiness.update(accountInfo)
             else
-                dao.insert(account)
+                AccountInfoBusiness.insert(accountInfo)
             startActivity(Intent(activity, HomeActivity::class.java))
         }
 
@@ -104,7 +101,6 @@ class LoginFra : BaseFragment(), View.OnClickListener, TextWatcher {
     }
 
     public override fun bindView(): View {
-        accountDao = AppDatabase.getInstance(this.activity!!).accountDao()
         mBinding = DataBindingUtil.inflate(activity!!.layoutInflater, R.layout.fragment_login, null, false)
         return mBinding!!.root
     }
@@ -138,7 +134,7 @@ class LoginFra : BaseFragment(), View.OnClickListener, TextWatcher {
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
         if (s != null) {
             mBinding!!.btnLogin.isEnabled = true
-            val account = accountDao!!.findAccount(s.toString())
+            val account = AccountInfoBusiness.getAccountInfoByAccount(s.toString())
             if (account != null) {
                 Glide.with(activity!!).load(account.icon).into(mBinding!!.ivLoginIcon)
             }

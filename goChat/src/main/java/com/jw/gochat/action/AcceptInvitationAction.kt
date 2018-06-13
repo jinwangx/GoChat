@@ -3,11 +3,12 @@ package com.jw.gochat.action
 import android.app.Activity
 import android.content.Intent
 import android.os.SystemClock
-import com.jw.business.db.dao.AppDatabase
+import com.jw.business.business.BackTaskBusiness
+import com.jw.business.business.FriendBusiness
+import com.jw.business.business.InvitationBusiness
 import com.jw.business.model.bean.BackTask
-import com.jw.business.model.bean.Contact
+import com.jw.business.model.bean.Friend
 import com.jw.business.model.bean.Invitation
-import com.jw.chat.GoChat
 import com.jw.gochat.service.BackgroundService
 import com.jw.gochat.utils.BackTaskFactory
 import com.jw.gochat.utils.CommonUtil
@@ -31,29 +32,26 @@ class AcceptInvitationAction {
 
     fun doAction(activity: Activity, o: Any) {
         // 更新数据库
-        val dao = AppDatabase.getInstance(GoChat.getContext()).invitationDao()
         val invitation = o as Invitation
-        invitation.isAgree = true
-        dao.updateInvitation(invitation)
+        invitation.agree = true
+        InvitationBusiness.updateInvitation(invitation)
 
         // 添加到好友列表
-        val friendDao = AppDatabase.getInstance(GoChat.getContext()).friendDao()
-        var friend = friendDao.queryFriendByAccount(
-                invitation.owner!!, invitation.account!!)
+        var friend = FriendBusiness.getFriendById(invitation.owner!!, invitation.invitator_account!!)
         if (friend == null) {
-            friend = Contact()
-            friend.account = invitation.account
-            friend.alpha = CommonUtils.getFirstAlpha(invitation.name)
-            friend.name = invitation.name
+            friend = Friend()
+            friend.account = invitation.invitator_account
+            friend.alpha = CommonUtils.getFirstAlpha(invitation.invitator_name)
+            friend.name = invitation.invitator_name
             friend.owner = invitation.owner
             friend.sort = 0
-            friend.icon = invitation.icon
-            friendDao.addFriend(friend)
+            friend.icon = invitation.invitator_icon
+            FriendBusiness.insert(friend)
         }
 
         // 存储到后台任务中
         val taskDir = CommonUtil.getTaskDir(activity)
-        val file = ThemeUtils.string2MD5(invitation.account + "_"
+        val file = ThemeUtils.string2MD5(invitation.invitator_account + "_"
                 + SystemClock.currentThreadTimeMillis())
         val path = File(taskDir, file).absolutePath
 
@@ -61,10 +59,10 @@ class AcceptInvitationAction {
         task.owner = invitation.owner
         task.path = path
         task.state = 0
-        AppDatabase.getInstance(activity).backTaskDao().addTask(task)
+        BackTaskBusiness.insert(task)
 
         val netTask = BackTaskFactory.newFriendAcceptTask(
-                invitation.account!!, invitation.owner!!)
+                invitation.invitator_account!!, invitation.owner!!)
         try {
             // 写入到缓存
             FileUtils.write(netTask, path)

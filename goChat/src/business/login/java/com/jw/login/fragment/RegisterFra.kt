@@ -4,8 +4,8 @@ import android.databinding.DataBindingUtil
 import android.os.Handler
 import android.os.Message
 import android.view.View
-import com.jw.business.db.dao.AppDatabase
-import com.jw.business.model.bean.Account
+import com.jw.business.business.AccountInfoBusiness
+import com.jw.business.model.bean.AccountInfo
 import com.jw.chat.GoChatError
 import com.jw.chat.GoChatManager
 import com.jw.chat.callback.GoChatObjectCallBack
@@ -40,18 +40,18 @@ class RegisterFra : BaseFragment(), View.OnClickListener, NormalTopBar.BackListe
     })
     private var mBinding: FragmentRegisterBinding? = null
 
-    private val registerCallBack = object : GoChatObjectCallBack<Account>() {
-        override fun onSuccess(account: Account) {
+    private val registerCallBack = object : GoChatObjectCallBack<AccountInfo>() {
+        override fun onSuccess(accountInfo: AccountInfo) {
             val message = Message.obtain()
             // 初始化用户连接安全信息
             GoChatManager.getInstance(ChatApplication.getOkHttpClient()).initAccount(
-                    account.account, account.token)
+                    accountInfo.account, accountInfo.token)
             message.what = SUCCESS
             mHandler.sendMessage(message)
             // 存储用户
-            val dao = activity?.let { AppDatabase.getInstance(it).accountDao() }
-            account.isCurrent = true
-            dao!!.insert(account)
+            accountInfo.current = true
+            ChatApplication.setAccountInfo(accountInfo)
+            AccountInfoBusiness!!.insert(accountInfo)
             dialog!!.dismiss()
             (activity as LoginActivity).goFillInfoFra()
         }

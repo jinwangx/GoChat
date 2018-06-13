@@ -7,8 +7,8 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
-import com.jw.business.model.bean.Contact
-import com.jw.chat.db.dao.MessageDao
+import com.jw.business.model.bean.Friend
+import com.jw.chat.business.ConversationBusiness
 import com.jw.gochat.ChatApplication
 import com.jw.gochat.R
 import com.jw.gochat.adapter.ChatAdapter
@@ -26,7 +26,7 @@ import com.jw.gochatbase.BaseFragment
 
 class ConversationFra : BaseFragment(), AdapterView.OnItemClickListener, ChatAdapter.ChatListener {
     private var adapter: ChatAdapter? = null
-    private val me = ChatApplication.getAccount()
+    private val me = ChatApplication.getAccountInfo()
     private val pushReceiver = object : PushReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             val to = intent.getStringExtra(PushReceiver.KEY_TO)
@@ -51,9 +51,8 @@ class ConversationFra : BaseFragment(), AdapterView.OnItemClickListener, ChatAda
     }
 
     override fun loadData() {
-        val dao = MessageDao(activity!!)
-        val cursor = dao.queryConversation(me.account!!)
-        adapter = ChatAdapter(activity!!, cursor)
+        val cursor = ConversationBusiness.query(me.account!!)
+        adapter = ChatAdapter(activity!!, cursor!!)
         mBinding!!.lvCvst.adapter = adapter
     }
 
@@ -68,7 +67,7 @@ class ConversationFra : BaseFragment(), AdapterView.OnItemClickListener, ChatAda
         val intent = Intent()
         val bundle = Bundle()
         bundle.putParcelable("me", me)
-        bundle.putSerializable("receiver", view.tag as Contact)
+        bundle.putSerializable("receiver", view.tag as Friend)
         intent.setClass(activity!!, MessageActivity::class.java)
         intent.putExtras(bundle)
         startActivity(intent)

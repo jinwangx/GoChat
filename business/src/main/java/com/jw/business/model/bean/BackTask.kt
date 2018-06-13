@@ -16,9 +16,10 @@ import org.jetbrains.annotations.NotNull
 
 @Entity(tableName = "back_task")
 class BackTask {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NotNull
-    var id: Long = 0
+    @ColumnInfo(name = "_id")
+    var _id: Long = 0
     @ColumnInfo(name = "owner")
     var owner: String? = null
     @ColumnInfo(name = "path")

@@ -11,18 +11,18 @@ import com.jw.business.model.bean.BackTask
 interface BackTaskDao {
 
     @Query("select * from back_task where 'owner'=:owner")
-    fun query(owner: String): BackTask
+    fun getTaskByOwner(owner: String): BackTask?
 
     @Query("select * from back_task where 'owner'=:owner and 'state='=:state")
-    fun query(owner: String, state: Int):Cursor
+    fun getTaskByState(owner: String, state: Int):Cursor?
 
     @Insert
-    fun addTask(task: BackTask)
+    fun insert(task: BackTask):Long
 
     @Update
-    fun updateTask(task: BackTask)
+    fun update(task: BackTask):Int
 
     @Query("update back_task set 'state'=:state where '_id'=:id")
-    fun update(id: Long, state: Int)
+    fun updateTaskStateById(id: Long, state: Int):Int
 
 }

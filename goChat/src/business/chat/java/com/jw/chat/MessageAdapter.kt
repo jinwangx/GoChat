@@ -10,12 +10,11 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 
 import com.bumptech.glide.Glide
-import com.jw.business.db.dao.AppDatabase
+import com.jw.business.business.FriendBusiness
 import com.jw.gochat.ChatApplication
 import com.jw.gochat.R
-import com.jw.business.model.bean.Contact
-import com.jw.business.db.dao.FriendDao
-import com.jw.business.model.bean.Account
+import com.jw.business.model.bean.Friend
+import com.jw.business.model.bean.AccountInfo
 
 import java.text.SimpleDateFormat
 
@@ -29,10 +28,9 @@ import de.hdodenhof.circleimageview.CircleImageView
  * 描述：对话页面适配器
  */
 
-class MessageAdapter(context: Context, c: Cursor, private val receiver: Contact) : CursorAdapter(context, c) {
+class MessageAdapter(context: Context, c: Cursor, private val receiver: Friend) : CursorAdapter(context, c) {
 
-    private val me: Account = ChatApplication.getAccount()
-    private val friendDao: FriendDao = AppDatabase.getInstance(context).friendDao()
+    private val me: AccountInfo = ChatApplication.getAccountInfo()
 
     override fun newView(context: Context, cursor: Cursor, parent: ViewGroup): View {
         return View.inflate(context, R.layout.listitem_message, null)
@@ -67,7 +65,7 @@ class MessageAdapter(context: Context, c: Cursor, private val receiver: Contact)
             val tvReceive = view.findViewById<View>(R.id.tv_msg_receive) as TextView
             val ivMessager = view.findViewById<View>(R.id.iv_msg_sender) as CircleImageView
             Glide.with(context)
-                    .load(friendDao.queryFriendByAccount(me.account!!, receiver.account!!)!!.icon)
+                    .load(FriendBusiness.getFriendById(me.account!!, receiver.account!!)!!.icon)
                     .into(ivMessager)
             tvReceive.text = content
         }

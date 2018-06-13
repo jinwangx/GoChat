@@ -2,8 +2,8 @@ package com.jw.gochat.action
 
 import android.content.Context
 import android.content.Intent
-import com.jw.business.db.dao.AppDatabase
-import com.jw.business.model.bean.Contact
+import com.jw.business.business.FriendBusiness
+import com.jw.business.model.bean.Friend
 import com.jw.gochat.receiver.PushReceiver
 import com.jw.library.utils.CommonUtils
 import com.jw.chat.GoChatURL
@@ -20,8 +20,8 @@ import com.jw.chat.GoChatURL
  * action		String	请求的行为:reinvitation
  * sender		String	发送者账号
  * receiver	String	接收者的账号
- * name		String	接受邀请者的名字
- * icon		String	接受邀请者的头像
+ * invitator_name		String	接受邀请者的名字
+ * invitator_icon		String	接受邀请者的头像
  * content	String	邀请的文本内容
  */
 
@@ -38,19 +38,18 @@ class ReinvitationAction : Action() {
         val sender = data["sender"].toString()
         var name: String? = null
         var icon: String? = null
-        val nameObj = data["name"]
+        val nameObj = data["invitator_name"]
         if (nameObj != null) {
             name = nameObj as String?
         }
-        val iconObj = data["icon"]
+        val iconObj = data["invitator_icon"]
         if (iconObj != null) {
             icon = iconObj as String?
         }
         // 数据存储
-        val friendDao = AppDatabase.getInstance(context).friendDao()
-        var friend = friendDao.queryFriendByAccount(receiver, sender)
+        var friend = FriendBusiness.getFriendById(receiver, sender)
         if (friend == null) {
-            friend = Contact()
+            friend = Friend()
             friend.account = sender
             friend.alpha = CommonUtils.getFirstAlpha(name)
             if (icon != null) {
@@ -59,7 +58,7 @@ class ReinvitationAction : Action() {
             friend.name = name
             friend.owner = receiver
             friend.sort = 0
-            friendDao.addFriend(friend)
+            FriendBusiness.insert(friend)
         }
         val intent = Intent(PushReceiver.ACTION_REINVATION)
         intent.putExtra(PushReceiver.KEY_FROM, sender)

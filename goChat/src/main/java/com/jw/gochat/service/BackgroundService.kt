@@ -2,7 +2,8 @@ package com.jw.gochat.service
 
 import android.content.Intent
 import android.util.Log
-import com.jw.business.db.dao.AppDatabase
+import com.jw.business.business.BackTaskBusiness
+import com.jw.business.db.AppDatabase
 import com.jw.business.model.bean.NetTask
 import com.jw.business.db.GCDB
 import com.jw.business.db.dao.BackTaskDao
@@ -24,7 +25,7 @@ import java.util.*
  */
 
 class BackgroundService : BaseIntentService("background") {
-    private val me = ChatApplication.getAccount()
+    private val me = ChatApplication.getAccountInfo()
     private var headers: HashMap<String, String>? = null
     override fun onHandleIntent(intent: Intent?) {
 
@@ -37,7 +38,7 @@ class BackgroundService : BaseIntentService("background") {
         val dao = AppDatabase.getInstance(GoChat.getContext()).backTaskDao()
         val map = HashMap<Long, String>()
         val owner = me.account
-        val cursor = dao.query(owner!!, 0)
+        val cursor = BackTaskBusiness.getTaskByStateOfOwner(owner!!, 0)
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 val id = cursor.getLong(cursor
@@ -54,11 +55,11 @@ class BackgroundService : BaseIntentService("background") {
                 val task = FileUtils.read(filePath) as NetTask
                 val type = task.type
                 if (type == NetTask.TYPE_NORMAL) {
-                    doNormalTask(dao, id, task)
+                    doNormalTask(id, task)
                 } else if (type == NetTask.TYPE_UPLOAD) {
-                    doUploadTask(dao, id, task)
+                    doUploadTask(task)
                 } else if (type == NetTask.TYPE_DOWNLOAD) {
-                    doDownloadTask(dao, id, task)
+                    doDownloadTask(task)
                 }
 
             } catch (e: Exception) {
@@ -69,16 +70,16 @@ class BackgroundService : BaseIntentService("background") {
 
     }
 
-    private fun doNormalTask(dao: BackTaskDao, id: Long?, task: NetTask) {
+    private fun doNormalTask(id: Long?, task: NetTask) {
         val result = HttpUtils.getInstance().post(GoChatURL.BASE_HTTP + task.path!!, headers,
                 task.params)
         if (result) {
             Log.v("backGroundService", task.type.toString() + "任务后台执行成功")
-            dao.update(id!!, 2)
+            BackTaskBusiness.updateTaskStateById(id!!, 2)
         }
     }
 
-    private fun doUploadTask(dao: BackTaskDao, id: Long?, task: NetTask) {
+    private fun doUploadTask(task: NetTask) {
         val files = task.files
         if (files != null) {
             HttpUtils.getInstance().upload(GoChatURL.BASE_HTTP + task.path!!, headers, task.params,
@@ -86,7 +87,7 @@ class BackgroundService : BaseIntentService("background") {
         }
     }
 
-    private fun doDownloadTask(dao: BackTaskDao, id: Long?, task: NetTask) {
+    private fun doDownloadTask(task: NetTask) {
         val files = task.files
         if (files != null) {
             HttpUtils.getInstance().download(GoChatURL.BASE_HTTP + task.path!!, headers, task.params,

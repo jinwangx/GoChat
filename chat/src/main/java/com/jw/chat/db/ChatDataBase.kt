@@ -1,16 +1,11 @@
 package com.jw.chat.db
 
-import android.arch.persistence.db.SupportSQLiteDatabase
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
-import android.arch.persistence.room.migration.Migration
 import android.content.Context
-import com.jw.business.db.dao.*
-import com.jw.business.model.bean.Account
-import com.jw.business.model.bean.BackTask
-import com.jw.business.model.bean.Contact
-import com.jw.business.model.bean.Invitation
+import com.jw.chat.db.bean.Conversation
+import com.jw.chat.db.bean.Message
 import com.jw.chat.db.dao.ConversationDao
 import com.jw.chat.db.dao.MessageDao
 import com.jw.gochatbase.BaseApplication
@@ -21,7 +16,7 @@ import com.jw.gochatbase.BaseApplication
  * Created : Administrator on 2018/6/12.
  * Description : 描述
  */
-@Database(entities = [Message::class,ConversationDao], version = 1, exportSchema = false)
+@Database(entities = [Message::class,Conversation::class], version = 1, exportSchema = false)
 abstract class ChatDataBase : RoomDatabase() {
     abstract fun messageDao(): MessageDao
     abstract fun conversationDao(): ConversationDao
@@ -33,7 +28,7 @@ abstract class ChatDataBase : RoomDatabase() {
         @Synchronized
         fun getInstance(context: Context): ChatDataBase {
             if (INSTANCE == null) INSTANCE = Room.databaseBuilder(context.applicationContext,
-                    ChatDataBase::class.java, "gochat.db")
+                    ChatDataBase::class.java, "gochat1.db")
                     .allowMainThreadQueries()
                     .build()
             return INSTANCE!!
@@ -42,7 +37,7 @@ abstract class ChatDataBase : RoomDatabase() {
         @Synchronized
         fun getInstance(): ChatDataBase {
             if (INSTANCE == null) INSTANCE = Room.databaseBuilder(BaseApplication.getContext()!!.applicationContext,
-                    ChatDataBase::class.java, "gochat.db")
+                    ChatDataBase::class.java, "gochat1.db")
                     .allowMainThreadQueries()
                     .build()
             return INSTANCE!!

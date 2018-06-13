@@ -7,7 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.bumptech.glide.Glide
-import com.jw.business.db.dao.AppDatabase
+import com.jw.business.business.FriendBusiness
+import com.jw.business.db.AppDatabase
 import com.jw.business.db.dao.FriendDao
 import com.jw.chat.db.GCDB
 import com.jw.gochat.ChatApplication
@@ -24,7 +25,6 @@ import de.hdodenhof.circleimageview.CircleImageView
 
 class ChatAdapter(context: Context, c: Cursor) : CursorAdapter(context, c) {
     private var mListener: ChatListener? = null
-    private val friendDao: FriendDao = AppDatabase.getInstance(context).friendDao()
 
     override fun newView(context: Context, cursor: Cursor, parent: ViewGroup): View {
         return View.inflate(context, R.layout.listitem_conversation, null)
@@ -42,7 +42,7 @@ class ChatAdapter(context: Context, c: Cursor) : CursorAdapter(context, c) {
             tvUnread.visibility = View.INVISIBLE
         else
             tvUnread.visibility = View.VISIBLE
-        val friend = friendDao.queryFriendByAccount(ChatApplication.getAccount().account!!, account)
+        val friend = FriendBusiness.getFriendById(ChatApplication.getAccountInfo().account!!, account)
         Glide.with(context).load(friend!!.icon).into(ivAccount)
         tvName.text = account
         tvLastNews.text = content

@@ -15,10 +15,10 @@ import com.bumptech.glide.Glide
 import com.jw.acccount.MQrActivity
 import com.jw.acccount.SettingActivity
 import com.jw.chat.ConversationFra
-import com.jw.chat.db.dao.MessageDao
+import com.jw.chat.business.ConversationBusiness
 import com.jw.contact.FriendAddActivity
 import com.jw.gochat.ChatApplication
-import com.jw.gochat.ChatApplication.getAccount
+import com.jw.gochat.ChatApplication.getAccountInfo
 import com.jw.gochat.R
 import com.jw.gochat.databinding.ActivityHomeBinding
 import com.jw.gochat.fragment.MeFra
@@ -50,7 +50,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, HomeDrag.HomeStateLis
     private val tabSpecs = arrayOfNulls<TabHost.TabSpec>(3)
 
     private var allUnread: Int = 0
-    private val me = ChatApplication.getAccount()
+    private val me = ChatApplication.getAccountInfo()
     private var player: MediaPlayer? = null
     private val pushReceiver = object : PushReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
@@ -151,8 +151,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, HomeDrag.HomeStateLis
 
 
     private fun initTabState() {
-        val dao = MessageDao(this)
-        allUnread = dao.getAllUnread(getAccount().account!!)
+        allUnread = ConversationBusiness.getAllUnread(getAccountInfo().account!!)
         if (allUnread != 0) {
             indicators[0]!!.setUnreadVisible(View.VISIBLE)
             indicators[0]!!.setUnread(allUnread)

@@ -2,7 +2,7 @@ package com.jw.gochat.activity
 
 import android.databinding.DataBindingUtil
 import android.view.View
-import com.jw.business.db.dao.AppDatabase
+import com.jw.business.db.AppDatabase
 import com.jw.business.model.bean.Invitation
 import com.jw.business.db.dao.InvitationDao
 import com.jw.gochat.ChatApplication
@@ -15,7 +15,7 @@ import com.jw.gochatbase.BaseActivity
 
 class InvitationActivity : BaseActivity(), NormalTopBar.BackListener {
     private var adapter: InvitationAdapter? = null
-    private val me = ChatApplication.getAccount()
+    private val me = ChatApplication.getAccountInfo()
     private var dao: InvitationDao? = null
     private var mBinding: ActivityInvitationBinding? = null
 
@@ -25,7 +25,7 @@ class InvitationActivity : BaseActivity(), NormalTopBar.BackListener {
         val action = AcceptInvitationAction()
         action.doAction(this@InvitationActivity, o)
         // ui更新
-        adapter!!.changeCursor(AppDatabase.getInstance().invitationDao().queryCursor((o as Invitation).owner!!))
+        adapter!!.changeCursor(AppDatabase.getInstance().invitationDao().getInvitationByOwner((o as Invitation).owner!!))
 
         finish()
     }
@@ -45,7 +45,7 @@ class InvitationActivity : BaseActivity(), NormalTopBar.BackListener {
 
     override fun loadData() {
         dao = AppDatabase.getInstance().invitationDao()
-        val cursor = dao!!.queryCursor(me.account!!)
+        val cursor = dao!!.getInvitationByOwner(me.account!!)
         adapter!!.changeCursor(cursor)
     }
 

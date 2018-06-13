@@ -2,7 +2,7 @@ package com.jw.gochat.action
 
 import android.content.Context
 import android.content.Intent
-import com.jw.business.db.dao.AppDatabase
+import com.jw.business.business.InvitationBusiness
 import com.jw.business.model.bean.Invitation
 import com.jw.chat.GoChatURL
 import com.jw.gochat.receiver.PushReceiver
@@ -66,24 +66,23 @@ class InvitationAction : Action() {
         } else {
         }
         // 存取数据
-        val invitationDao = AppDatabase.getInstance(context).invitationDao()
-        var invitation = invitationDao.queryInvitation(receiver, sender)
+        var invitation = InvitationBusiness.getInvitationByAccount(receiver, sender)
         if (invitation == null) {
             invitation = Invitation()
-            invitation.account = sender
+            invitation.invitator_account = sender
             invitation.owner = receiver
-            invitation.isAgree = false
+            invitation.agree = false
             if (icon != null) {
-                invitation.icon = GoChatURL.BASE_HTTP + icon.replace("\\", "/")
+                invitation.invitator_icon = GoChatURL.BASE_HTTP + icon.replace("\\", "/")
             }
-            invitation.name = name
-            invitationDao.addInvitation(invitation)
+            invitation.invitator_name = name
+            InvitationBusiness.addInvitation(invitation)
         } else {
-            invitation.isAgree = false
+            invitation.agree = false
             if (icon != null) {
-                invitation.icon = GoChatURL.BASE_HTTP + icon.replace("\\", "/")
+                invitation.invitator_icon = GoChatURL.BASE_HTTP + icon.replace("\\", "/")
             }
-            invitationDao.updateInvitation(invitation)
+            InvitationBusiness.updateInvitation(invitation)
         }
         // 发送广播
         val intent = Intent(PushReceiver.ACTION_INVATION)

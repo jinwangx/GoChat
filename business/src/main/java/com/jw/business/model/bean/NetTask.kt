@@ -23,8 +23,8 @@ class NetTask : Serializable {
 
     companion object {
         private const val serialVersionUID = 6231882517017053073L
-        val TYPE_NORMAL = 0
-        val TYPE_UPLOAD = 1
-        val TYPE_DOWNLOAD = 2
+        const val TYPE_NORMAL = 0
+        const val TYPE_UPLOAD = 1
+        const val TYPE_DOWNLOAD = 2
     }
 }

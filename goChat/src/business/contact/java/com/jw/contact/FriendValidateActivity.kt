@@ -28,7 +28,7 @@ class FriendValidateActivity : BaseActivity(), NormalTopBar.BackListener {
     private val sendValidateListener = NormalTopBar.SendValidateListener {
         val content = mBinding!!.etValidateMsg.text.toString()
         if (content != null) {
-            val account = ChatApplication.getAccount()
+            val account = ChatApplication.getAccountInfo()
             val message = ChatMessage
                     .createMessage(ChatMessage.Type.INVITATION)
             message.body = InvitationBody(content)

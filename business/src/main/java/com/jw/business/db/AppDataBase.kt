@@ -1,14 +1,16 @@
-package com.jw.business.db.dao
+package com.jw.business.db
 
-import android.arch.persistence.db.SupportSQLiteDatabase
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
-import android.arch.persistence.room.migration.Migration
 import android.content.Context
-import com.jw.business.model.bean.Account
+import com.jw.business.db.dao.AccountInfoDao
+import com.jw.business.db.dao.BackTaskDao
+import com.jw.business.db.dao.FriendDao
+import com.jw.business.db.dao.InvitationDao
+import com.jw.business.model.bean.AccountInfo
 import com.jw.business.model.bean.BackTask
-import com.jw.business.model.bean.Contact
+import com.jw.business.model.bean.Friend
 import com.jw.business.model.bean.Invitation
 import com.jw.gochatbase.BaseApplication
 
@@ -18,9 +20,9 @@ import com.jw.gochatbase.BaseApplication
  * Created : Administrator on 2018/6/12.
  * Description : 描述
  */
-@Database(entities = [Account::class, (BackTask::class), (Contact::class), (Invitation::class)], version = 1, exportSchema = false)
+@Database(entities = [AccountInfo::class, (BackTask::class), (Friend::class), (Invitation::class)], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun accountDao(): AccountDao
+    abstract fun accountDao(): AccountInfoDao
     abstract fun backTaskDao(): BackTaskDao
     abstract fun friendDao(): FriendDao
     abstract fun invitationDao(): InvitationDao

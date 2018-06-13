@@ -31,7 +31,7 @@ import java.io.File
 
 class FillInfoFra : BaseFragment(), View.OnClickListener, TextWatcher, NormalTopBar.BackListener {
     private val crop = 200
-    private val me = ChatApplication.getAccount()
+    private val me = ChatApplication.getAccountInfo()
     private var iconFile: File? = null
     private var dialog: DialogChooseImage? = null
     private var mBinding: FragmentFillInfoBinding? = null
@@ -69,7 +69,7 @@ class FillInfoFra : BaseFragment(), View.OnClickListener, TextWatcher, NormalTop
 
     override fun init() {
         super.init()
-        //存储默认头像到本地头像文件夹 /data/Android/com.jw.qq/icon/
+        //存储默认头像到本地头像文件夹 /data/Android/com.jw.qq/invitator_icon/
         val inPath = CommonUtil.getIconDir(this.activity!!) + "/default_icon_user.png"
         iconFile = File(CommonUtil.getIconDir(this.activity!!), me.account!!)
         FileUtils.copy(inPath, iconFile!!.absolutePath)

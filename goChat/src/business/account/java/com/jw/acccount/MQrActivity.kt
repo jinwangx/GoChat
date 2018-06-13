@@ -21,7 +21,7 @@ import com.jw.gochatbase.BaseActivity
  */
 
 class MQrActivity : BaseActivity(), NormalTopBar.BackListener {
-    private val me = ChatApplication.getAccount()
+    private val me = ChatApplication.getAccountInfo()
     private var mBinding: ActivityMqrBinding? = null
 
     public override fun bindView() {

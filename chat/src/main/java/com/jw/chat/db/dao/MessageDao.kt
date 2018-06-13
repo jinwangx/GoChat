@@ -15,67 +15,29 @@ import com.jw.chat.db.bean.Message
 @Dao
 interface MessageDao {
 
-    fun addMessage(message: Message) {
-        insert(message)
-        val cursor=queryMessage(message.owner!!, message.account!!)
-        if (cursor.moveToNext()) {
-            // 关闭cursor
-            cursor.close()
-            var unread = 0
-            val cursor = queryUnreadCount(message.owner!!, message.account!!)
-            if (cursor.moveToNext()) {
-                unread = cursor.getInt(0)
-            }
-            val conversation=Conversation()
-            conversation.account=message.account
-            conversation.content=if(message.type==0) message.content else "图片"
-            conversation.owner=message.owner
-            conversation.unread=unread
-            conversation.updateTime=System.currentTimeMillis()
-            ChatDataBase.getInstance().conversationDao().update(conversation)
-        } else {
-            val conversation = Conversation()
-            conversation.account = message.account
-            conversation.content = if(message.type==0) message.content else "图片"
-            conversation.owner = message.owner
-            conversation.unread = if (message.isRead) 0 else 1
-            conversation.updateTime = System.currentTimeMillis()
-            ChatDataBase.getInstance().conversationDao().insert(conversation)
-        }
-    }
-
     @Insert
-    fun insert(message: Message):Int
+    fun insert(message: Message):Long
 
     @Update
-    fun updateMessage(message: Message)
+    fun update(message: Message):Int
 
-    @Query("update message set 'isRead'=:read where 'owner' =:owner and 'account'=:account")
-    fun update(owner: String, account: String,read:Boolean): Cursor
+    @Query("update message set 'read'=:isRead where 'owner' =:owner and 'account'=:account")
+    fun update(owner: String, account: String,isRead:Boolean): Int
+
+    @Query("update message set 'read'=:isRead where 'owner' =:owner")
+    fun update(owner: String,isRead:Boolean): Int
 
     @Query("select * from message where 'owner' =:owner and 'account'=:account order by 'create_time' asc")
-    fun queryMessage(owner: String, account: String): Cursor
+    fun query(owner: String, account: String): Cursor
+
+    @Query("select count('_id') from message where 'read'=0 and 'owner'=:owner")
+    fun getUnreadCountByOwner(owner: String): Int
 
     @Query("select count('_id') from message where 'read'=0 and 'account'=:account and 'owner'=:owner")
-    fun queryUnreadCount(owner: String, account: String): Cursor
+    fun getUnreadCountByAccount(owner: String, account: String): Int
 
     @Query("select * from message where 'owner' =:owner  order by 'create_time' desc")
-    fun queryConversation(owner: String): Cursor
+    fun queryAllByOwner(owner: String): Cursor
 
-    fun clearUnread(owner: String, account: String) {
-        update(owner,account,true)
-        ChatDataBase.getInstance().conversationDao().update(owner,account,0)
-    }
 
-    fun getAllUnread(owner: String): Int {
-        val cursor = ChatDataBase.getInstance().conversationDao().getUnread(owner)
-        var sum = 0
-        if (cursor != null) {
-            if (cursor.moveToNext()) {
-                sum = cursor.getInt(0)
-            }
-            cursor.close()
-        }
-        return sum
-    }
 }

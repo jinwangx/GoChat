@@ -5,8 +5,8 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.View
 import com.bumptech.glide.Glide
-import com.jw.business.db.dao.AppDatabase
-import com.jw.business.model.bean.Contact
+import com.jw.business.business.FriendBusiness
+import com.jw.business.model.bean.Friend
 import com.jw.business.db.dao.FriendDao
 import com.jw.chat.GoChatURL
 import com.jw.chat.MessageActivity
@@ -26,8 +26,8 @@ import com.jw.gochatbase.BaseActivity
 
 class FriendDetailActivity : BaseActivity(), View.OnClickListener, NormalTopBar.BackListener {
 
-    private var friend: Contact? = null
-    private val me = ChatApplication.getAccount()
+    private var friend: Friend? = null
+    private val me = ChatApplication.getAccountInfo()
     private var dao: FriendDao? = null
     private var mBinding: ActivityFriendDetailBinding? = null
 
@@ -37,9 +37,8 @@ class FriendDetailActivity : BaseActivity(), View.OnClickListener, NormalTopBar.
 
     override fun initView() {
         super.initView()
-        friend = intent.getSerializableExtra("friend") as Contact
-        dao = AppDatabase.getInstance().friendDao()
-        if (dao!!.queryFriendByAccount(me.account!!, friend!!.account!!) != null) {
+        friend = intent.getSerializableExtra("friend") as Friend
+        if (FriendBusiness.getFriendById(me.account!!, friend!!.account!!) != null) {
             mBinding!!.btnFriendAdd.visibility = View.GONE
             Glide.with(this).load(friend!!.icon).into(mBinding!!.ivListItemFriendIcon)
         } else {

@@ -11,10 +11,11 @@ import android.view.View
 import com.iflytek.cloud.*
 import com.iflytek.cloud.ui.RecognizerDialog
 import com.iflytek.cloud.ui.RecognizerDialogListener
-import com.jw.business.model.bean.Contact
+import com.jw.business.model.bean.Friend
+import com.jw.chat.business.ConversationBusiness
+import com.jw.chat.business.MessageBusiness
 import com.jw.chat.callback.GoChatCallBack
 import com.jw.chat.db.bean.Message
-import com.jw.chat.db.dao.MessageDao
 import com.jw.chat.msg.ChatMessage
 import com.jw.chat.msg.TextBody
 import com.jw.gochat.ChatApplication
@@ -51,8 +52,8 @@ class MessageActivity : BaseActivity(), View.OnClickListener, NormalTopBar.BackL
     //private String mEngineType = SpeechConstant.TYPE_CLOUD;
 
     private val mIatResults = LinkedHashMap<String?, String>()
-    private val me = ChatApplication.getAccount()
-    private var receiver: Contact? = null
+    private val me = ChatApplication.getAccountInfo()
+    private var receiver: Friend? = null
     private var adapter: MessageAdapter? = null
     private val pushReceiver = object : PushReceiver() {
 
@@ -65,14 +66,13 @@ class MessageActivity : BaseActivity(), View.OnClickListener, NormalTopBar.BackL
         }
     }
     private var msg: Message? = null
-    private var dao: MessageDao? = null
     private var mBinding: ActivityMessageBinding? = null
 
     private val messageSendCallBack = object : GoChatCallBack {
 
         override fun onSuccess() {
             msg!!.state = 2
-            dao!!.updateMessage(msg!!)
+            MessageBusiness.update(msg!!)
             // 更新ui
             loadData()
         }
@@ -83,7 +83,7 @@ class MessageActivity : BaseActivity(), View.OnClickListener, NormalTopBar.BackL
         override fun onError(error: Int, errorString: String) {
             ThemeUtils.show(this@MessageActivity, errorString)
             msg!!.state = 3
-            dao!!.updateMessage(msg!!)
+            MessageBusiness!!.update(msg!!)
             // 更新ui
             loadData()
         }
@@ -134,15 +134,14 @@ class MessageActivity : BaseActivity(), View.OnClickListener, NormalTopBar.BackL
         val filter = IntentFilter()
         filter.addAction(PushReceiver.ACTION_TEXT)
         registerReceiver(pushReceiver, filter)
-        receiver = intent.getSerializableExtra("receiver") as Contact
+        receiver = intent.getSerializableExtra("receiver") as Friend
     }
 
     override fun initView() {
         super.initView()
         mBinding!!.ntMsg.setTitle(receiver!!.account)
         mBinding!!.ntMsg.setBackListener(this)
-        val dao = MessageDao(this)
-        val cursor = dao.queryMessage(me.account!!, receiver!!.account!!)
+        val cursor = MessageBusiness.query(me.account!!, receiver!!.account!!)
         adapter = MessageAdapter(this, cursor, receiver!!)
         mBinding!!.lvMsg.adapter = adapter
         mBinding!!.lvMsg.dividerHeight = 0
@@ -154,8 +153,7 @@ class MessageActivity : BaseActivity(), View.OnClickListener, NormalTopBar.BackL
     }
 
     override fun loadData() {
-        val dao = MessageDao(this)
-        val cursor = dao.queryMessage(me.account!!, receiver!!.account!!)
+        val cursor = MessageBusiness.query(me.account!!, receiver!!.account!!)
         adapter!!.changeCursor(cursor)
         mBinding!!.lvMsg.post {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
@@ -187,17 +185,16 @@ class MessageActivity : BaseActivity(), View.OnClickListener, NormalTopBar.BackL
         if (!TextUtils.isEmpty(content)) {
             mBinding!!.etMsgContent.setText("")
             // 存储到本地
-            dao = MessageDao(this)
             msg = Message()
             msg!!.account = receiver!!.account
             msg!!.content = content
-            msg!!.createTime = System.currentTimeMillis()
+            msg!!.create_time = System.currentTimeMillis()
             msg!!.direction = 0
             msg!!.owner = me.account
-            msg!!.isRead = true
+            msg!!.read = true
             msg!!.state = 1
             msg!!.type = 0
-            dao!!.addMessage(msg!!)
+            MessageBusiness!!.insert(msg!!)
             loadData()
 
             val message = ChatMessage.createMessage(ChatMessage.Type.TEXT)
@@ -233,8 +230,7 @@ class MessageActivity : BaseActivity(), View.OnClickListener, NormalTopBar.BackL
 
     override fun onPause() {
         super.onPause()
-        val dao = MessageDao(this)
-        dao.clearUnread(me.account!!, receiver!!.account!!)
+        ConversationBusiness.clearUnreadByAccount(me.account!!, receiver!!.account!!)
     }
 
     override fun back() {

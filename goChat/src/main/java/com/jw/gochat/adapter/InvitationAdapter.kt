@@ -53,13 +53,13 @@ class InvitationAdapter(context: Context, c: Cursor?, private val mAcceptListene
                 .getColumnIndex(GCDB.Invitation.COLUMN_ID))
 
         val invitation = Invitation()
-        invitation.account = account
-        invitation.isAgree = agree
+        invitation.invitator_account = account
+        invitation.agree = agree
         invitation.content = content
-        invitation.icon = icon
-        invitation.name = name
+        invitation.invitator_icon = icon
+        invitation.invitator_name = name
         invitation.owner = owner
-        invitation.id = id
+        invitation._id = id
 
         if (!agree) {
             btnAccept.visibility = View.VISIBLE
@@ -69,8 +69,8 @@ class InvitationAdapter(context: Context, c: Cursor?, private val mAcceptListene
             tvAccept.visibility = View.VISIBLE
         }
 
-        //tvName.setText(name);
-        Glide.with(context).load(invitation.icon).into(ivIcon)
+        //tvName.setText(invitator_name);
+        Glide.with(context).load(invitation.invitator_icon).into(ivIcon)
 
         btnAccept.setOnClickListener(mAcceptListener)
         btnAccept.tag = invitation

@@ -3,7 +3,6 @@ package com.jw.business.model.bean
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
-import org.jetbrains.annotations.NotNull
 
 /**
  * 创建时间：
@@ -15,25 +14,25 @@ import org.jetbrains.annotations.NotNull
 
 @Entity(tableName = "invitation")
 class Invitation {
-    @ColumnInfo(name = "id")
-    var id: Long = 0
-    @PrimaryKey
-    @NotNull
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "_id")
+    var _id: Long = 0
+    @ColumnInfo(name = "owner")
     var owner: String? = null
-    @ColumnInfo(name = "account")
-    var account: String? = null
-    @ColumnInfo(name = "name")
-    var name: String? = null
-    @ColumnInfo(name = "icon")
-    var icon: String? = null
+    @ColumnInfo(name = "invitator_account")
+    var invitator_account: String? = null
+    @ColumnInfo(name = "invitator_name")
+    var invitator_name: String? = null
+    @ColumnInfo(name = "invitator_icon")
+    var invitator_icon: String? = null
     @ColumnInfo(name = "content")
     var content: String? = null
-    @ColumnInfo(name = "isAgree")
-    var isAgree: Boolean = false
+    @ColumnInfo(name = "agree")
+    var agree: Boolean = false
 
     override fun toString(): String {
-        return ("Invitation [id=" + id + ", owner=" + owner + ", account="
-                + account + ", name=" + name + ", icon=" + icon + ", content="
-                + content + ", agree=" + isAgree + "]")
+        return ("Invitation [_id=" + _id + ", owner=" + owner + ", account="
+                + invitator_account + ", invitator_name=" + invitator_name + ", invitator_icon=" + invitator_icon + ", content="
+                + content + ", agree=" + agree + "]")
     }
 }

@@ -26,7 +26,7 @@ object BackTaskFactory {
         val params = HashMap<String, String>()
         task.params = params
         task.files = files
-        task.path = "/user/icon"
+        task.path = "/user/invitator_icon"
         task.protocol = "HTTP"
         return task
     }
@@ -35,9 +35,9 @@ object BackTaskFactory {
         val task = NetTask()
         task.method = "POST"
         val params = HashMap<String, String>()
-        params["name"] = name
+        params["invitator_name"] = name
         task.params = params
-        task.path = "/user/name"
+        task.path = "/user/invitator_name"
         task.protocol = "HTTP"
         return task
     }

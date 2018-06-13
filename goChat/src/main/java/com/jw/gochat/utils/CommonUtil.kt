@@ -28,7 +28,7 @@ object CommonUtil {
 
     //得到头像目录
     fun getIconDir(context: Context): String {
-        val dir = getDir(context, "icon")
+        val dir = getDir(context, "invitator_icon")
         Log.v("GoChat_iconDir", dir)
         return dir
     }

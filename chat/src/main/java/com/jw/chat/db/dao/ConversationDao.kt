@@ -14,14 +14,23 @@ import com.jw.chat.db.bean.Message
 interface ConversationDao {
 
     @Insert
-    fun insert(conversation:Conversation)
+    fun insert(conversation:Conversation):Long
 
     @Update
-    fun update(conversation:Conversation)
+    fun update(conversation:Conversation):Int
 
-    @Query("update conversation set 'unread'=:count where 'owner' =:owner and 'account'=:account")
-    fun update(owner: String, account: String,count:Int): Cursor
+    @Query("select * from conversation where 'owner'=:owner")
+    fun query(owner:String):Cursor?
 
-    @Query("select sum(unread) from conversation where 'owner'=:owner")
-    fun getUnread(owner: String):Cursor
+    @Query("update conversation set 'unread_count'=:unread_count where 'owner' =:owner")
+    fun update(owner: String,unread_count:Int): Int
+
+    @Query("update conversation set 'unread_count'=:unread_count where 'owner' =:owner and 'account'=:account")
+    fun update(owner: String, account: String,unread_count:Int): Int
+
+    @Query("select sum(unread_count) from conversation where 'owner'=:owner")
+    fun getUnreadByOwner(owner: String):Int
+
+    @Query("select unread_count from conversation where 'owner'=:owner and 'account'=:account")
+    fun getUnreadByAccount(owner: String, account: String):Int
 }

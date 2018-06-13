@@ -1,7 +1,7 @@
 package com.jw.gochat.action
 
 import android.content.Context
-import com.jw.business.db.dao.AppDatabase
+import com.jw.business.business.FriendBusiness
 
 import com.jw.gochat.utils.CommonUtil
 
@@ -30,12 +30,9 @@ class IconChangeAction : Action() {
         val iconPath = data["iconPath"].toString()
 
         // 数据存储
-        val friendDao = AppDatabase.getInstance(context).friendDao()
-        val friend = friendDao.queryFriendByAccount(receiver, sender) ?: return
-
-        friend.icon = CommonUtil.getIconDir(context) + iconPath
-        friendDao.updateFriend(friend)
-
+        val friend = FriendBusiness.getFriendById(receiver, sender)
+        friend!!.icon = CommonUtil.getIconDir(context) + iconPath
+        FriendBusiness.update(friend)
         // 下载朋友的icon
         val file = File(friend.icon!!)
         /*

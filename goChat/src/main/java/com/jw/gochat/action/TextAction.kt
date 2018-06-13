@@ -2,8 +2,8 @@ package com.jw.gochat.action
 
 import android.content.Context
 import android.content.Intent
+import com.jw.chat.business.MessageBusiness
 import com.jw.chat.db.bean.Message
-import com.jw.chat.db.dao.MessageDao
 import com.jw.gochat.receiver.PushReceiver
 
 /**
@@ -24,16 +24,15 @@ class TextAction : Action() {
         val sender = data["sender"].toString()
         val content = data["content"].toString()
         // 数据存储
-        val dao = MessageDao(context)
         val message = Message()
         message.account = sender
         message.content = content
-        message.createTime = System.currentTimeMillis()
+        message.create_time = System.currentTimeMillis()
         message.direction = 1  //1代表接受，0代表发送
         message.owner = receiver
-        message.isRead = false
+        message.read = false
         message.type = 0  //0代表文字，1代表图片
-        dao.addMessage(message)
+        MessageBusiness.insert(message)
         // 发送广播
         val intent = Intent(PushReceiver.ACTION_TEXT)
         intent.putExtra(PushReceiver.KEY_FROM, sender)

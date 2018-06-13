@@ -8,8 +8,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ImageView
-import com.jw.business.db.dao.AppDatabase
-import com.jw.business.model.bean.Contact
+import com.jw.business.business.FriendBusiness
+import com.jw.business.business.InvitationBusiness
+import com.jw.business.model.bean.Friend
 import com.jw.contact.FriendDetailActivity
 import com.jw.gochat.ChatApplication
 import com.jw.gochat.R
@@ -32,7 +33,7 @@ class FriendsFra : BaseFragment(), View.OnClickListener, AdapterView.OnItemClick
 
     private var headView: View? = null
     private var ivUnread: ImageView? = null
-    private val me = ChatApplication.getAccount()
+    private val me = ChatApplication.getAccountInfo()
     private val invitedReceiver = object : PushReceiver() {
 
         override fun onReceive(context: Context, intent: Intent) {
@@ -91,15 +92,13 @@ class FriendsFra : BaseFragment(), View.OnClickListener, AdapterView.OnItemClick
     }
 
     override fun loadData() {
-        val friendDao = AppDatabase.getInstance(this.activity!!).friendDao()
-        val cursor = friendDao.queryFriends(me.account!!)
-        val invitationDao = AppDatabase.getInstance(this.activity!!).invitationDao()
-/*        val hasUnAgree = invitationDao.hasUnagree(me.account!!)
+        val cursor = FriendBusiness.getFriendAll(me.account!!)
+        val hasUnAgree = InvitationBusiness.hasUnagree(me.account!!)
         if (hasUnAgree)
             ivUnread!!.visibility = View.VISIBLE
         else
-            ivUnread!!.visibility = View.INVISIBLE*/
-        val adapter = FriendsAdapter(activity!!, cursor)
+            ivUnread!!.visibility = View.INVISIBLE
+        val adapter = FriendsAdapter(activity!!, cursor!!)
         mBinding!!.lvFriends.adapter = adapter
     }
 
@@ -108,7 +107,7 @@ class FriendsFra : BaseFragment(), View.OnClickListener, AdapterView.OnItemClick
     }
 
     override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-        val friend = view.tag as Contact
+        val friend = view.tag as Friend
         val intent = Intent()
         val bundle = Bundle()
         bundle.putSerializable("friend", friend)

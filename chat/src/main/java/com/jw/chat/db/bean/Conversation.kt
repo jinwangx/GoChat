@@ -3,6 +3,7 @@ package com.jw.chat.db.bean
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
+import org.jetbrains.annotations.NotNull
 
 /**
  * 创建时间：
@@ -14,19 +15,22 @@ import android.arch.persistence.room.PrimaryKey
 
 @Entity(tableName = "conversation")
 class Conversation {
-
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    @NotNull
+    @ColumnInfo(name="_id")
+    var _id:Long=0
+    @ColumnInfo(name="owner")
     var owner: String? = null
-    @PrimaryKey
+    @ColumnInfo(name="account")
     var account: String? = null
-    @ColumnInfo
+    @ColumnInfo(name="icon")
     var icon: String? = null
-    @ColumnInfo
+    @ColumnInfo(name="name")
     var name: String? = null
-    @ColumnInfo
+    @ColumnInfo(name="content")
     var content: String? = null
-    @ColumnInfo
-    var unread: Int = 0
-    @ColumnInfo
-    var updateTime: Long = 0
+    @ColumnInfo(name="unread_count")
+    var unread_count: Int = 0
+    @ColumnInfo(name="update_time")
+    var update_time: Long = 0
 }

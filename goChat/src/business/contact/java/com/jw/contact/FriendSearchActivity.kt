@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import com.jw.business.db.dao.AppDatabase
-import com.jw.business.model.bean.Contact
+import com.jw.business.business.FriendBusiness
+import com.jw.business.model.bean.Friend
 import com.jw.chat.GoChatManager
 import com.jw.chat.callback.GoChatObjectCallBack
 import com.jw.gochat.ChatApplication
@@ -30,8 +30,8 @@ class FriendSearchActivity : BaseActivity(), TextWatcher, View.OnClickListener {
     private var dialog: DialogLoading? = null
     private var mBinding: ActivityFriendSearchBinding? = null
 
-    private val friendSearchCallBack = object : GoChatObjectCallBack<Contact>() {
-        override fun onSuccess(friend: Contact) {
+    private val friendSearchCallBack = object : GoChatObjectCallBack<Friend>() {
+        override fun onSuccess(friend: Friend) {
             dialog!!.dismiss()
             val intent = Intent()
             val bundle = Bundle()
@@ -64,14 +64,13 @@ class FriendSearchActivity : BaseActivity(), TextWatcher, View.OnClickListener {
             R.id.iv_search_back -> finish()
             R.id.ll_search_act -> {
                 val friendAccount = mBinding!!.etSearchAct.text.toString().trim { it <= ' ' }
-                val me = ChatApplication.getAccount()
+                val me = ChatApplication.getAccountInfo()
                 if (me.account == friendAccount) {
                     ThemeUtils.show(this, "不要找自己啦")
                     return
                 }
                 // 已有的朋友
-                val dao = AppDatabase.getInstance().friendDao()
-                val friend = dao.queryFriendByAccount(me.account!!, friendAccount)
+                val friend = FriendBusiness.getFriendById(me.account!!, friendAccount)
                 if (friend != null) {
                     val intent = Intent()
                     val bundle = Bundle()
