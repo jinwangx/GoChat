@@ -44,6 +44,9 @@ class InvitationAction : Action() {
         get() = "invitation"
 
     override fun doAction(context: Context, data: Map<String, Any>) {
+        if (data == null) {
+            return
+        }
         val receiver = data["receiver"].toString()
         val sender = data["sender"].toString()
         var name: String? = null

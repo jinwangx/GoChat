@@ -46,7 +46,7 @@ class LoginFra : BaseFragment(), View.OnClickListener, TextWatcher {
      */
     private val loginCallBack = object : GoChatObjectCallBack<AccountInfo>() {
         override fun onSuccess(accountInfo: AccountInfo) {
-            accountInfo.current = true
+            accountInfo.current = 1
             accountInfo.icon = GoChatURL.BASE_HTTP + accountInfo.icon!!
                     .replace("\\", "/")
             // 初始化用户连接安全信息

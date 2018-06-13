@@ -38,11 +38,11 @@ class ReinvitationAction : Action() {
         val sender = data["sender"].toString()
         var name: String? = null
         var icon: String? = null
-        val nameObj = data["invitator_name"]
+        val nameObj = data["name"]
         if (nameObj != null) {
             name = nameObj as String?
         }
-        val iconObj = data["invitator_icon"]
+        val iconObj = data["icon"]
         if (iconObj != null) {
             icon = iconObj as String?
         }

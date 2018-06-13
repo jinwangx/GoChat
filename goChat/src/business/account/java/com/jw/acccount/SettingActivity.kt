@@ -47,7 +47,7 @@ class SettingActivity : BaseActivity(), View.OnClickListener, NormalTopBar.BackL
         dialogLogout.show()
         dialogLogout.setClickLogoutListener {
             val account = ChatApplication.getAccountInfo()
-            account.current = false
+            account.current = 0
             val dao = AppDatabase.getInstance().accountDao()
             dao.update(account)
             (application as ChatApplication).exit()

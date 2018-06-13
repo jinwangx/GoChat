@@ -66,7 +66,7 @@ class UploadInfoAction {
             }
         }.start()
         me.name = name
-        me.icon = GoChatURL.BASE_HTTP + "/repo/invitator_icon/" + me.account + ".png"
+        me.icon = GoChatURL.BASE_HTTP + "/repo/icon/" + me.account + ".png"
         AccountInfoBusiness.update(me)
         doAddTask(context, me, iconFile, "addName")
         doAddTask(context, me, iconFile, "addIcon")

@@ -6,6 +6,7 @@ import android.util.Log;
 import com.facebook.stetho.Stetho;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
+import com.jw.business.business.AccountInfoBusiness;
 import com.jw.business.model.bean.AccountInfo;
 import com.jw.chat.GoChat;
 import com.jw.gochatbase.BaseApplication;
@@ -35,19 +36,18 @@ public class ChatApplication extends BaseApplication {
         Stetho.initializeWithDefaults(this);
     }
 
-    public static void setAccountInfo(AccountInfo accountInfo1) {
-        accountInfo = accountInfo1;
-    }
-
-    public static AccountInfo getAccountInfo() {
-        return accountInfo;
-    }
-
     public static Application getApplication() {
         return application;
     }
 
     public static OkHttpClient getOkHttpClient() {
         return client;
+    }
+
+    public static AccountInfo getAccountInfo(){
+        if (accountInfo == null) {
+            accountInfo = AccountInfoBusiness.INSTANCE.getCurrentAccountInfo();
+        }
+        return accountInfo;
     }
 }

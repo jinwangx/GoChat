@@ -34,8 +34,6 @@ class SplashActivity : BaseActivity() {
     public override fun bindView() {
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_splash)
-        ChatApplication.setAccountInfo(AccountInfoBusiness.getCurrentAccountInfo())
-        Log.v("accountttt",AccountInfoBusiness.getCurrentAccountInfo().toString())
     }
 
     override fun initView() {

@@ -49,8 +49,7 @@ class RegisterFra : BaseFragment(), View.OnClickListener, NormalTopBar.BackListe
             message.what = SUCCESS
             mHandler.sendMessage(message)
             // 存储用户
-            accountInfo.current = true
-            ChatApplication.setAccountInfo(accountInfo)
+            accountInfo.current = 1
             AccountInfoBusiness!!.insert(accountInfo)
             dialog!!.dismiss()
             (activity as LoginActivity).goFillInfoFra()

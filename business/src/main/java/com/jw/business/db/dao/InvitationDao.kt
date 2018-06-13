@@ -11,13 +11,13 @@ import com.jw.business.model.bean.Invitation
 @Dao
 interface InvitationDao {
 
-    @Query("select * from invitation where 'owner'=:owner")
+    @Query("select * from invitation where owner=:owner")
     fun getInvitationByOwner(owner: String): Cursor?
 
-    @Query("select * from invitation where 'owner'=:owner and invitator_account=:account")
-    fun getInvitationByAccount(owner: String, account: String): Invitation?
+    @Query("select * from invitation where owner=:owner and invitator_account=:account limit 0,1")
+    fun getInvitationByAccount(owner: String, account: String): Invitation
 
-    @Query("select count('_id') from invitation where 'owner'=:owner and 'agree'=0")
+    @Query("select count(_id) from invitation where owner=:owner and agree=0")
     fun getUnAgreeCount(owner: String): Int
 
     @Insert

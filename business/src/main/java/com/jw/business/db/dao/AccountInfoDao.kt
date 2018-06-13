@@ -9,13 +9,13 @@ interface AccountInfoDao {
     @Query("select * from account")
     fun getAccountInfoAll(): List<AccountInfo>?
 
-    @Query("select * from account where 'current'=1")
-    fun getCurrentAccountInfo(): AccountInfo?
+    @Query("select * from account where current=1")
+    fun getCurrentAccountInfo(): AccountInfo
 
-    @Query("select * from account where 'account'=:account")
-    fun getAccountInfoByAccount(account: String): AccountInfo?
+    @Query("select * from account where account=:account")
+    fun getAccountInfoByAccount(account: String): AccountInfo
 
-    @Query("update account set 'icon'=:iconPath where 'account'=:account")
+    @Query("update account set icon=:iconPath where account=:account")
     fun updateIconByAccount(account: String, iconPath: String):Int
 
     @Insert

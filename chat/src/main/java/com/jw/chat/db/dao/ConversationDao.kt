@@ -19,18 +19,18 @@ interface ConversationDao {
     @Update
     fun update(conversation:Conversation):Int
 
-    @Query("select * from conversation where 'owner'=:owner")
+    @Query("select * from conversation where owner=:owner")
     fun query(owner:String):Cursor?
 
-    @Query("update conversation set 'unread_count'=:unread_count where 'owner' =:owner")
+    @Query("update conversation set unread_count=:unread_count where owner =:owner")
     fun update(owner: String,unread_count:Int): Int
 
-    @Query("update conversation set 'unread_count'=:unread_count where 'owner' =:owner and 'account'=:account")
+    @Query("update conversation set unread_count=:unread_count where owner =:owner and account=:account")
     fun update(owner: String, account: String,unread_count:Int): Int
 
-    @Query("select sum(unread_count) from conversation where 'owner'=:owner")
+    @Query("select sum(unread_count) from conversation where owner=:owner")
     fun getUnreadByOwner(owner: String):Int
 
-    @Query("select unread_count from conversation where 'owner'=:owner and 'account'=:account")
+    @Query("select unread_count from conversation where owner=:owner and account=:account")
     fun getUnreadByAccount(owner: String, account: String):Int
 }

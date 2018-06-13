@@ -33,9 +33,9 @@ class FriendsAdapter(context: Context, c: Cursor) : CursorAdapter(context, c) {
     override fun bindView(view: View, context: Context, cursor: Cursor) {
         val tvFriend = view.findViewById<View>(R.id.tv_list_item_friend_act) as TextView
         val ivIcon = view.findViewById<View>(R.id.iv_list_item_friend_icon) as CircleImageView
-        val name = cursor.getString(cursor.getColumnIndex("invitator_name"))
+        val name = cursor.getString(cursor.getColumnIndex("name"))
         val account = cursor.getString(cursor.getColumnIndex("account"))
-        val iconPath = cursor.getString(cursor.getColumnIndex("invitator_icon"))
+        val iconPath = cursor.getString(cursor.getColumnIndex("icon"))
         Glide.with(context).load(iconPath).into(ivIcon)
         val friend = FriendBusiness.getFriendById(ChatApplication.getAccountInfo().account!!, account)
         tvFriend.text = name

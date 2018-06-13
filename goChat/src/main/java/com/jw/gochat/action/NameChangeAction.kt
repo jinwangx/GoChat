@@ -25,10 +25,10 @@ class NameChangeAction : Action() {
 
         val receiver = data["receiver"].toString()
         val sender = data["sender"].toString()
-        val name = data["invitator_name"].toString()
+        val name = data["name"].toString()
 
         // 数据存储
-        val friend = FriendBusiness.getFriendById(receiver, sender)
+        val friend = FriendBusiness.getFriendById(receiver, sender)?:return
         friend!!.name = name
         FriendBusiness.update(friend)
 

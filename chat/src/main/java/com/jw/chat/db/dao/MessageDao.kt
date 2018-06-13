@@ -21,22 +21,22 @@ interface MessageDao {
     @Update
     fun update(message: Message):Int
 
-    @Query("update message set 'read'=:isRead where 'owner' =:owner and 'account'=:account")
+    @Query("update message set read=:isRead where owner =:owner and account=:account")
     fun update(owner: String, account: String,isRead:Boolean): Int
 
-    @Query("update message set 'read'=:isRead where 'owner' =:owner")
+    @Query("update message set read=:isRead where owner =:owner")
     fun update(owner: String,isRead:Boolean): Int
 
-    @Query("select * from message where 'owner' =:owner and 'account'=:account order by 'create_time' asc")
+    @Query("select * from message where owner =:owner and account=:account order by create_time asc")
     fun query(owner: String, account: String): Cursor
 
-    @Query("select count('_id') from message where 'read'=0 and 'owner'=:owner")
+    @Query("select count(_id) from message where read=0 and owner=:owner")
     fun getUnreadCountByOwner(owner: String): Int
 
-    @Query("select count('_id') from message where 'read'=0 and 'account'=:account and 'owner'=:owner")
+    @Query("select count(_id) from message where read=0 and account=:account and owner=:owner")
     fun getUnreadCountByAccount(owner: String, account: String): Int
 
-    @Query("select * from message where 'owner' =:owner  order by 'create_time' desc")
+    @Query("select * from message where owner =:owner  order by create_time desc")
     fun queryAllByOwner(owner: String): Cursor
 
 

@@ -20,6 +20,9 @@ class TextAction : Action() {
         get() = "text"
 
     override fun doAction(context: Context, data: Map<String, Any>) {
+        if (data == null) {
+            return
+        }
         val receiver = data["receiver"].toString()
         val sender = data["sender"].toString()
         val content = data["content"].toString()
