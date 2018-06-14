@@ -1,4 +1,4 @@
-package com.jw.business.model.bean
+package com.jw.business.db.model
 
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull
 @Entity(tableName = "account")
 class AccountInfo() : Parcelable {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NotNull
     @ColumnInfo(name = "_id")
     var _id: Long =0// 账号

@@ -5,8 +5,13 @@ import android.arch.persistence.room.Insert
 import android.arch.persistence.room.Query
 import android.arch.persistence.room.Update
 import android.database.Cursor
-import com.jw.business.model.bean.BackTask
+import com.jw.business.db.model.BackTask
 
+/**
+ * 作者 : jinwangx
+ * 创建时间 : 2018/6/13
+ * 描述 : 数据库操作(后台任务)
+ */
 @Dao
 interface BackTaskDao {
 

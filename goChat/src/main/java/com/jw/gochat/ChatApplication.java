@@ -2,16 +2,14 @@ package com.jw.gochat;
 
 import android.app.Application;
 import android.util.Log;
-
 import com.facebook.stetho.Stetho;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 import com.jw.business.business.AccountInfoBusiness;
-import com.jw.business.model.bean.AccountInfo;
+import com.jw.business.db.model.AccountInfo;
 import com.jw.chat.GoChat;
 import com.jw.gochatbase.BaseApplication;
 import com.jw.library.utils.HttpUtils;
-
 import okhttp3.OkHttpClient;
 
 public class ChatApplication extends BaseApplication {

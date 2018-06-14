@@ -19,7 +19,7 @@ import com.jw.gochat.ChatApplication
 import com.jw.gochat.ChatApplication.getAccountInfo
 import com.jw.gochat.R
 import com.jw.gochat.databinding.ActivityHomeBinding
-import com.jw.chat.event.TextEvent
+import com.jw.gochat.event.TextEvent
 import com.jw.gochat.fragment.MeFra
 import com.jw.gochat.service.ChatCoreService
 import com.jw.gochat.utils.CommonUtil
@@ -28,7 +28,7 @@ import com.jw.gochat.view.NormalTopBar
 import com.jw.gochat.view.TabIndicator
 import com.jw.gochatbase.BaseActivity
 import com.jw.library.utils.ThemeUtils
-import com.jw.login.fragment.FriendsFra
+import com.jw.contact.fragment.FriendsFra
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode

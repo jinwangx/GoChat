@@ -1,11 +1,8 @@
 package com.jw.gochat.action
 
 import android.content.Context
-import android.content.Intent
 import com.jw.business.business.FriendBusiness
-import com.jw.business.model.bean.Friend
-import com.jw.business.model.bean.Invitation
-import com.jw.gochat.receiver.PushReceiver
+import com.jw.business.db.model.Friend
 import com.jw.library.utils.CommonUtils
 import com.jw.chat.GoChatURL
 import com.jw.gochat.event.ReInvitationEvent

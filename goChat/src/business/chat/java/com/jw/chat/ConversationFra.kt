@@ -5,13 +5,13 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
-import com.jw.business.model.bean.Friend
+import com.jw.business.db.model.Friend
 import com.jw.chat.business.ConversationBusiness
 import com.jw.gochat.ChatApplication
 import com.jw.gochat.R
 import com.jw.gochat.adapter.ChatAdapter
 import com.jw.gochat.databinding.FragmentCvstBinding
-import com.jw.chat.event.TextEvent
+import com.jw.gochat.event.TextEvent
 import com.jw.gochatbase.BaseFragment
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -32,7 +32,7 @@ class ConversationFra : BaseFragment(), AdapterView.OnItemClickListener, ChatAda
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun Event(textEvent: TextEvent) {
-        val owner = textEvent.message.owner
+        val owner = textEvent.message!!.owner
         if (me.account!!.equals(owner, ignoreCase = true)) {
             loadData()
         }

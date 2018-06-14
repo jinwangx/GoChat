@@ -1,4 +1,4 @@
-package com.jw.login.fragment
+package com.jw.contact.fragment
 
 import android.content.Context
 import android.content.Intent
@@ -9,7 +9,7 @@ import android.widget.AdapterView
 import android.widget.ImageView
 import com.jw.business.business.FriendBusiness
 import com.jw.business.business.InvitationBusiness
-import com.jw.business.model.bean.Friend
+import com.jw.business.db.model.Friend
 import com.jw.contact.FriendDetailActivity
 import com.jw.gochat.ChatApplication
 import com.jw.gochat.R
@@ -52,7 +52,7 @@ class FriendsFra : BaseFragment(), View.OnClickListener, AdapterView.OnItemClick
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun Event(textEvent: InvitationEvent) {
-        val to = textEvent.message.owner
+        val to = textEvent.message!!.owner
         ThemeUtils.show(activity, "接收到邀请")
         if (me.account!!.equals(to, ignoreCase = true)) {
             loadData()
@@ -61,8 +61,8 @@ class FriendsFra : BaseFragment(), View.OnClickListener, AdapterView.OnItemClick
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun Event(textEvent: AcceptInvitationEvent) {
-        val to = textEvent.message.owner
-        val from = textEvent.message.account
+        val to = textEvent.message!!.owner
+        val from = textEvent.message!!.account
         ThemeUtils.show(activity, from + "已接受邀请")
         if (me.account!!.equals(to, ignoreCase = true)) {
             loadData()

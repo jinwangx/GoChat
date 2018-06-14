@@ -1,7 +1,7 @@
 package com.jw.chat.core
 
 import com.google.gson.Gson
-import com.jw.chat.msg.SequenceCreater
+import com.jw.chat.model.SequenceCreater
 import java.util.*
 
 /**

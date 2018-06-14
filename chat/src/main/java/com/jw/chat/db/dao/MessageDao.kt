@@ -4,28 +4,28 @@ import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.Query
 import android.arch.persistence.room.Update
-import android.content.ContentValues
 import android.database.Cursor
-import android.provider.SyncStateContract.Helpers.update
-import com.jw.chat.db.ChatDataBase
-import com.jw.chat.db.GCDB
-import com.jw.chat.db.bean.Conversation
 import com.jw.chat.db.bean.Message
 
+/**
+ * 作者 : jinwangx
+ * 创建时间 : 2018/6/13
+ * 描述 : 数据库操作(聊天信息)
+ */
 @Dao
 interface MessageDao {
 
     @Insert
-    fun insert(message: Message):Long
+    fun insert(message: Message): Long
 
     @Update
-    fun update(message: Message):Int
+    fun update(message: Message): Int
 
     @Query("update message set read=:isRead where owner =:owner and account=:account")
-    fun update(owner: String, account: String,isRead:Boolean): Int
+    fun update(owner: String, account: String, isRead: Boolean): Int
 
     @Query("update message set read=:isRead where owner =:owner")
-    fun update(owner: String,isRead:Boolean): Int
+    fun update(owner: String, isRead: Boolean): Int
 
     @Query("select * from message where owner =:owner and account=:account order by create_time asc")
     fun query(owner: String, account: String): Cursor
@@ -38,6 +38,5 @@ interface MessageDao {
 
     @Query("select * from message where owner =:owner  order by create_time desc")
     fun queryAllByOwner(owner: String): Cursor
-
 
 }

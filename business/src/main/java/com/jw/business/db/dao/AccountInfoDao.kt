@@ -1,8 +1,13 @@
 package com.jw.business.db.dao
 
 import android.arch.persistence.room.*
-import com.jw.business.model.bean.AccountInfo
+import com.jw.business.db.model.AccountInfo
 
+/**
+ * 作者 : jinwangx
+ * 创建时间 : 2018/6/13
+ * 描述 : 数据库操作(账号信息)
+ */
 @Dao
 interface AccountInfoDao {
 

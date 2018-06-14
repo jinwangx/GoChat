@@ -3,7 +3,7 @@ package com.jw.gochat.action
 import android.content.Context
 import com.jw.chat.business.MessageBusiness
 import com.jw.chat.db.bean.Message
-import com.jw.chat.event.TextEvent
+import com.jw.gochat.event.TextEvent
 import org.greenrobot.eventbus.EventBus
 
 /**

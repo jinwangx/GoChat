@@ -3,8 +3,8 @@ package com.jw.contact
 import android.databinding.DataBindingUtil
 import com.jw.chat.GoChatManager
 import com.jw.chat.callback.GoChatCallBack
-import com.jw.chat.msg.ChatMessage
-import com.jw.chat.msg.InvitationBody
+import com.jw.chat.model.ChatMessage
+import com.jw.chat.model.InvitationBody
 import com.jw.gochat.ChatApplication
 import com.jw.gochat.R
 import com.jw.gochat.databinding.ActivityFriendValidateBinding

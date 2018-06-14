@@ -8,17 +8,17 @@ import com.jw.business.db.dao.AccountInfoDao
 import com.jw.business.db.dao.BackTaskDao
 import com.jw.business.db.dao.FriendDao
 import com.jw.business.db.dao.InvitationDao
-import com.jw.business.model.bean.AccountInfo
-import com.jw.business.model.bean.BackTask
-import com.jw.business.model.bean.Friend
-import com.jw.business.model.bean.Invitation
+import com.jw.business.db.model.AccountInfo
+import com.jw.business.db.model.BackTask
+import com.jw.business.db.model.Friend
+import com.jw.business.db.model.Invitation
 import com.jw.gochatbase.BaseApplication
 
 
 /**
- * Author : jinwangx
- * Created : Administrator on 2018/6/12.
- * Description : 描述
+ * 作者 : jinwangx
+ * 创建时间 : 2018/6/12
+ * 描述 : 数据库创建(业务)
  */
 @Database(entities = [AccountInfo::class, (BackTask::class), (Friend::class), (Invitation::class)], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {

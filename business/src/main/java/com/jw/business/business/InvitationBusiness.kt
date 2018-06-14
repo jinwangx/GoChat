@@ -1,13 +1,12 @@
 package com.jw.business.business
 
 import com.jw.business.db.AppDatabase
-import com.jw.business.db.GCDB
-import com.jw.business.model.bean.Invitation
+import com.jw.business.db.model.Invitation
 
 /**
- * Author : jinwangx
- * Created : Administrator on 2018/6/13.
- * Description : 描述
+ * 作者 : jinwangx
+ * 创建时间 : 2018/6/13
+ * 描述 : 业务类(邀请信息)
  */
 object InvitationBusiness {
 

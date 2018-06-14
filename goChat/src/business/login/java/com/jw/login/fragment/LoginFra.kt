@@ -14,7 +14,7 @@ import android.widget.EditText
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.jw.business.business.AccountInfoBusiness
-import com.jw.business.model.bean.AccountInfo
+import com.jw.business.db.model.AccountInfo
 import com.jw.chat.GoChatManager
 import com.jw.chat.GoChatURL
 import com.jw.chat.callback.GoChatObjectCallBack

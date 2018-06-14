@@ -5,11 +5,9 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.databinding.DataBindingUtil
 import android.os.Build
-import android.util.Log
 import android.view.WindowManager
 import android.view.animation.AlphaAnimation
 import android.widget.Toast
-import com.jw.business.business.AccountInfoBusiness
 import com.jw.gochat.ChatApplication
 import com.jw.gochat.R
 import com.jw.gochat.databinding.ActivitySplashBinding

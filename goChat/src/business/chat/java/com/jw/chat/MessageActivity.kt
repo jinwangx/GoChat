@@ -8,18 +8,18 @@ import android.view.View
 import com.iflytek.cloud.*
 import com.iflytek.cloud.ui.RecognizerDialog
 import com.iflytek.cloud.ui.RecognizerDialogListener
-import com.jw.business.model.bean.Friend
+import com.jw.business.db.model.Friend
 import com.jw.chat.business.ConversationBusiness
 import com.jw.chat.business.MessageBusiness
 import com.jw.chat.callback.GoChatCallBack
 import com.jw.chat.db.bean.Message
-import com.jw.chat.msg.ChatMessage
-import com.jw.chat.msg.TextBody
+import com.jw.chat.model.ChatMessage
+import com.jw.chat.model.TextBody
 import com.jw.gochat.ChatApplication
 import com.jw.gochat.R
 import com.jw.gochat.adapter.MessageAdapter
 import com.jw.gochat.databinding.ActivityMessageBinding
-import com.jw.chat.event.TextEvent
+import com.jw.gochat.event.TextEvent
 import com.jw.gochat.utils.CommonUtil
 import com.jw.gochat.view.NormalTopBar
 import com.jw.gochatbase.BaseActivity
@@ -60,7 +60,7 @@ class MessageActivity : BaseActivity(), View.OnClickListener, NormalTopBar.BackL
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun Event(textEvent: TextEvent) {
-        val from = textEvent.message.account
+        val from = textEvent.message!!.account
         if (receiver!!.account!!.equals(from, ignoreCase = true)) {
             loadData()
         }

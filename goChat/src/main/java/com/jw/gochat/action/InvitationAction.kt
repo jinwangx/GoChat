@@ -1,12 +1,10 @@
 package com.jw.gochat.action
 
 import android.content.Context
-import android.content.Intent
 import com.jw.business.business.InvitationBusiness
-import com.jw.business.model.bean.Invitation
+import com.jw.business.db.model.Invitation
 import com.jw.chat.GoChatURL
 import com.jw.gochat.event.InvitationEvent
-import com.jw.gochat.receiver.PushReceiver
 import org.greenrobot.eventbus.EventBus
 
 /**

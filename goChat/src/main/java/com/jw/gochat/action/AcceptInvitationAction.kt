@@ -6,9 +6,9 @@ import android.os.SystemClock
 import com.jw.business.business.BackTaskBusiness
 import com.jw.business.business.FriendBusiness
 import com.jw.business.business.InvitationBusiness
-import com.jw.business.model.bean.BackTask
-import com.jw.business.model.bean.Friend
-import com.jw.business.model.bean.Invitation
+import com.jw.business.db.model.BackTask
+import com.jw.business.db.model.Friend
+import com.jw.business.db.model.Invitation
 import com.jw.gochat.service.BackgroundService
 import com.jw.gochat.utils.BackTaskFactory
 import com.jw.gochat.utils.CommonUtil

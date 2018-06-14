@@ -5,12 +5,11 @@ import android.content.Intent
 import com.jw.business.business.AccountInfoBusiness
 import com.jw.business.business.BackTaskBusiness
 import com.jw.business.business.FriendBusiness
-import com.jw.business.model.bean.AccountInfo
-import com.jw.business.model.bean.BackTask
-import com.jw.business.model.bean.Friend
+import com.jw.business.db.model.AccountInfo
+import com.jw.business.db.model.BackTask
+import com.jw.business.db.model.Friend
 import com.jw.business.model.bean.NetTask
 import com.jw.chat.GoChatURL
-import com.jw.chat.business.ConversationBusiness
 import com.jw.chat.business.MessageBusiness
 import com.jw.chat.db.bean.Message
 import com.jw.gochat.service.BackgroundService
@@ -64,7 +63,6 @@ class UploadInfoAction {
                 message.owner = me.account
                 message.read = false
                 MessageBusiness.insert(message)
-                ConversationBusiness.insert(message)
             }
         }.start()
         me.name = name

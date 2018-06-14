@@ -13,8 +13,8 @@ import com.bumptech.glide.Glide
 import com.jw.business.business.FriendBusiness
 import com.jw.gochat.ChatApplication
 import com.jw.gochat.R
-import com.jw.business.model.bean.Friend
-import com.jw.business.model.bean.AccountInfo
+import com.jw.business.db.model.Friend
+import com.jw.business.db.model.AccountInfo
 
 import java.text.SimpleDateFormat
 

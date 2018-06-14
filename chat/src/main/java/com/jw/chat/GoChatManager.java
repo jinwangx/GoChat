@@ -1,6 +1,5 @@
 package com.jw.chat;
 
-import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
@@ -16,9 +15,8 @@ import com.jw.chat.core.AuthRequest;
 import com.jw.chat.core.ChatRequest;
 import com.jw.chat.core.PacketConnector;
 import com.jw.chat.future.HttpFuture;
-import com.jw.chat.msg.ChatMessage;
+import com.jw.chat.model.ChatMessage;
 import com.jw.library.utils.NetUtils;
-
 
 import org.apache.mina.core.session.IoSession;
 
@@ -44,7 +42,7 @@ import okhttp3.Response;
  * 版本：
  * 作者：Mr.jin
  * 描述：负责客户端的http通信以及tcp通信
- *       监听tcp通道请求的发送消息以及接收消息的状态
+ * 监听tcp通道请求的发送消息以及接收消息的状态
  */
 
 public class GoChatManager {
@@ -80,8 +78,9 @@ public class GoChatManager {
 
     /**
      * 初始化连接用户的安全信息,初始化请求消息头
+     *
      * @param account 账号
-     * @param token 账号token
+     * @param token   账号token
      */
     public void initAccount(String account, String token) {
         headers.put("account", account);
@@ -90,12 +89,13 @@ public class GoChatManager {
 
     /**
      * 同步请求并回调
-     * @param CLIENT 传入一个OKHttp对象
-     * @param request 封装好的请求
+     *
+     * @param CLIENT   传入一个OKHttp对象
+     * @param request  封装好的请求
      * @param callBack 传入监听
      * @return
      */
-    public HttpFuture doHttpRequest(OkHttpClient CLIENT, Request request, final GoChatObjectCallBack callBack){
+    public HttpFuture doHttpRequest(OkHttpClient CLIENT, Request request, final GoChatObjectCallBack callBack) {
         Call call = CLIENT.newCall(request);
         call.enqueue(new Callback() {
             @Override
@@ -171,10 +171,10 @@ public class GoChatManager {
     @SuppressWarnings("rawtypes")
     public void login(String account, String password,
                       final GoChatObjectCallBack callBack) {
-        RequestBody requestBody=new FormBody.Builder().add("account", account).
+        RequestBody requestBody = new FormBody.Builder().add("account", account).
                 add("password", password).build();
         Request request = new Request.Builder().url(GoChatURL.Companion.getURL_HTTP_LOGIN()).post(requestBody).build();
-        doHttpRequest(CLIENT,request,callBack);
+        doHttpRequest(CLIENT, request, callBack);
     }
 
     /**
@@ -188,42 +188,44 @@ public class GoChatManager {
     @SuppressWarnings("rawtypes")
     public HttpFuture register(String account, String password,
                                final GoChatObjectCallBack callBack) {
-        RequestBody requestBody=new FormBody.Builder().add("account", account).
+        RequestBody requestBody = new FormBody.Builder().add("account", account).
                 add("password", password).build();
-        Request request=new Request.Builder().url(GoChatURL.Companion.getURL_HTTP_REGISTER()).post(requestBody)
+        Request request = new Request.Builder().url(GoChatURL.Companion.getURL_HTTP_REGISTER()).post(requestBody)
                 .build();
-        return doHttpRequest(CLIENT,request,callBack);
+        return doHttpRequest(CLIENT, request, callBack);
     }
 
     /**
      * 搜索用户
-     * @param search 搜索的账号
+     *
+     * @param search   搜索的账号
      * @param callBack
      * @return 可操作的future
      */
     @SuppressWarnings("rawtypes")
     public HttpFuture searchContact(String search,
                                     final GoChatObjectCallBack callBack) {
-        RequestBody requestBody=new FormBody.Builder().add("search", search).build();
+        RequestBody requestBody = new FormBody.Builder().add("search", search).build();
         Request.Builder url = new Request.Builder().url(GoChatURL.Companion.getURL_HTTP_SEARCH_CONTACT());
         for (Map.Entry<String, String> me : headers.entrySet()) {
             url.addHeader(me.getKey(), me.getValue());
         }
         Request request = url.post(requestBody).build();
-        return doHttpRequest(CLIENT,request,callBack);
+        return doHttpRequest(CLIENT, request, callBack);
     }
 
 
     /**
      * socket 连接认证
+     *
      * @param account 账号
-     * @param token token
+     * @param token   token
      */
     public void auth(final String account, final String token) {
         headers.put("account", account);
         headers.put("token", token);
 
-        ThreadManager.getInstance().createLongPool(3,3,2L).execute(new Runnable() {
+        ThreadManager.getInstance().createLongPool(3, 3, 2L).execute(new Runnable() {
             @Override
             public void run() {
                 if (connector == null) {
@@ -240,14 +242,15 @@ public class GoChatManager {
 
     /**
      * 发送消息
+     *
      * @param message
      * @param callBack
      */
     public void sendMessage(final ChatMessage message,
                             final GoChatCallBack callBack) {
-        if(!NetUtils.isNetConnected(context))
-            callBack.onError(GoChatError.Companion.getERROR_CLIENT_NET(),"消息发送失败，没联网");
-        ThreadManager.getInstance().createLongPool(3,3,2L).execute(new Runnable() {
+        if (!NetUtils.isNetConnected(context))
+            callBack.onError(GoChatError.Companion.getERROR_CLIENT_NET(), "消息发送失败，没联网");
+        ThreadManager.getInstance().createLongPool(3, 3, 2L).execute(new Runnable() {
             @Override
             public void run() {
                 if (connector == null) {
@@ -283,6 +286,7 @@ public class GoChatManager {
 
     /**
      * 添加连接监听
+     *
      * @param listener
      */
     public void addConnectionListener(PacketConnector.ConnectListener listener) {
@@ -293,6 +297,7 @@ public class GoChatManager {
 
     /**
      * 移除连接监听
+     *
      * @param listener
      */
     public void removeConnectionListener(PacketConnector.ConnectListener listener) {
@@ -303,6 +308,7 @@ public class GoChatManager {
 
     /**
      * Connector成功收到消息时
+     *
      * @param listener
      */
     public void setPushListener(OnPushListener listener) {
@@ -312,7 +318,7 @@ public class GoChatManager {
     /**
      * Connector接收消息监听
      */
-    private PacketConnector.IOListener ioListener= new PacketConnector.IOListener() {
+    private PacketConnector.IOListener ioListener = new PacketConnector.IOListener() {
 
         /**
          * 消息发送失败
@@ -326,7 +332,7 @@ public class GoChatManager {
             if (callBack != null) {
                 callBack.onError(GoChatError.Companion.getERROR_CLIENT_NET(), "客户端网络未连接");
             }
-            Log.v("GoChat_onOutputFailed",request.getTransport()+"发送失败");
+            Log.v("GoChat_onOutputFailed", request.getTransport() + "发送失败");
         }
 
         /**
@@ -362,7 +368,7 @@ public class GoChatManager {
                                 (Map<String, Object>) new Gson().fromJson(root,
                                         new TypeToken<Map<String, Object>>() {
                                         }.getType()));
-                        Log.v("GoChat_onInputComed",action+"接收到服务器推送的消息");
+                        Log.v("GoChat_onInputComed", action + "接收到服务器推送的消息");
                         //客户端给服务器的响应
                         if (pushed) {
                             session.write("{type:'response',sequence:'"
@@ -382,7 +388,7 @@ public class GoChatManager {
                     // 消息发送结果只有 成功或者 失败,不需要返回对象
                     if (flag) {
                         if (sequence.equals(authSequence)) {
-                            Log.v("GoChat_onInputComed","认证成功"+"接收到服务器的响应");
+                            Log.v("GoChat_onInputComed", "认证成功" + "接收到服务器的响应");
                             //return;
                         }
                         // 消息成功发送
@@ -406,7 +412,7 @@ public class GoChatManager {
                         }
                     } else {
                         if (sequence.equals(authSequence)) {
-                            Log.v("GoChat_onInputComed","认证失败"+"接收到服务器的响应");
+                            Log.v("GoChat_onInputComed", "认证失败" + "接收到服务器的响应");
                             //return;
                         }
 

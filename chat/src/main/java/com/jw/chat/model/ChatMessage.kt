@@ -1,4 +1,4 @@
-package com.jw.chat.msg
+package com.jw.chat.model
 
 import java.util.HashMap
 
@@ -46,9 +46,9 @@ class ChatMessage private constructor() {
 
     private fun getTypeString(type: Type): String? {
         when (type) {
-            ChatMessage.Type.TEXT -> return "text"
-            ChatMessage.Type.IMAGE -> return "image"
-            ChatMessage.Type.INVITATION -> return "invitation"
+            Type.TEXT -> return "text"
+            Type.IMAGE -> return "image"
+            Type.INVITATION -> return "invitation"
             else -> {
             }
         }

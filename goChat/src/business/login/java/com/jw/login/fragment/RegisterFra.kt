@@ -5,7 +5,7 @@ import android.os.Handler
 import android.os.Message
 import android.view.View
 import com.jw.business.business.AccountInfoBusiness
-import com.jw.business.model.bean.AccountInfo
+import com.jw.business.db.model.AccountInfo
 import com.jw.chat.GoChatError
 import com.jw.chat.GoChatManager
 import com.jw.chat.callback.GoChatObjectCallBack

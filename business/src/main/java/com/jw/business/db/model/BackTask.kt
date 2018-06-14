@@ -1,4 +1,4 @@
-package com.jw.business.model.bean
+package com.jw.business.db.model
 
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity

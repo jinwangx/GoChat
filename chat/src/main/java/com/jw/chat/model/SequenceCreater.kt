@@ -1,4 +1,4 @@
-package com.jw.chat.msg
+package com.jw.chat.model
 
 import java.util.UUID
 

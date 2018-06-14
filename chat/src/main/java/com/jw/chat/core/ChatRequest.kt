@@ -2,7 +2,7 @@ package com.jw.chat.core
 
 import com.google.gson.Gson
 import com.jw.chat.callback.GoChatCallBack
-import com.jw.chat.msg.ChatMessage
+import com.jw.chat.model.ChatMessage
 import java.util.*
 
 /**

@@ -12,11 +12,11 @@ import com.jw.gochatbase.BaseApplication
 
 
 /**
- * Author : jinwangx
- * Created : Administrator on 2018/6/12.
- * Description : 描述
+ * 作者 : jinwangx
+ * 创建时间 : 2018/6/12
+ * 描述 : 数据库创建(聊天信息、会话)
  */
-@Database(entities = [Message::class,Conversation::class], version = 1, exportSchema = false)
+@Database(entities = [Message::class, Conversation::class], version = 1, exportSchema = false)
 abstract class ChatDataBase : RoomDatabase() {
     abstract fun messageDao(): MessageDao
     abstract fun conversationDao(): ConversationDao
@@ -28,7 +28,7 @@ abstract class ChatDataBase : RoomDatabase() {
         @Synchronized
         fun getInstance(context: Context): ChatDataBase {
             if (INSTANCE == null) INSTANCE = Room.databaseBuilder(context.applicationContext,
-                    ChatDataBase::class.java, "gochat1.db")
+                    ChatDataBase::class.java, "chat.db")
                     .allowMainThreadQueries()
                     .build()
             return INSTANCE!!
@@ -37,7 +37,7 @@ abstract class ChatDataBase : RoomDatabase() {
         @Synchronized
         fun getInstance(): ChatDataBase {
             if (INSTANCE == null) INSTANCE = Room.databaseBuilder(BaseApplication.getContext()!!.applicationContext,
-                    ChatDataBase::class.java, "gochat1.db")
+                    ChatDataBase::class.java, "chat.db")
                     .allowMainThreadQueries()
                     .build()
             return INSTANCE!!

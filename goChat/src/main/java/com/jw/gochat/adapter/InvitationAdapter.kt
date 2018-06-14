@@ -9,7 +9,7 @@ import android.widget.Button
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.jw.gochat.R
-import com.jw.business.model.bean.Invitation
+import com.jw.business.db.model.Invitation
 import com.jw.business.db.GCDB
 import de.hdodenhof.circleimageview.CircleImageView
 

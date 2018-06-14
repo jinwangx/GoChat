@@ -1,4 +1,4 @@
-package com.jw.chat.msg
+package com.jw.chat.model
 
 /**
  * 创建时间：

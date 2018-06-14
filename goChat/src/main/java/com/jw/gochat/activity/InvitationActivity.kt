@@ -3,7 +3,7 @@ package com.jw.gochat.activity
 import android.databinding.DataBindingUtil
 import android.view.View
 import com.jw.business.db.AppDatabase
-import com.jw.business.model.bean.Invitation
+import com.jw.business.db.model.Invitation
 import com.jw.business.db.dao.InvitationDao
 import com.jw.gochat.ChatApplication
 import com.jw.gochat.R

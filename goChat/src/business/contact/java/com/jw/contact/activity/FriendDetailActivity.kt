@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.View
 import com.bumptech.glide.Glide
 import com.jw.business.business.FriendBusiness
-import com.jw.business.model.bean.Friend
+import com.jw.business.db.model.Friend
 import com.jw.business.db.dao.FriendDao
 import com.jw.chat.GoChatURL
 import com.jw.chat.MessageActivity

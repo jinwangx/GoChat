@@ -7,7 +7,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import com.jw.business.business.FriendBusiness
-import com.jw.business.model.bean.Friend
+import com.jw.business.db.model.Friend
 import com.jw.chat.GoChatManager
 import com.jw.chat.callback.GoChatObjectCallBack
 import com.jw.gochat.ChatApplication

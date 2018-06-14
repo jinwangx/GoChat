@@ -22,20 +22,20 @@ object CommonUtil {
     //得到任务目录
     fun getTaskDir(context: Context): String {
         val dir = getDir(context, "task")
-        Log.v("GoChat_taskDir", dir)
+        Log.v("taskDir", dir)
         return dir
     }
 
     //得到头像目录
     fun getIconDir(context: Context): String {
-        val dir = getDir(context, "invitator_icon")
-        Log.v("GoChat_iconDir", dir)
+        val dir = getDir(context, "icon")
+        Log.v("iconDir", dir)
         return dir
     }
 
     fun getFriendIconDir(context: Context): String {
         val dir = getDir(context, "friendIcon")
-        Log.v("GoChat_friendIcon", dir)
+        Log.v("friendIcon", dir)
         return dir
     }
 

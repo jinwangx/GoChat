@@ -5,9 +5,13 @@ import android.arch.persistence.room.Insert
 import android.arch.persistence.room.Query
 import android.arch.persistence.room.Update
 import android.database.Cursor
-import com.jw.business.db.GCDB
-import com.jw.business.model.bean.Invitation
+import com.jw.business.db.model.Invitation
 
+/**
+ * 作者 : jinwangx
+ * 创建时间 : 2018/6/13
+ * 描述 : 数据库操作(邀请信息)
+ */
 @Dao
 interface InvitationDao {
 

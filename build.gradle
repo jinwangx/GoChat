@@ -62,7 +62,11 @@ ext{
             butterknife            : "com.jakewharton:butterknife-compiler:8.7.0",
             butterknifecompile     : "com.jakewharton:butterknife:8.7.0",
             stetho                 : "com.facebook.stetho:stetho:1.2.0",
-            stethoOkhttp          : "com.facebook.stetho:stetho-okhttp:1.2.0"
+            stethoOkhttp           : "com.facebook.stetho:stetho-okhttp:1.2.0",
+            jacksonDatabind        :"com.fasterxml.jackson.core:jackson-databind:2.9.4",
+            eventBus               :"org.greenrobot:eventbus:3.0.0",
+            room                   :"android.arch.persistence.room:runtime:1.1.1-rc1",
+            multidex               :"com.android.support:multidex:1.0.3"
     ]
 
 }
