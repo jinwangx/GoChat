@@ -1,11 +1,14 @@
 package com.jw.gochat.view;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AnimationSet;
 import android.widget.RelativeLayout;
 
 import com.nineoldandroids.view.ViewHelper;
@@ -127,19 +130,18 @@ public class HomeDrag extends RelativeLayout {
 
             private void excuteAnimation(float percent) {
                 //左面板随着右拉逐渐变大
-                ViewHelper.setScaleX(left_view, 0.5f + 0.5f * percent);
-                ViewHelper.setScaleY(left_view, 0.5f + 0.5f * percent);
+                left_view.setScaleX(0.5f + 0.5f * percent);
+                left_view.setScaleY(0.5f + 0.5f * percent);
 
                 //右面板随着右拉逐渐变小
-                ViewHelper.setScaleX(main_view, 1 - percent * 0.2f);
-                ViewHelper.setScaleY(main_view, 1 - percent * 0.2f);
+                main_view.setScaleY(1 - percent * 0.2f);
+                main_view.setScaleY(1 - percent * 0.2f);
 
                 //设置平移
-                ViewHelper.setTranslationX(left_view, -maxLeft / 2 + maxLeft / 2
-                        * percent);
+                left_view.setTranslationX(-maxLeft / 2 + maxLeft / 2 * percent);
 
                 //左面板透明度随右拉逐渐加深
-                ViewHelper.setAlpha(left_view, percent);
+                left_view.setAlpha(percent);
 
                 //ViewGroup随
                 //getBackground().setAlpha((int) ((1 - percent) * 255));
@@ -179,19 +181,10 @@ public class HomeDrag extends RelativeLayout {
 
     public void init(){
         if(left_view!=null&&main_view!=null) {
-            //左面板随着右拉逐渐变大
-            ViewHelper.setScaleX(left_view, 0.5f);
-            ViewHelper.setScaleY(left_view, 0.5f);
-
-            //右面板随着右拉逐渐变小
-            ViewHelper.setScaleX(main_view, 1);
-            ViewHelper.setScaleY(main_view, 1);
-
-            //设置平移
-            ViewHelper.setTranslationX(left_view, -maxLeft / 2);
-
-            //左面板透明度随右拉逐渐加深
-            ViewHelper.setAlpha(left_view, 0);
+            left_view.setScaleX(0.5f);
+            left_view.setScaleY(0.5f);
+            left_view.setTranslationX(-maxLeft / 2);
+            left_view.setAlpha(0);
         }
     }
 

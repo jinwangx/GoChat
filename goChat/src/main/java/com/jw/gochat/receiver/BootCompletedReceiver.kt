@@ -3,7 +3,7 @@ package com.jw.gochat.receiver
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.jw.gochat.service.ChatCoreService
+import com.jw.gochat.service.IMService
 import com.jw.library.utils.ThemeUtils
 
 /**
@@ -18,8 +18,8 @@ class BootCompletedReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         //开启聊天引擎核心服务
-        if (!ThemeUtils.isServiceRunning(context, ChatCoreService::class.java)) {
-            context.startService(Intent(context, ChatCoreService::class.java))
+        if (!ThemeUtils.isServiceRunning(context, IMService::class.java)) {
+            context.startService(Intent(context, IMService::class.java))
         }
     }
 }

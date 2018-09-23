@@ -1,33 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:jw="http://schemas.android.com/apk/res-auto">
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:jw="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_friend_validate"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    <data>
 
-    <com.jw.gochat.view.NormalTopBar
-        android:id="@+id/nt_validate"
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
+
+    </data>
+
+    <LinearLayout
+        android:id="@+id/activity_friend_validate"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        jw:title="朋友验证" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="你需要发送验证申请,等对方通过"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="20dp" />
+        <com.jw.gochat.view.NormalTopBar
+            android:id="@+id/nt_validate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            jw:title="朋友验证" />
 
-    <EditText
-        android:id="@+id/et_validate_msg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="邀请内容" />
-</LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="你需要发送验证申请,等对方通过"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/et_validate_msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="邀请内容" />
+    </LinearLayout>
 
 </layout>

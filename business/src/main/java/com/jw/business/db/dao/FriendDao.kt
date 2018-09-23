@@ -25,7 +25,7 @@ interface FriendDao {
     fun getFriendAll(owner: String):Cursor?
 
     @Query("select * from friend where owner=:owner and account=:account")
-    fun getFriendByAccount(owner: String, account: String): Friend
+    fun getFriendByAccount(owner: String, account: String): Friend?
 
     @Query("update friend set icon =:iconPath where owner=:owner and account=:account")
     fun updateFriend(owner:String,account: String, iconPath: String):Int

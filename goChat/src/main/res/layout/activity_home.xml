@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+    <data>
 
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener"/>
+
+    </data>
     <com.jw.gochat.view.HomeDrag
         android:id="@+id/hd_home"
         android:layout_width="match_parent"
@@ -10,10 +16,12 @@
 
         <include
             layout="@layout/left"
-            android:id="@+id/content_left"/>
+            android:id="@+id/content_left"
+            bind:clickListener="@{clickListener}"/>
 
         <include layout="@layout/home"
-            android:id="@+id/content_main"/>
+            android:id="@+id/content_main"
+            bind:clickListener="@{clickListener}"/>
 
     </com.jw.gochat.view.HomeDrag>
 

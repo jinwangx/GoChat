@@ -1,15 +1,16 @@
 package com.jw.login
 
-import android.databinding.DataBindingUtil
+import android.content.Intent
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
-import com.jw.gochat.ChatApplication
+import com.jw.business.db.model.AccountInfo
+import com.jw.gochat.GoChatApplication
 import com.jw.gochat.R
 import com.jw.gochat.databinding.ActivityLoginBinding
-import com.jw.gochatbase.BaseActivity
 import com.jw.login.fragment.FillInfoFra
 import com.jw.login.fragment.LoginFra
 import com.jw.login.fragment.RegisterFra
+import com.sencent.mm.GoChatBindingActivity
 
 /**
  * 创建时间：
@@ -21,25 +22,29 @@ import com.jw.login.fragment.RegisterFra
  * 如果存在本地账户，但是没有完成详细信息，则进入资料填写页面
  */
 
-class LoginActivity : BaseActivity() {
+class LoginActivity : GoChatBindingActivity<ActivityLoginBinding>() {
     private var fm: FragmentManager? = null
     private var signInFra: LoginFra? = null
     private var signUpFra: RegisterFra? = null
     private var fillInfoFra: FillInfoFra? = null
-    private val me = ChatApplication.getAccountInfo()
-    private var mBinding: ActivityLoginBinding? = null
+    private var me: AccountInfo? = null
 
-    public override fun bindView() {
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
-    }
+    override fun getLayoutId() = R.layout.activity_login
 
-    override fun init() {
-        super.init()
+    override fun doConfig(arguments: Intent) {
+        me = GoChatApplication.getAccountInfo()
         fm = supportFragmentManager
-        if (me != null && me.name == null)
+        if (me != null && me?.name == null)
             goFillInfoFra()
         else
             goLoginFra()
+    }
+
+    override fun onReceiveDataFromFragment(tag: String, name: String, data: Any?) {
+        super.onReceiveDataFromFragment(tag, name, data)
+        when (name) {
+            "register" -> goFillInfoFra()
+        }
     }
 
     //进入登陆页面

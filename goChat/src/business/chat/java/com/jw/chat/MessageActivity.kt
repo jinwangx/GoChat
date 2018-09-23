@@ -1,7 +1,8 @@
 package com.jw.chat
 
-import android.databinding.DataBindingUtil
+import android.content.Intent
 import android.os.Build
+import android.os.Bundle
 import android.os.Environment
 import android.text.TextUtils
 import android.view.View
@@ -15,15 +16,16 @@ import com.jw.chat.callback.GoChatCallBack
 import com.jw.chat.db.bean.Message
 import com.jw.chat.model.ChatMessage
 import com.jw.chat.model.TextBody
-import com.jw.gochat.ChatApplication
+import com.jw.gochat.GoChatApplication
 import com.jw.gochat.R
 import com.jw.gochat.adapter.MessageAdapter
 import com.jw.gochat.databinding.ActivityMessageBinding
 import com.jw.gochat.event.TextEvent
 import com.jw.gochat.utils.CommonUtil
 import com.jw.gochat.view.NormalTopBar
-import com.jw.gochatbase.BaseActivity
+import com.jw.gochatbase.base.activity.BaseActivity
 import com.jw.library.utils.ThemeUtils
+import com.sencent.mm.GoChatBindingActivity
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONException
@@ -39,30 +41,68 @@ import java.util.*
  * 描述：对话界面
  */
 
-class MessageActivity : BaseActivity(), View.OnClickListener, NormalTopBar.BackListener {
-
+class MessageActivity : GoChatBindingActivity<ActivityMessageBinding>(), NormalTopBar.BackListener {
     //语音听写对象
     private var mIatDialog: RecognizerDialog? = null
-    // 语音合成对象
-    //private SpeechSynthesizer mTts;
-    // 默认发音人
-    //private String voicer = "xiaoyan";
-    // 引擎类型
-    //private String mEngineType = SpeechConstant.TYPE_CLOUD;
-
     private val mIatResults = LinkedHashMap<String?, String>()
-    private val me = ChatApplication.getAccountInfo()
+    private val me = GoChatApplication.getAccountInfo()!!
     private var receiver: Friend? = null
-    private var adapter: MessageAdapter? = null
+    private var  adapter: MessageAdapter? = null
 
     private var msg: Message? = null
-    private var mBinding: ActivityMessageBinding? = null
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun Event(textEvent: TextEvent) {
         val from = textEvent.message!!.account
         if (receiver!!.account!!.equals(from, ignoreCase = true)) {
-            loadData()
+            doRefresh()
+        }
+    }
+
+    override fun getLayoutId() = R.layout.activity_message
+    override fun doInflate(activity: BaseActivity, savedInstanceState: Bundle?) {
+        super.doInflate(activity, savedInstanceState)
+        receiver = intent.getSerializableExtra("receiver") as Friend
+    }
+
+    override fun doConfig(arguments: Intent) {
+        val cursor = MessageBusiness.query(me.account!!, receiver!!.account!!)
+        adapter = MessageAdapter(this, cursor, receiver!!)
+        binding.apply {
+            ntMsg.setTitle(receiver!!.account)
+            ntMsg.setBackListener(this@MessageActivity)
+            lvMsg.adapter = adapter
+            lvMsg.dividerHeight = 0
+            lvMsg.isClickable = false
+            clickListener = View.OnClickListener {
+                when (it.id) {
+                    R.id.iv_msg_speech -> {
+                        // 设置参数
+                        setSpeechRecognizerParam()
+                        val isShowDialog = true
+                        // 显示听写对话框
+                        mIatDialog!!.setListener(mRecognizerDialogListener)
+                        mIatDialog!!.show()
+                    }
+                    R.id.btn_msg_send -> {
+                        send()
+                    }
+                }
+            }
+        }
+        //初始化语音听写对象
+        mIatDialog = RecognizerDialog(this, mInitListener)
+    }
+
+    override fun doRefresh() {
+        val cursor = MessageBusiness.query(me.account!!, receiver!!.account!!)
+        adapter!!.changeCursor(cursor)
+        binding.lvMsg.post {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                binding.lvMsg.smoothScrollToPositionFromTop(cursor.count, 0)
+            } else {
+                binding.lvMsg.smoothScrollToPosition(cursor.count)
+            }
         }
     }
 
@@ -72,7 +112,7 @@ class MessageActivity : BaseActivity(), View.OnClickListener, NormalTopBar.BackL
             msg!!.state = 2
             MessageBusiness.update(msg!!)
             // 更新ui
-            loadData()
+            doRefresh()
         }
 
         override fun onProgress(progress: Int) {
@@ -81,9 +121,9 @@ class MessageActivity : BaseActivity(), View.OnClickListener, NormalTopBar.BackL
         override fun onError(error: Int, errorString: String) {
             ThemeUtils.show(this@MessageActivity, errorString)
             msg!!.state = 3
-            MessageBusiness!!.update(msg!!)
+            MessageBusiness.update(msg!!)
             // 更新ui
-            loadData()
+            doRefresh()
         }
     }
 
@@ -115,8 +155,8 @@ class MessageActivity : BaseActivity(), View.OnClickListener, NormalTopBar.BackL
             for (key in mIatResults.keys) {
                 resultBuffer.append(mIatResults[key])
             }
-            mBinding!!.etMsgContent.setText(resultBuffer.toString())
-            mBinding!!.etMsgContent.setSelection(mBinding!!.etMsgContent.length())
+            binding.etMsgContent.setText(resultBuffer.toString())
+            binding.etMsgContent.setSelection(binding.etMsgContent.length())
             if (isLast)
                 send()
         }
@@ -127,58 +167,10 @@ class MessageActivity : BaseActivity(), View.OnClickListener, NormalTopBar.BackL
         override fun onError(error: SpeechError) {}
     }
 
-    public override fun bindView() {
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_message)
-        receiver = intent.getSerializableExtra("receiver") as Friend
-    }
-
-    override fun initView() {
-        super.initView()
-        mBinding!!.ntMsg.setTitle(receiver!!.account)
-        mBinding!!.ntMsg.setBackListener(this)
-        val cursor = MessageBusiness.query(me.account!!, receiver!!.account!!)
-        adapter = MessageAdapter(this, cursor, receiver!!)
-        mBinding!!.lvMsg.adapter = adapter
-        mBinding!!.lvMsg.dividerHeight = 0
-        mBinding!!.lvMsg.isClickable = false
-        mBinding!!.ivMsgSpeech.setOnClickListener(this)
-        mBinding!!.btnMsgSend.setOnClickListener(this)
-        //初始化语音听写对象
-        mIatDialog = RecognizerDialog(this, mInitListener)
-    }
-
-    override fun loadData() {
-        val cursor = MessageBusiness.query(me.account!!, receiver!!.account!!)
-        adapter!!.changeCursor(cursor)
-        mBinding!!.lvMsg.post {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                mBinding!!.lvMsg.smoothScrollToPositionFromTop(cursor.count, 0)
-            } else {
-                mBinding!!.lvMsg.smoothScrollToPosition(cursor.count)
-            }
-        }
-    }
-
-    override fun onClick(v: View) {
-        when (v.id) {
-            R.id.iv_msg_speech -> {
-                // 设置参数
-                setSpeechRecognizerParam()
-                val isShowDialog = true
-                // 显示听写对话框
-                mIatDialog!!.setListener(mRecognizerDialogListener)
-                mIatDialog!!.show()
-            }
-            R.id.btn_msg_send -> send()
-            else -> {
-            }
-        }
-    }
-
     fun send() {
-        val content = mBinding!!.etMsgContent.text.toString()
+        val content = binding.etMsgContent.text.toString()
         if (!TextUtils.isEmpty(content)) {
-            mBinding!!.etMsgContent.setText("")
+            binding.etMsgContent.setText("")
             // 存储到本地
             msg = Message()
             msg!!.account = receiver!!.account
@@ -189,15 +181,14 @@ class MessageActivity : BaseActivity(), View.OnClickListener, NormalTopBar.BackL
             msg!!.read = true
             msg!!.state = 1
             msg!!.type = 0
-            MessageBusiness!!.insert(msg!!)
-            loadData()
-
+            MessageBusiness.insert(msg!!)
+            doRefresh()
             val message = ChatMessage.createMessage(ChatMessage.Type.TEXT)
             message.setAccount(me.account!!)
             message.setToken(me.token!!)
             message.receiver = receiver!!.account
             message.body = TextBody(content)
-            GoChatManager.getInstance(ChatApplication.getOkHttpClient()).sendMessage(message, messageSendCallBack)
+            IMClient.getInstance().sendMessage(message, messageSendCallBack)
         }
     }
 

@@ -5,14 +5,16 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.databinding.DataBindingUtil
 import android.os.Build
+import android.os.Bundle
 import android.view.WindowManager
 import android.view.animation.AlphaAnimation
 import android.widget.Toast
-import com.jw.gochat.ChatApplication
+import com.jw.business.db.model.AccountInfo
+import com.jw.gochat.GoChatApplication
 import com.jw.gochat.R
 import com.jw.gochat.databinding.ActivitySplashBinding
 import com.jw.gochat.utils.CommonUtil
-import com.jw.gochatbase.BaseActivity
+import com.jw.gochatbase.base.activity.BaseActivity
 import com.jw.library.utils.ThemeUtils
 import com.jw.login.LoginActivity
 
@@ -26,30 +28,21 @@ import com.jw.login.LoginActivity
  */
 
 class SplashActivity : BaseActivity() {
-    private val me = ChatApplication.getAccountInfo()
-    private var mBinding: ActivitySplashBinding? = null
+    private var me: AccountInfo? = null
+    private lateinit var mBinding: ActivitySplashBinding
 
-    public override fun bindView() {
+    override fun doInflate(activity: BaseActivity, savedInstanceState: Bundle?) {
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_splash)
     }
 
-    override fun initView() {
-        super.initView()
-        initAnimation()
-        Thread {
-            run {
-                initMusic()
-                initDefaultIcon()
-            }
-        }.start()
-    }
-
-    private fun initAnimation() {
+    override fun doConfig(arguments: Intent) {
+        me = GoChatApplication.getAccountInfo()
+        //初始化闪屏页动画
         val alphaAnimation = AlphaAnimation(0.3f, 1.0f)
         alphaAnimation.duration = 1000
         val startTime = System.currentTimeMillis()
-        mBinding!!.ivSplashLogo.startAnimation(alphaAnimation)
+        mBinding.ivSplashLogo.startAnimation(alphaAnimation)
         //ObjectAnimator.ofFloat(rl, "alpha", 0.3f, 1.0f).setDuration(1000).start();
         //固定停留本页面2s钟，2s钟后检查相关权限是否开启，如没开启，则弹出请求框请求用户开启
         Thread {
@@ -81,14 +74,14 @@ class SplashActivity : BaseActivity() {
                 }
             }
         }.start()
-    }
-
-    private fun initMusic() {
-        ThemeUtils.mkdirsAssets(this, "msgReceive.mp3", filesDir.toString() + "/video/" + "msgReceive.mp3")
-    }
-
-    private fun initDefaultIcon() {
-        ThemeUtils.mkdirsAssets(this, "default_icon_user.png", CommonUtil.getIconDir(this) + "/default_icon_user.png")
+        Thread {
+            run {
+                //释放信息铃声资源
+                ThemeUtils.mkdirsAssets(this, "msgReceive.mp3", filesDir.toString() + "/video/" + "msgReceive.mp3")
+                //释放默认头像资源
+                ThemeUtils.mkdirsAssets(this, "default_icon_user.png", CommonUtil.getIconDir(this) + "/default_icon_user.png")
+            }
+        }.start()
     }
 
     /**

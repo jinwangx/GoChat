@@ -3,8 +3,8 @@ package com.jw.gochat.action
 import android.content.Context
 import com.jw.business.business.InvitationBusiness
 import com.jw.business.db.model.Invitation
-import com.jw.chat.GoChatURL
 import com.jw.gochat.event.InvitationEvent
+import com.jw.gochatbase.gochat.GoChatURL
 import org.greenrobot.eventbus.EventBus
 
 /**

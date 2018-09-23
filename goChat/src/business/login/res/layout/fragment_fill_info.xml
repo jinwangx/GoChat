@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener"/>
+
+        <variable
+            name="nameChangeListener"
+            type="android.databinding.adapters.TextViewBindingAdapter.OnTextChanged"/>
+
+    </data>
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
@@ -27,7 +38,8 @@
             android:layout_height="100dp"
             android:src="@drawable/default_icon_user"
             app:civ_border_color="@android:color/holo_orange_light"
-            app:civ_border_width="2dp" />
+            app:civ_border_width="2dp"
+            android:onClick="@{clickListener}"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -48,7 +60,8 @@
             android:layout_height="50dp"
             android:background="@drawable/action_edt_fill_selector"
             android:gravity="center"
-            android:hint="请输入姓名" />
+            android:hint="请输入姓名"
+            android:onTextChanged="@{nameChangeListener}"/>
 
         <Button
             android:id="@+id/btn_fill"
@@ -56,7 +69,8 @@
             android:layout_marginTop="3dp"
             android:background="@drawable/action_btn_login_selector"
             android:enabled="false"
-            android:text="完成" />
+            android:text="完成"
+            android:onClick="@{clickListener}"/>
     </LinearLayout>
 </LinearLayout>
 

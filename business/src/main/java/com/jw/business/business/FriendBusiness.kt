@@ -46,8 +46,8 @@ object FriendBusiness {
      * @param account String
      * @param iconPath String
      */
-    fun updateFriend(owner:String,account: String, iconPath: String) {
-        AppDatabase.getInstance().friendDao().updateFriend(owner,account, iconPath)
+    fun updateFriend(owner: String, account: String, iconPath: String) {
+        AppDatabase.getInstance().friendDao().updateFriend(owner, account, iconPath)
     }
 
 }

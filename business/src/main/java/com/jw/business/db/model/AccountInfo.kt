@@ -21,7 +21,7 @@ class AccountInfo() : Parcelable {
     @PrimaryKey(autoGenerate = true)
     @NotNull
     @ColumnInfo(name = "_id")
-    var _id: Long =0// 账号
+    var _id: Long = 0// 账号
     @ColumnInfo(name = "account")
     var account: String? = null// 账号
     @ColumnInfo(name = "name")
@@ -37,7 +37,7 @@ class AccountInfo() : Parcelable {
     @ColumnInfo(name = "token")
     var token: String? = null// 用户与服务器交互的唯一标
     @ColumnInfo(name = "current")
-    var current=0// 是否是当前用户
+    var current = 0// 是否是当前用户
 
     constructor(parcel: Parcel) : this() {
 

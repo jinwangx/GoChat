@@ -30,7 +30,7 @@
     <!--application中的android:persistent属性:将应用定义为永久性，开机自动启动-->
     <!--activity中的android:screenOrientation:屏幕方向-->
     <application
-        android:name="com.jw.gochat.ChatApplication"
+        android:name="com.jw.gochat.GoChatApplication"
         android:allowBackup="true"
         android:icon="@drawable/launcher"
         android:label="@string/app_name"
@@ -70,7 +70,7 @@
         <!--确认发送邀请页面-->
         <activity android:name="com.jw.contact.FriendValidateActivity" />
         <!--邀请记录页面-->
-        <activity android:name="com.jw.gochat.activity.InvitationActivity" />
+        <activity android:name="com.jw.contact.activity.InvitationActivity" />
 
         <!--手机开机广播接收者-->
         <receiver android:name="com.jw.gochat.receiver.BootCompletedReceiver">
@@ -80,7 +80,7 @@
         </receiver>
 
         <!--聊天引擎核心服务-->
-        <service android:name="com.jw.gochat.service.ChatCoreService"/>
+        <service android:name="com.jw.gochat.service.IMService"/>
         <!--后台服务-->
         <service android:name="com.jw.gochat.service.BackgroundService"/>
 

@@ -1,75 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/activity_login"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
-    android:padding="5dp">
+    <data>
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/iv_login_icon"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/default_icon_user"
-        app:civ_border_color="@android:color/holo_orange_light"
-        app:civ_border_width="1dp" />
+        <variable
+            name="pasNotNullListener"
+            type="android.databinding.adapters.TextViewBindingAdapter.OnTextChanged" />
 
-    <EditText
-        android:id="@+id/et_login_act"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@drawable/action_edt_login_selector"
-        android:gravity="center"
-        android:hint="QQ号/手机号/邮箱"
-        android:textColor="#A9A9A9" />
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
 
-    <EditText
-        android:id="@+id/et_login_psw"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@drawable/action_edt_login_selector"
-        android:gravity="center"
-        android:hint="密码"
-        android:inputType="textPassword"
-        android:textColor="#A9A9A9" />
-
-    <Button
-        android:id="@+id/btn_login"
-        style="@style/custom_button"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/action_btn_login_selector"
-        android:enabled="false"
-        android:text="登陆" />
+    </data>
 
     <LinearLayout
+        android:id="@+id/activity_login"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="5dp">
 
-        <TextView
-            android:id="@+id/tv_login_psw_miss"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_login_icon"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/default_icon_user"
+            app:civ_border_color="@android:color/holo_orange_light"
+            app:civ_border_width="1dp" />
+
+        <EditText
+            android:id="@+id/et_login_act"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/action_edt_login_selector"
+            android:gravity="center"
+            android:hint="QQ号/手机号/邮箱"
+            android:textColor="#A9A9A9" />
+
+        <EditText
+            android:id="@+id/et_login_psw"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/action_edt_login_selector"
+            android:gravity="center"
+            android:hint="密码"
+            android:inputType="textPassword"
+            android:onTextChanged="@{pasNotNullListener}"
+            android:textColor="#A9A9A9" />
+
+        <Button
+            android:id="@+id/btn_login"
+            style="@style/custom_button"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/action_btn_login_selector"
+            android:enabled="false"
+            android:text="登陆" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="忘记密码"
-            android:textColor="#4682B4" />
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tv_register"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="end"
-            android:text="新用户注册"
-            android:textColor="#4682B4" />
+            <TextView
+                android:id="@+id/tv_login_psw_miss"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="@{clickListener}"
+                android:text="忘记密码"
+                android:textColor="#4682B4" />
+
+            <TextView
+                android:id="@+id/tv_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:onClick="@{clickListener}"
+                android:text="新用户注册"
+                android:textColor="#4682B4" />
+        </LinearLayout>
+
     </LinearLayout>
-
-</LinearLayout>
 
 </layout>

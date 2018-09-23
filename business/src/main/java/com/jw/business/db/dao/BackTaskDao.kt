@@ -19,15 +19,15 @@ interface BackTaskDao {
     fun getTaskByOwner(owner: String): List<BackTask>?
 
     @Query("select * from back_task where owner=:owner and state=:state")
-    fun getTaskByState(owner: String, state: Int):Cursor?
+    fun getTaskByState(owner: String, state: Int): Cursor?
 
     @Insert
-    fun insert(task: BackTask):Long
+    fun insert(task: BackTask): Long
 
     @Update
-    fun update(task: BackTask):Int
+    fun update(task: BackTask): Int
 
     @Query("update back_task set state=:state where _id=:id")
-    fun updateTaskStateById(id: Long, state: Int):Int
+    fun updateTaskStateById(id: Long, state: Int): Int
 
 }

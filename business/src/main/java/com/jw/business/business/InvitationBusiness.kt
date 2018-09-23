@@ -48,6 +48,6 @@ object InvitationBusiness {
      */
     fun hasUnagree(owner: String): Boolean {
         val agreeCount = AppDatabase.getInstance().invitationDao().getUnAgreeCount(owner)
-        return agreeCount!=0
+        return agreeCount != 0
     }
 }

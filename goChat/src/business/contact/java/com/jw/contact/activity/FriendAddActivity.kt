@@ -1,14 +1,12 @@
 package com.jw.contact
 
 import android.content.Intent
-import android.databinding.DataBindingUtil
 import android.view.View
-
 import com.jw.gochat.R
 import com.jw.gochat.databinding.ActivityNewFriendBinding
 import com.jw.gochat.view.NormalTopBar
-import com.jw.gochatbase.BaseActivity
 import com.jw.library.utils.ThemeUtils
+import com.sencent.mm.GoChatBindingActivity
 
 /**
  * 创建时间：
@@ -18,27 +16,24 @@ import com.jw.library.utils.ThemeUtils
  * 描述：更多朋友页面
  */
 
-class FriendAddActivity : BaseActivity(), View.OnClickListener, NormalTopBar.BackListener {
-
-    private var mBinding: ActivityNewFriendBinding? = null
-
-    public override fun bindView() {
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_new_friend)
-    }
-
-    override fun initView() {
-        mBinding!!.ntNewFriend.setBackListener(this)
-        mBinding!!.llFriendSearch.setOnClickListener(this)
-        mBinding!!.rlScanCode.setOnClickListener(this)
-    }
-
-    override fun onClick(v: View) {
-        when (v.id) {
-            R.id.ll_friend_search -> {
-                finish()
-                startActivity(Intent(this@FriendAddActivity, FriendSearchActivity::class.java))
+class FriendAddActivity : GoChatBindingActivity<ActivityNewFriendBinding>(), NormalTopBar.BackListener {
+    
+    override fun getLayoutId() = R.layout.activity_new_friend
+    
+    override fun doConfig(arguments: Intent) {
+        binding.apply {
+            ntNewFriend.setBackListener(this@FriendAddActivity)
+            clickListener = View.OnClickListener {
+                when (it.id) {
+                    R.id.ll_friend_search -> {
+                        finish()
+                        startActivity(Intent(this@FriendAddActivity, FriendSearchActivity::class.java))
+                    }
+                    R.id.rl_scan_code -> {
+                        ThemeUtils.show(this@FriendAddActivity, "暂未开放该功能")
+                    }
+                }
             }
-            R.id.rl_scan_code -> ThemeUtils.show(this@FriendAddActivity, "暂未开放该功能")
         }
     }
 

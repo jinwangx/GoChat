@@ -102,6 +102,10 @@ dependencies {
     implementation dependencies.nineoldandroids
     implementation dependencies.stetho
     implementation dependencies.stethoOkhttp
+    implementation dependencies.retrofit2
+    implementation dependencies.retrofit2AdapterRxjava
+    implementation dependencies.retrofit2AdapterGson
+    implementation dependencies.retrofit2AdapterJackson
     kapt dependencies.databinding
     implementation project(':business')
     implementation project(':chat')

@@ -1,19 +1,19 @@
 <resources>
 
     <!--Activity进出动画-->
-    <style name="Anim_fade" parent="android:Theme.Holo.Light.NoActionBar">
+    <style name="Anim_fade" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowAnimationStyle">@style/fade</item>
     </style>
 
     <!--Activity进出动画-->
-    <style name="Anim_fade_no_in" parent="android:Theme.Holo.Light.NoActionBar">
+    <style name="Anim_fade_no_in" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowAnimationStyle">@style/fade_no_in</item>
     </style>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Holo.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowNoTitle">true</item>
         <!-- Customize your theme here. -->
     </style>

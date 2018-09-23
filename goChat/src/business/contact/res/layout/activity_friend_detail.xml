@@ -1,79 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:jw="http://schemas.android.com/apk/res-auto">
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:jw="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    <data>
 
-    <com.jw.gochat.view.NormalTopBar
-        android:id="@+id/nt_friend_detail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        jw:title="详细信息" />
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
+
+    </data>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="5dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/iv_list_item_friend_icon"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/default_icon_user"
-            jw:civ_border_color="@android:color/holo_orange_light"
-            jw:civ_border_width="1dp" />
+        <com.jw.gochat.view.NormalTopBar
+            android:id="@+id/nt_friend_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            jw:title="详细信息" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="5dp">
 
-            <TextView
-                android:id="@+id/tv_list_item_friend_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="姓名:"
-                android:textSize="20dp" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_list_item_friend_icon"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/default_icon_user"
+                jw:civ_border_color="@android:color/holo_orange_light"
+                jw:civ_border_width="1dp" />
 
-            <TextView
-                android:id="@+id/tv_list_item_friend_act"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="QQ号:"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="15dp" />
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_list_item_friend_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="姓名:"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/tv_list_item_friend_act"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="QQ号:"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="15dp" />
+            </LinearLayout>
         </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_friend_add"
+            style="@style/custom_button"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/action_btn_login_selector"
+            android:onClick="@{clickListener}"
+            android:text="添加到通讯录"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btn_friend_send"
+            style="@style/custom_button"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/action_btn_login_selector"
+            android:onClick="@{clickListener}"
+            android:text="发消息">
+
+        </Button>
     </LinearLayout>
-
-    <Button
-        android:id="@+id/btn_friend_add"
-        style="@style/custom_button"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:background="@drawable/action_btn_login_selector"
-        android:text="添加到通讯录"
-        android:visibility="gone" />
-
-    <Button
-        android:id="@+id/btn_friend_send"
-        style="@style/custom_button"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/action_btn_login_selector"
-        android:text="发消息">
-
-    </Button>
-</LinearLayout>
 </layout>

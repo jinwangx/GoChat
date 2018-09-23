@@ -1,6 +1,6 @@
 package com.jw.gochat.utils
 
-import com.jw.business.model.bean.NetTask
+import com.jw.business.model.NetTask
 import java.util.HashMap
 
 object BackTaskFactory {

@@ -1,78 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:jw="http://schemas.android.com/apk/res-auto">
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:jw="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_new_friend"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    <data>
 
-    <com.jw.gochat.view.NormalTopBar
-        android:id="@+id/nt_new_friend"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        jw:title="添加朋友" />
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
+
+    </data>
 
     <LinearLayout
-        android:id="@+id/ll_friend_search"
+        android:id="@+id/activity_new_friend"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="wrap_content"
+        <com.jw.gochat.view.NormalTopBar
+            android:id="@+id/nt_new_friend"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_search_pressed" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="GoChat账号/手机号" />
-    </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/rl_scan_code"
-        android:layout_width="wrap_content"
-        android:layout_height="80dp"
-        android:gravity="center_vertical"
-        android:padding="20dp">
-
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/icon_scan" />
+            jw:title="添加朋友" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="50dp"
-            android:orientation="vertical">
+            android:id="@+id/ll_friend_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:onClick="@{clickListener}"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_search_pressed" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="扫一扫" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="扫描二维码名片"
-                android:textColor="@android:color/darker_gray" />
+                android:text="GoChat账号/手机号" />
         </LinearLayout>
 
-        <ImageView
+        <RelativeLayout
+            android:id="@+id/rl_scan_code"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/scan_into" />
+            android:layout_height="80dp"
+            android:gravity="center_vertical"
+            android:onClick="@{clickListener}"
+            android:padding="20dp">
 
-    </RelativeLayout>
-</LinearLayout>
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/icon_scan" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="50dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="扫一扫" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="扫描二维码名片"
+                    android:textColor="@android:color/darker_gray" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/scan_into" />
+
+        </RelativeLayout>
+    </LinearLayout>
 </layout>

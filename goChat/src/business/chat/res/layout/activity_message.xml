@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
+    <data>
+
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener"/>
+
+    </data>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_message"
@@ -32,7 +40,8 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentLeft="true"
-            android:src="@drawable/message_input_voice" />
+            android:src="@drawable/message_input_voice"
+            android:onClick="@{clickListener}"/>
 
         <EditText
             android:id="@+id/et_msg_content"
@@ -47,7 +56,8 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
-            android:background="@drawable/action_btn_msg_send_selector" />
+            android:background="@drawable/action_btn_msg_send_selector"
+            android:onClick="@{clickListener}"/>
     </RelativeLayout>
 </RelativeLayout>
 </layout>

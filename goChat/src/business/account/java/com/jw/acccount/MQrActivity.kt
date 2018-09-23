@@ -1,12 +1,12 @@
 package com.jw.acccount
 
-import android.databinding.DataBindingUtil
+import android.content.Intent
 import com.bumptech.glide.Glide
-import com.jw.gochat.ChatApplication
+import com.jw.gochat.GoChatApplication
 import com.jw.gochat.R
 import com.jw.gochat.databinding.ActivityMqrBinding
 import com.jw.gochat.view.NormalTopBar
-import com.jw.gochatbase.BaseActivity
+import com.sencent.mm.GoChatBindingActivity
 
 /**
  * Created by Administrator on 2017/4/15.
@@ -20,18 +20,14 @@ import com.jw.gochatbase.BaseActivity
  * 描述：扫二维码，添加自己为好友页面
  */
 
-class MQrActivity : BaseActivity(), NormalTopBar.BackListener {
-    private val me = ChatApplication.getAccountInfo()
-    private var mBinding: ActivityMqrBinding? = null
+class MQrActivity : GoChatBindingActivity<ActivityMqrBinding>(), NormalTopBar.BackListener {
+    private val me = GoChatApplication.getAccountInfo()!!
 
-    public override fun bindView() {
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_mqr)
-    }
+    override fun getLayoutId() = R.layout.activity_mqr
 
-    override fun initView() {
-        super.initView()
-        Glide.with(this).load(me.icon).into(mBinding!!.ivQrIcon)
-        mBinding!!.ntQr.setBackListener(this)
+    override fun doConfig(arguments: Intent) {
+        Glide.with(this).load(me.icon).into(binding.ivQrIcon)
+        binding.ntQr.setBackListener(this)
     }
 
     override fun back() {

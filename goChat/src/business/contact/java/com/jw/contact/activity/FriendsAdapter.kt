@@ -9,10 +9,8 @@ import android.widget.TextView
 
 import com.bumptech.glide.Glide
 import com.jw.business.business.FriendBusiness
-import com.jw.business.db.AppDatabase
-import com.jw.gochat.ChatApplication
+import com.jw.gochat.GoChatApplication
 import com.jw.gochat.R
-import com.jw.business.db.dao.FriendDao
 
 import de.hdodenhof.circleimageview.CircleImageView
 
@@ -37,7 +35,7 @@ class FriendsAdapter(context: Context, c: Cursor) : CursorAdapter(context, c) {
         val account = cursor.getString(cursor.getColumnIndex("account"))
         val iconPath = cursor.getString(cursor.getColumnIndex("icon"))
         Glide.with(context).load(iconPath).into(ivIcon)
-        val friend = FriendBusiness.getFriendById(ChatApplication.getAccountInfo().account!!, account)
+        val friend = FriendBusiness.getFriendById(GoChatApplication.getAccountInfo()!!.account!!, account)
         tvFriend.text = name
         view.tag = friend
     }

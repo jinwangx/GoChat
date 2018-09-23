@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
+
+    </data>
 
     <RelativeLayout
         android:layout_width="200dp"
@@ -13,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:background="@drawable/icon_back"
+            android:onClick="@{clickListener}"
             android:orientation="vertical"
             android:paddingLeft="5dp">
 
@@ -22,6 +30,7 @@
                 android:layout_height="20dp"
                 android:layout_marginLeft="160dp"
                 android:layout_marginTop="10dp"
+                android:onClick="@{clickListener}"
                 android:src="@drawable/icon_qr" />
 
             <LinearLayout
@@ -92,6 +101,7 @@
             android:layout_marginTop="400dp"
             android:background="@android:color/white"
             android:gravity="bottom"
+            android:onClick="@{clickListener}"
             android:padding="10dp"
             android:text="设置"
             android:textSize="20dp" />

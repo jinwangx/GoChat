@@ -1,9 +1,7 @@
 package com.jw.gochat.action
 
 import android.content.Context
-import android.content.Intent
 import com.jw.business.business.FriendBusiness
-import com.jw.gochat.receiver.PushReceiver
 import org.greenrobot.eventbus.EventBus
 
 /**
@@ -29,7 +27,7 @@ class NameChangeAction : Action() {
         val name = data["name"].toString()
 
         // 数据存储
-        val friend = FriendBusiness.getFriendById(receiver, sender)?:return
+        val friend = FriendBusiness.getFriendById(receiver, sender) ?: return
         friend!!.name = name
         FriendBusiness.update(friend)
         EventBus.getDefault().post(friend)

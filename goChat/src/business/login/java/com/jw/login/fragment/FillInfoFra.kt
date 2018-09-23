@@ -2,23 +2,22 @@ package com.jw.login.fragment
 
 import android.app.Activity
 import android.content.Intent
-import android.databinding.DataBindingUtil
+import android.databinding.adapters.TextViewBindingAdapter
 import android.net.Uri
+import android.os.Bundle
 import android.provider.MediaStore
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import com.bumptech.glide.Glide
-import com.jw.gochat.ChatApplication
+import com.jw.business.db.model.AccountInfo
+import com.jw.gochat.GoChatApplication
 import com.jw.gochat.R
 import com.jw.gochat.action.UploadInfoAction
 import com.jw.gochat.activity.HomeActivity
 import com.jw.gochat.databinding.FragmentFillInfoBinding
 import com.jw.gochat.utils.CommonUtil
 import com.jw.gochat.view.DialogChooseImage
-import com.jw.gochat.view.NormalTopBar
-import com.jw.gochatbase.BaseFragment
 import com.jw.library.utils.FileUtils
+import com.sencent.mm.GoChatBindingFragment
 import java.io.File
 
 /**
@@ -29,13 +28,44 @@ import java.io.File
  * 描述：个人信息填充页面
  */
 
-class FillInfoFra : BaseFragment(), View.OnClickListener, TextWatcher, NormalTopBar.BackListener {
+class FillInfoFra : GoChatBindingFragment<FragmentFillInfoBinding>() {
     private val crop = 200
-    private val me = ChatApplication.getAccountInfo()
+    private lateinit var me: AccountInfo
     private var iconFile: File? = null
     private var dialog: DialogChooseImage? = null
-    private var mBinding: FragmentFillInfoBinding? = null
 
+    override fun getLayoutId() = R.layout.fragment_fill_info
+
+    override fun doConfig(arguments: Bundle?) {
+        me = GoChatApplication.getAccountInfo()!!
+        //存储默认头像到本地头像文件夹 /data/Android/com.jw.qq/icon/
+        val inPath = CommonUtil.getIconDir(activity!!) + "/default_icon_user.png"
+        iconFile = File(CommonUtil.getIconDir(activity!!), me.account!!)
+        FileUtils.copy(inPath, iconFile!!.absolutePath)
+        binding!!.apply {
+            clickListener = View.OnClickListener {
+                when (it.id) {
+                    R.id.btn_fill -> {
+                        val name = binding!!.etFillName.text.toString()
+                        val uploadInfoAction = UploadInfoAction()
+                        uploadInfoAction.doAction(GoChatApplication.application!!, me, name, iconFile!!)
+                        startActivity(Intent(activity, HomeActivity::class.java))
+                        activity!!.finish()
+                    }
+                    R.id.iv_fill_icon -> {
+                        dialog = DialogChooseImage(activity)
+                        dialog!!.show()
+                        dialog!!.setDialogChooseImageListener(dialogChooseImageListener)
+                    }
+                }
+                nameChangeListener = TextViewBindingAdapter.OnTextChanged { s, _, _, _ ->
+                    val length = s.trim().length
+                    btnFill.isEnabled = length > 0
+                }
+            }
+        }
+
+    }
 
     //选择头像dialog
     private var dialogChooseImageListener: DialogChooseImage.DialogChooseImageListener = object : DialogChooseImage.DialogChooseImageListener {
@@ -61,45 +91,6 @@ class FillInfoFra : BaseFragment(), View.OnClickListener, TextWatcher, NormalTop
         }
     }
 
-
-    public override fun bindView(): View {
-        mBinding = DataBindingUtil.inflate(activity!!.layoutInflater, R.layout.fragment_fill_info, null, false)
-        return mBinding!!.root
-    }
-
-    override fun init() {
-        super.init()
-        //存储默认头像到本地头像文件夹 /data/Android/com.jw.qq/icon/
-        val inPath = CommonUtil.getIconDir(this.activity!!) + "/default_icon_user.png"
-        iconFile = File(CommonUtil.getIconDir(this.activity!!), me.account!!)
-        FileUtils.copy(inPath, iconFile!!.absolutePath)
-    }
-
-    override fun initEvent() {
-        super.initEvent()
-        mBinding!!.ntFillInfo.setBackListener(this)
-        mBinding!!.etFillName.addTextChangedListener(this)
-        mBinding!!.btnFill.setOnClickListener(this)
-        mBinding!!.ivFillIcon.setOnClickListener(this)
-    }
-
-    override fun onClick(v: View) {
-        when (v.id) {
-            R.id.iv_fill_icon -> {
-                dialog = DialogChooseImage(activity)
-                dialog!!.show()
-                dialog!!.setDialogChooseImageListener(dialogChooseImageListener)
-            }
-            R.id.btn_fill -> {
-                val name = mBinding!!.etFillName.text.toString()
-                val uploadInfoAction = UploadInfoAction()
-                uploadInfoAction.doAction(this.activity!!, me, name, this.iconFile!!)
-                startActivity(Intent(activity, HomeActivity::class.java))
-                activity!!.finish()
-            }
-        }
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -107,7 +98,7 @@ class FillInfoFra : BaseFragment(), View.OnClickListener, TextWatcher, NormalTop
             return
         }
         when (requestCode) {
-            REQUEST_CODE_GALLERY -> Glide.with(this).load(iconFile!!.absolutePath).into(mBinding!!.ivFillIcon)
+            REQUEST_CODE_GALLERY -> Glide.with(this).load(iconFile!!.absolutePath).into(binding!!.ivFillIcon)
             REQUEST_CODE_CAMERA -> {
                 val uri = Uri.fromFile(iconFile)
                 val intent = Intent("com.android.camera.action.CROP")
@@ -120,28 +111,10 @@ class FillInfoFra : BaseFragment(), View.OnClickListener, TextWatcher, NormalTop
                 intent.putExtra("outputY", crop)
                 startActivityForResult(intent, REQUEST_CODE_CROP)
             }
-            REQUEST_CODE_CROP -> Glide.with(this).load(iconFile!!.absolutePath).into(mBinding!!.ivFillIcon)
+            REQUEST_CODE_CROP -> Glide.with(this).load(iconFile!!.absolutePath).into(binding!!.ivFillIcon)
             else -> {
             }
         }
-    }
-
-    override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-
-    }
-
-    //监听文本框中的文字变化
-    override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-        val length = mBinding!!.etFillName.text.toString().trim { it <= ' ' }.length
-        mBinding!!.btnFill.isEnabled = length > 0
-    }
-
-    override fun afterTextChanged(s: Editable) {
-
-    }
-
-    override fun back() {
-        fragmentManager!!.popBackStack()
     }
 
     companion object {

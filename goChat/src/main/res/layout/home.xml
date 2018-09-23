@@ -4,6 +4,14 @@
     xmlns:jw="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener"/>
+
+    </data>
+
+
     <LinearLayout
         android:id="@+id/act_home"
         android:layout_width="match_parent"

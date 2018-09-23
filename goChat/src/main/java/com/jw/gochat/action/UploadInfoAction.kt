@@ -8,13 +8,13 @@ import com.jw.business.business.FriendBusiness
 import com.jw.business.db.model.AccountInfo
 import com.jw.business.db.model.BackTask
 import com.jw.business.db.model.Friend
-import com.jw.business.model.bean.NetTask
-import com.jw.chat.GoChatURL
+import com.jw.business.model.NetTask
 import com.jw.chat.business.MessageBusiness
 import com.jw.chat.db.bean.Message
 import com.jw.gochat.service.BackgroundService
 import com.jw.gochat.utils.BackTaskFactory
 import com.jw.gochat.utils.CommonUtil
+import com.jw.gochatbase.gochat.GoChatURL
 import com.jw.library.utils.FileUtils
 import java.io.File
 
@@ -32,8 +32,7 @@ class UploadInfoAction {
     val action: String
         get() = "uploadInfo"
 
-    fun doAction(context: Context, me: AccountInfo,
-                 name: String, iconFile: File) {
+    fun doAction(context: Context, me: AccountInfo, name: String, iconFile: File) {
         Thread {
             run {
                 // 初始化通讯录

@@ -1,61 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_search_contact"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.jw.gochat.activitys.FriendSearchActivity">
+    <data>
+
+        <variable
+            name="accountChangeListener"
+            type="android.databinding.adapters.TextViewBindingAdapter.OnTextChanged" />
+
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
+
+    </data>
 
     <LinearLayout
+        android:id="@+id/activity_search_contact"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@android:color/holo_blue_light"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.jw.gochat.activitys.FriendSearchActivity">
 
-        <ImageView
-            android:id="@+id/iv_search_back"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/action_btn_back_selector" />
-
-        <EditText
-            android:id="@+id/et_search_act"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/action_edt_friend_search_selector"
-            android:paddingLeft="4dp"
-            android:textColor="@android:color/white" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ll_search_act"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:visibility="gone">
-
-        <ImageView
-            android:layout_width="50dp"
             android:layout_height="50dp"
-            android:padding="8dp"
-            android:src="@drawable/icon_search" />
+            android:background="@android:color/holo_blue_light"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="搜索：" />
+            <ImageView
+                android:id="@+id/iv_search_back"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/action_btn_back_selector"
+                android:onClick="@{clickListener}" />
 
-        <TextView
-            android:id="@+id/tv_search_act"
-            android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/et_search_act"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/action_edt_friend_search_selector"
+                android:onTextChanged="@{accountChangeListener}"
+                android:paddingLeft="4dp"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_search_act"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="18271653170" />
+            android:gravity="center_vertical"
+            android:onClick="@{clickListener}"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="8dp"
+                android:src="@drawable/icon_search" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="搜索：" />
+
+            <TextView
+                android:id="@+id/tv_search_act"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="18271653170" />
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
 </layout>

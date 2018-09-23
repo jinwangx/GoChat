@@ -18,27 +18,27 @@ import java.io.Serializable
 class Friend : Serializable {
     @PrimaryKey(autoGenerate = true)
     @NotNull
-    @ColumnInfo(name="_id")
+    @ColumnInfo(name = "_id")
     var _id: Long = 0
-    @ColumnInfo(name="owner")
+    @ColumnInfo(name = "owner")
     var owner: String? = null
-    @ColumnInfo(name="account")
+    @ColumnInfo(name = "account")
     var account: String? = null
-    @ColumnInfo(name="name")
+    @ColumnInfo(name = "name")
     var name: String? = null
-    @ColumnInfo(name="sign")
+    @ColumnInfo(name = "sign")
     var sign: String? = null
-    @ColumnInfo(name="area")
+    @ColumnInfo(name = "area")
     var area: String? = null
-    @ColumnInfo(name="icon")
+    @ColumnInfo(name = "icon")
     var icon: String? = null
-    @ColumnInfo(name="sex")
+    @ColumnInfo(name = "sex")
     var sex: Int = 0
-    @ColumnInfo(name="nick_name")
+    @ColumnInfo(name = "nick_name")
     var nick_name: String? = null
-    @ColumnInfo(name="alpha")
+    @ColumnInfo(name = "alpha")
     var alpha: String? = null
-    @ColumnInfo(name="sort")
+    @ColumnInfo(name = "sort")
     var sort: Int = 0
 
     companion object {

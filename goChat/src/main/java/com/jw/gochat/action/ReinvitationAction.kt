@@ -3,9 +3,9 @@ package com.jw.gochat.action
 import android.content.Context
 import com.jw.business.business.FriendBusiness
 import com.jw.business.db.model.Friend
-import com.jw.library.utils.CommonUtils
-import com.jw.chat.GoChatURL
 import com.jw.gochat.event.ReInvitationEvent
+import com.jw.gochatbase.gochat.GoChatURL
+import com.jw.library.utils.CommonUtils
 import org.greenrobot.eventbus.EventBus
 
 /**

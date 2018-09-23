@@ -12,7 +12,7 @@ import com.jw.business.db.model.AccountInfo
 import com.jw.business.db.model.BackTask
 import com.jw.business.db.model.Friend
 import com.jw.business.db.model.Invitation
-import com.jw.gochatbase.BaseApplication
+import com.jw.gochatbase.base.application.BaseApplication
 
 
 /**

@@ -1,18 +1,18 @@
 package com.jw.chat
 
 import android.content.Intent
-import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
+import com.jw.business.db.model.AccountInfo
 import com.jw.business.db.model.Friend
 import com.jw.chat.business.ConversationBusiness
-import com.jw.gochat.ChatApplication
+import com.jw.gochat.GoChatApplication
 import com.jw.gochat.R
 import com.jw.gochat.adapter.ChatAdapter
 import com.jw.gochat.databinding.FragmentCvstBinding
 import com.jw.gochat.event.TextEvent
-import com.jw.gochatbase.BaseFragment
+import com.sencent.mm.GoChatBindingFragment
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -25,40 +25,38 @@ import org.greenrobot.eventbus.ThreadMode
  * 描述：会话列表页面
  */
 
-class ConversationFra : BaseFragment(), AdapterView.OnItemClickListener, ChatAdapter.ChatListener {
-    private var adapter: ChatAdapter? = null
-    private val me = ChatApplication.getAccountInfo()
-    private var mBinding: FragmentCvstBinding? = null
+class ConversationFra : GoChatBindingFragment<FragmentCvstBinding>(), AdapterView.OnItemClickListener, ChatAdapter.ChatListener {
+    private lateinit var adapter: ChatAdapter
+    private lateinit var me: AccountInfo
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun Event(textEvent: TextEvent) {
         val owner = textEvent.message!!.owner
         if (me.account!!.equals(owner, ignoreCase = true)) {
-            loadData()
+            doRefresh()
         }
-
     }
 
-    override fun bindView(): View {
-        mBinding = DataBindingUtil.inflate(activity!!.layoutInflater, R.layout.fragment_cvst, null, false)
-        return mBinding!!.root
-    }
-
-    override fun init() {
-        super.init()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        me = GoChatApplication.getAccountInfo()!!
         EventBus.getDefault().register(this)
     }
 
-    override fun loadData() {
+    override fun getLayoutId() = R.layout.fragment_cvst
+
+    override fun doConfig(arguments: Bundle?) {
         val cursor = ConversationBusiness.query(me.account!!)
         adapter = ChatAdapter(activity!!, cursor!!)
-        mBinding!!.lvCvst.adapter = adapter
+        adapter.setChatListener(this)
+        binding!!.lvCvst.adapter=adapter
+        binding!!.lvCvst.onItemClickListener = this
     }
 
-    override fun initEvent() {
-        super.initEvent()
-        mBinding!!.lvCvst.onItemClickListener = this
-        adapter!!.setChatListener(this)
+    override fun doRefresh() {
+        super.doRefresh()
+        val cursor = ConversationBusiness.query(me.account!!)
+        adapter.changeCursor(cursor)
     }
 
     //会话列表Item点击事件

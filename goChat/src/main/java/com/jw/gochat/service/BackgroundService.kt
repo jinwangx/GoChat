@@ -4,14 +4,13 @@ import android.content.Intent
 import android.util.Log
 import com.jw.business.business.BackTaskBusiness
 import com.jw.business.db.AppDatabase
-import com.jw.business.model.bean.NetTask
 import com.jw.business.db.GCDB
-import com.jw.business.db.dao.BackTaskDao
-import com.jw.chat.GoChat
-import com.jw.chat.GoChatManager
-import com.jw.chat.GoChatURL
-import com.jw.gochat.ChatApplication
-import com.jw.gochatbase.BaseIntentService
+import com.jw.business.model.NetTask
+import com.jw.chat.IMClient
+import com.jw.gochat.GoChatApplication
+import com.jw.gochatbase.base.service.BaseIntentService
+import com.jw.gochatbase.gochat.GoChat
+import com.jw.gochatbase.gochat.GoChatURL
 import com.jw.library.utils.FileUtils
 import com.jw.library.utils.HttpUtils
 import java.util.*
@@ -25,11 +24,11 @@ import java.util.*
  */
 
 class BackgroundService : BaseIntentService("background") {
-    private val me = ChatApplication.getAccountInfo()
+    private val me = GoChatApplication.getAccountInfo()
     private var headers: HashMap<String, String>? = null
     override fun onHandleIntent(intent: Intent?) {
 
-        GoChatManager.getInstance(ChatApplication.getOkHttpClient()).initAccount(me.account!!,
+        IMClient.getInstance().initAccount(me?.account!!,
                 me.token!!)
         headers = HashMap()
         Log.v("attt", me.account + "-" + me.token)
@@ -65,9 +64,7 @@ class BackgroundService : BaseIntentService("background") {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-
         }
-
     }
 
     private fun doNormalTask(id: Long?, task: NetTask) {
