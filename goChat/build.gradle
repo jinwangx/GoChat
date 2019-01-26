@@ -4,8 +4,8 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
     aaptOptions.cruncherEnabled = false
     aaptOptions.useNewCruncher = false
 
@@ -106,7 +106,6 @@ dependencies {
     implementation dependencies.retrofit2AdapterRxjava
     implementation dependencies.retrofit2AdapterGson
     implementation dependencies.retrofit2AdapterJackson
-    kapt dependencies.databinding
     implementation project(':business')
     implementation project(':chat')
     implementation project(':library')
