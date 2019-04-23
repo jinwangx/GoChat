@@ -17,6 +17,10 @@ android {
             minifyEnabled false
         }
     }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
 
 }
 
@@ -24,7 +28,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     def dependencies = rootProject.ext.compileDependencies
     implementation dependencies.kotlinlib
-    compile 'android.arch.persistence.room:runtime:1.1.1-rc1'
-    kapt "android.arch.persistence.room:compiler:1.1.1-rc1"
+    compile 'android.arch.persistence.room:runtime:1.1.1'
+    kapt 'android.arch.persistence.room:compiler:1.1.1'
     implementation project(':gochatbase')
 }

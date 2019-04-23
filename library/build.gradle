@@ -24,11 +24,11 @@ dependencies {
 
     def dependencies = rootProject.ext.compileDependencies
     implementation dependencies.supportV7
-    implementation dependencies.okhttp
-    implementation dependencies.gson
+    implementation 'com.squareup.okhttp3:okhttp:3.14.1'
+    implementation 'com.google.code.gson:gson:2.8.5'
     implementation dependencies.pinyin4j
-    implementation dependencies.glide
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
     implementation dependencies.kotlinlib
-    api 'com.fasterxml.jackson.core:jackson-databind:2.9.4'
+    api 'com.fasterxml.jackson.core:jackson-databind:2.9.8'
     api 'org.greenrobot:eventbus:3.0.0'
 }
