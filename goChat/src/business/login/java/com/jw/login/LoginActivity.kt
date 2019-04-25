@@ -53,7 +53,7 @@ class LoginActivity : GoChatBindingActivity<ActivityLoginBinding>() {
             signInFra = LoginFra()
         }
         val fragmentTransaction = fm!!.beginTransaction()
-        fragmentTransaction.add(R.id.fl_login, signInFra, TAG_SIGN_IN)
+        fragmentTransaction.add(R.id.fl_login, signInFra!!, TAG_SIGN_IN)
         fragmentTransaction.addToBackStack(TAG_SIGN_IN)
         fragmentTransaction.commit()
     }
@@ -65,7 +65,7 @@ class LoginActivity : GoChatBindingActivity<ActivityLoginBinding>() {
         }
         val fragmentTransaction = fm!!.beginTransaction()
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
-        fragmentTransaction.replace(R.id.fl_login, signUpFra, TAG_SIGN_UP)
+        fragmentTransaction.replace(R.id.fl_login, signUpFra!!, TAG_SIGN_UP)
         fragmentTransaction.addToBackStack(TAG_SIGN_UP)
         fragmentTransaction.commit()
     }
@@ -77,7 +77,7 @@ class LoginActivity : GoChatBindingActivity<ActivityLoginBinding>() {
         }
         val fragmentTransaction = fm!!.beginTransaction()
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
-        fragmentTransaction.replace(R.id.fl_login, fillInfoFra, TAG_FILL_INFO)
+        fragmentTransaction.replace(R.id.fl_login, fillInfoFra!!, TAG_FILL_INFO)
         fragmentTransaction.addToBackStack(TAG_FILL_INFO)
         fragmentTransaction.commit()
     }
