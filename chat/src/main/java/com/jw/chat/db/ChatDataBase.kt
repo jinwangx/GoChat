@@ -8,7 +8,7 @@ import com.jw.chat.db.bean.Conversation
 import com.jw.chat.db.bean.Message
 import com.jw.chat.db.dao.ConversationDao
 import com.jw.chat.db.dao.MessageDao
-import com.jw.gochatbase.base.application.BaseApplication
+import com.jw.uilibrary.base.application.BaseApplication
 
 
 /**

@@ -26,6 +26,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url 'https://jitpack.io' }
     }
 }
 
@@ -71,7 +72,8 @@ ext{
             retrofit2              : 'com.squareup.retrofit2:retrofit:2.4.0',
             retrofit2AdapterRxjava : 'com.squareup.retrofit2:adapter-rxjava2:2.4.0',
             retrofit2AdapterGson   : 'com.squareup.retrofit2:converter-gson:2.4.0',
-            retrofit2AdapterJackson: 'com.squareup.retrofit2:converter-jackson:2.4.0'
+            retrofit2AdapterJackson: 'com.squareup.retrofit2:converter-jackson:2.4.0',
+            jinwangx               : 'com.github.jinwangx:AndroidFramework:1.4',
     ]
 
 }

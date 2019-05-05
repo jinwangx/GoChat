@@ -18,7 +18,7 @@ import com.jw.gochat.databinding.FragmentFriendsBinding
 import com.jw.gochat.event.AcceptInvitationEvent
 import com.jw.gochat.event.InvitationEvent
 import com.jw.library.utils.ThemeUtils
-import com.sencent.mm.GoChatBindingFragment
+import com.jw.gochat.GoChatBindingFragment
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode

@@ -27,7 +27,7 @@ import com.jw.gochat.view.DialogSheet
 import com.jw.gochatbase.gochat.GoChatURL
 import com.jw.library.utils.ThemeUtils
 import com.jw.login.LoginActivity
-import com.sencent.mm.GoChatBindingFragment
+import com.jw.gochat.GoChatBindingFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 

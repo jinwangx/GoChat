@@ -25,6 +25,7 @@ dependencies {
     implementation dependencies.kotlinlib
     implementation dependencies.supportAnnotations
     implementation dependencies.supportV7
+    api dependencies.jinwangx
     implementation project(':library')
     api 'com.android.support:multidex:1.0.3'
 }

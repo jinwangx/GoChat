@@ -13,7 +13,7 @@ import com.jw.gochat.R
 import com.jw.gochat.databinding.ActivityFriendDetailBinding
 import com.jw.gochat.view.NormalTopBar
 import com.jw.gochatbase.gochat.GoChatURL
-import com.sencent.mm.GoChatBindingActivity
+import com.jw.gochat.GoChatBindingActivity
 
 /**
  * 创建时间：2017/4/15

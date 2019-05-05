@@ -25,7 +25,7 @@ import com.jw.gochat.view.HomeDrag
 import com.jw.gochat.view.NormalTopBar
 import com.jw.gochat.view.TabIndicator
 import com.jw.library.utils.ThemeUtils
-import com.sencent.mm.GoChatBindingActivity
+import com.jw.gochat.GoChatBindingActivity
 import kotlinx.android.synthetic.main.layout_normal_top_bar.view.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe

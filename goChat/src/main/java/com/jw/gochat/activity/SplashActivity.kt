@@ -14,9 +14,9 @@ import com.jw.gochat.GoChatApplication
 import com.jw.gochat.R
 import com.jw.gochat.databinding.ActivitySplashBinding
 import com.jw.gochat.utils.CommonUtil
-import com.jw.gochatbase.base.activity.BaseActivity
 import com.jw.library.utils.ThemeUtils
 import com.jw.login.LoginActivity
+import com.jw.uilibrary.base.activity.BaseActivity
 
 /**
  * 创建时间：

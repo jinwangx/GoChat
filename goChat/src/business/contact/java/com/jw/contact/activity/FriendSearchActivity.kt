@@ -12,7 +12,7 @@ import com.jw.gochat.R
 import com.jw.gochat.databinding.ActivityFriendSearchBinding
 import com.jw.gochat.view.DialogLoading
 import com.jw.library.utils.ThemeUtils
-import com.sencent.mm.GoChatBindingActivity
+import com.jw.gochat.GoChatBindingActivity
 
 /**
  * 创建时间：

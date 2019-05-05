@@ -6,7 +6,7 @@ import com.jw.gochat.GoChatApplication
 import com.jw.gochat.R
 import com.jw.gochat.databinding.ActivityMqrBinding
 import com.jw.gochat.view.NormalTopBar
-import com.sencent.mm.GoChatBindingActivity
+import com.jw.gochat.GoChatBindingActivity
 
 /**
  * Created by Administrator on 2017/4/15.

@@ -7,6 +7,7 @@ import android.text.TextUtils
 import android.view.View
 import com.jw.business.db.AppDatabase
 import com.jw.gochat.GoChatApplication
+import com.jw.gochat.GoChatBindingActivity
 import com.jw.gochat.R
 import com.jw.gochat.databinding.ActivitySettingBinding
 import com.jw.gochat.databinding.DialogIpBinding
@@ -16,7 +17,6 @@ import com.jw.gochat.view.DialogLogout
 import com.jw.gochat.view.NormalTopBar
 import com.jw.gochatbase.gochat.GoChatURL
 import com.jw.library.utils.ThemeUtils
-import com.sencent.mm.GoChatBindingActivity
 
 /**
  * 创建时间：
@@ -31,7 +31,7 @@ class SettingActivity : GoChatBindingActivity<ActivitySettingBinding>(), NormalT
     override fun getLayoutId() = R.layout.activity_setting
 
     override fun doConfig(arguments: Intent) {
-        val binding=binding
+        val binding = binding
         binding.tvSetIp.text = GoChatURL.BASE_QQ_HOST
         binding.apply {
             ntSetting.setBackListener(this@SettingActivity)

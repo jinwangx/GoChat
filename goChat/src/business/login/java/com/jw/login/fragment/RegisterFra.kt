@@ -13,7 +13,7 @@ import com.jw.gochat.http.service.GoChatService
 import com.jw.gochat.view.DialogLoading
 import com.jw.gochat.view.NormalTopBar
 import com.jw.library.utils.ThemeUtils
-import com.sencent.mm.GoChatBindingFragment
+import com.jw.gochat.GoChatBindingFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 

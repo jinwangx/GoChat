@@ -1,4 +1,4 @@
-package com.sencent.mm
+package com.jw.gochat
 
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.jw.gochatbase.base.fragment.BaseFragment
+import com.jw.uilibrary.base.fragment.BaseFragment
 
 /**
  * 由 jinwangx 创建于 2018/3/5.

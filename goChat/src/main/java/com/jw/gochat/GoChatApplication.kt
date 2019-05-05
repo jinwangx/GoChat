@@ -8,10 +8,10 @@ import com.jw.business.business.AccountInfoBusiness
 import com.jw.business.db.model.AccountInfo
 import com.jw.gochat.http.ScHttpClient
 import com.jw.gochat.http.ScHttpConfig
-import com.jw.gochatbase.base.application.BaseApplication
 import com.jw.gochatbase.gochat.GoChat
 import com.jw.gochatbase.gochat.GoChatURL
 import com.jw.library.utils.HttpUtils
+import com.jw.uilibrary.base.application.BaseApplication
 
 class GoChatApplication : BaseApplication() {
 

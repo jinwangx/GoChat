@@ -10,7 +10,7 @@ import com.jw.gochat.databinding.ActivityLoginBinding
 import com.jw.login.fragment.FillInfoFra
 import com.jw.login.fragment.LoginFra
 import com.jw.login.fragment.RegisterFra
-import com.sencent.mm.GoChatBindingActivity
+import com.jw.gochat.GoChatBindingActivity
 
 /**
  * 创建时间：

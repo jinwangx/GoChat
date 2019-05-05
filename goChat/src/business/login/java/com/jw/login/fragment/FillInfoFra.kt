@@ -17,7 +17,7 @@ import com.jw.gochat.databinding.FragmentFillInfoBinding
 import com.jw.gochat.utils.CommonUtil
 import com.jw.gochat.view.DialogChooseImage
 import com.jw.library.utils.FileUtils
-import com.sencent.mm.GoChatBindingFragment
+import com.jw.gochat.GoChatBindingFragment
 import java.io.File
 
 /**

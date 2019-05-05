@@ -17,15 +17,15 @@ import com.jw.chat.db.bean.Message
 import com.jw.chat.model.ChatMessage
 import com.jw.chat.model.TextBody
 import com.jw.gochat.GoChatApplication
+import com.jw.gochat.GoChatBindingActivity
 import com.jw.gochat.R
 import com.jw.gochat.adapter.MessageAdapter
 import com.jw.gochat.databinding.ActivityMessageBinding
 import com.jw.gochat.event.TextEvent
 import com.jw.gochat.utils.CommonUtil
 import com.jw.gochat.view.NormalTopBar
-import com.jw.gochatbase.base.activity.BaseActivity
 import com.jw.library.utils.ThemeUtils
-import com.sencent.mm.GoChatBindingActivity
+import com.jw.uilibrary.base.activity.BaseActivity
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONException
@@ -47,7 +47,7 @@ class MessageActivity : GoChatBindingActivity<ActivityMessageBinding>(), NormalT
     private val mIatResults = LinkedHashMap<String?, String>()
     private val me = GoChatApplication.getAccountInfo()!!
     private var receiver: Friend? = null
-    private var  adapter: MessageAdapter? = null
+    private var adapter: MessageAdapter? = null
 
     private var msg: Message? = null
 

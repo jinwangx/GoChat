@@ -12,7 +12,7 @@ import com.jw.gochat.R
 import com.jw.gochat.adapter.ChatAdapter
 import com.jw.gochat.databinding.FragmentCvstBinding
 import com.jw.gochat.event.TextEvent
-import com.sencent.mm.GoChatBindingFragment
+import com.jw.gochat.GoChatBindingFragment
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode

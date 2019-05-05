@@ -19,7 +19,7 @@ import com.jw.gochat.R
 import com.jw.gochat.action.AcceptInvitationAction
 import com.jw.gochat.databinding.ActivityInvitationBinding
 import com.jw.gochat.view.NormalTopBar
-import com.sencent.mm.GoChatBindingActivity
+import com.jw.gochat.GoChatBindingActivity
 import de.hdodenhof.circleimageview.CircleImageView
 
 class InvitationActivity : GoChatBindingActivity<ActivityInvitationBinding>(), NormalTopBar.BackListener {
