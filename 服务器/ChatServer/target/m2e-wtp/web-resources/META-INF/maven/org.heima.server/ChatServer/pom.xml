@@ -10,7 +10,7 @@
 
 	<properties>
 		<mina.version>2.0.0-M3</mina.version>
-		<spring.version>3.1.1.RELEASE</spring.version>
+		<spring.version>5.3.18</spring.version>
 		<mina.spring.version>1.1.7</mina.spring.version>
 		<hibernate.version>3.3.2.GA</hibernate.version>
 		<hibernate-annotations.version>3.4.0.GA</hibernate-annotations.version>
